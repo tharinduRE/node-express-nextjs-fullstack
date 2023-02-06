@@ -1,9 +1,11 @@
 import { Product } from './../product';
 export interface Order {
-    // mongo object id
-    _id?: string;
-
-    items?: Product[];
-    quantity: number
+    items?: {
+      product : Product,
+      quantity: number
+    }[];
+    amount: number
+    userId: string
+    status: string
   }
   

@@ -1,6 +1,6 @@
-export type Order = 'asc' | 'desc';
+export type SortOrder = 'asc' | 'desc';
 export interface ApiFilter<T> {
-  order?:  Order;
+  order?:  SortOrder;
   orderBy?: keyof T;
   pagination: {
     page: number;

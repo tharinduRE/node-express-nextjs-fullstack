@@ -20,7 +20,7 @@ router
   .route("/:orderId")
   .get(validate(validation("getOne")), getOne)
   // .put(validate(validation("updateOne")), updateOne)
-  // .delete(validate(validation("deleteOne")), deleteOne);
+  .delete(validate(validation("deleteOne")), deleteOne);
 
 export default router;
 

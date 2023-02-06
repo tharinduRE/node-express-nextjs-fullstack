@@ -8,7 +8,7 @@ export type HeadCell<T> = {
   nonSortable?: boolean;
   searchable?: boolean;
   align?: TableCellProps["align"];
-  formatter?: (x: any) => string;
+  formatter?: (x: any) => string | React.ReactNode;
 };
 
 export type DataTableProps<T> = {
@@ -19,8 +19,8 @@ export type DataTableProps<T> = {
   filters: {[s:string] : any}
   onSortCol?: (property: keyof T) => void;
   onSearchCol?: (property: keyof T, value: any) => void;
-  onEditRow: (row: T) => void;
-  onDeleteRow: (row: T) => void;
+  onEditRow?: (row: T) => void;
+  onDeleteRow?: (row: T) => void;
   onPageChange: ( event: React.MouseEvent<HTMLButtonElement> | null,newPage: number) => void;
   onRowsPerPageChange?: (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => void;
 };

@@ -9,7 +9,7 @@ import {
   TableFooter,
   TablePagination,
   TableSortLabel,
-  TextField
+  TextField,
 } from "@mui/material";
 import Paper from "@mui/material/Paper";
 import { styled } from "@mui/material/styles";
@@ -55,7 +55,6 @@ export function DataTable<T>({
   onPageChange,
   onRowsPerPageChange,
 }: DataTableProps<T>) {
-  
   const [anchorEls, setAnchorEl] = useState<{
     [s: string]: HTMLButtonElement | null;
   }>({});
@@ -135,7 +134,8 @@ export function DataTable<T>({
                             defaultValue={filters[headCell.id]}
                             onChange={(e) => {
                               e.preventDefault();
-                              onSearchCol && onSearchCol(headCell.id, e.target.value);
+                              onSearchCol &&
+                                onSearchCol(headCell.id, e.target.value);
                             }}
                           />
                         </Box>
@@ -173,20 +173,24 @@ export function DataTable<T>({
                   <TableCell key={i}>
                     {k.formatter
                       ? k.formatter(row[k.id] as React.ReactNode)
-                      : (row[k.id] as React.ReactNode ) }
+                      : (row[k.id] as React.ReactNode)}
                   </TableCell>
                 ))}
                 <TableCell align="center" sx={{ whiteSpace: "nowrap" }}>
-                  <IconButton onClick={() => onEditRow(row)}>
-                    <Edit />
-                  </IconButton>
-                  <IconButton
-                    aria-label="delete"
-                    color="error"
-                    onClick={() => onDeleteRow(row)}
-                  >
-                    <DeleteIcon />
-                  </IconButton>
+                  {onEditRow && (
+                    <IconButton onClick={() => onEditRow(row)}>
+                      <Edit />
+                    </IconButton>
+                  )}
+                  {onDeleteRow && (
+                    <IconButton
+                      aria-label="delete"
+                      color="error"
+                      onClick={() => onDeleteRow(row)}
+                    >
+                      <DeleteIcon />
+                    </IconButton>
+                  )}
                 </TableCell>
               </StyledTableRow>
             ))

@@ -1,8 +1,5 @@
 import { IModel } from './IModel';
 export interface Product extends IModel {
-    // mongo object id
-    _id?: string;
-
     itemId?: string;
     name: string;
     description: string;

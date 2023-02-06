@@ -1,5 +1,6 @@
 import ShoppingCart from "@components/shop/ShoppingCart";
 import { Button, Grid, Paper } from "@mui/material";
+import { addOne } from "../../../lib/api/order";
 import { useAppSelector } from "../../../store/hooks";
 
 export default function CheckoutPage() {
@@ -9,6 +10,18 @@ export default function CheckoutPage() {
     0
   );
 
+  const confirmOrder = async() => {
+    try{
+      const res = await addOne({
+        items : cart.items,
+        amount : cartTotal
+      })
+
+    }catch (e) {
+      console.error(e)
+    }
+  }
+
   return (
     <Grid container spacing={2} justifyContent="center">
       <Grid item xs={5}>
@@ -17,7 +30,7 @@ export default function CheckoutPage() {
             <p>Subtotal</p>
             <p>$ {cartTotal.toFixed(2)}</p>
           </div>
-          <Button variant="contained" fullWidth size="large">
+          <Button variant="contained" fullWidth size="large" onClick={confirmOrder}>
             Confirm
           </Button>
         </Paper>

@@ -5,9 +5,17 @@ import { Order, Order as OrderModel } from "./order";
 
 const orderSchema = new mongoose.Schema<Order>(
   {
-    items: [productSchema],
-    quantity: {
+    items: [{ product: productSchema, quantity: Number }],
+    amount: {
       type: Number,
+    },
+    userId: {
+      type: String,
+    },
+    status: {
+      type: String,
+      default : 'NEW',
+      enum: ["NEW", "PENDING", "PROCESSING", "SHIPPED", "COMPLETED" , 'CANCELLED'],
     },
   },
   {

@@ -1,11 +1,11 @@
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
 import { SortOrder } from "../../types/apifilter";
-import { Product } from "../../types/product";
+import { Order } from "../../types/order";
 
-export interface ProductState {
-  selectedProduct: Product | undefined;
-  orderBy: keyof Product;
+export interface OrderState {
+  selectedOrder: Order | undefined;
+  orderBy: keyof Order;
   order: SortOrder;
   filters: any;
   pagination: {
@@ -14,10 +14,10 @@ export interface ProductState {
   };
 }
 
-const initialState: ProductState = {
-  selectedProduct: undefined,
+const initialState: OrderState = {
+  selectedOrder: undefined,
   order: "asc",
-  orderBy: "itemId",
+  orderBy: 'createdAt',
   filters: {},
   pagination: {
     pageSize: 10,
@@ -25,15 +25,15 @@ const initialState: ProductState = {
   },
 };
 
-const productSlice = createSlice({
-  name: "product",
+const orderSlice = createSlice({
+  name: "order",
   initialState,
   reducers: {
     ORDER: (
       state,
       action: PayloadAction<{
         order: SortOrder;
-        orderBy: keyof Product;
+        orderBy: keyof Order;
       }>
     ) => {
       (state.order = action.payload.order),
@@ -43,7 +43,7 @@ const productSlice = createSlice({
       state,
       action: PayloadAction<{
         value: any;
-        field: keyof Product;
+        field: keyof Order;
       }>
     ) => {
       if (action.payload.value == "") {
@@ -56,8 +56,8 @@ const productSlice = createSlice({
       }
       state.pagination = initialState.pagination;
     },
-    SELECTED: (state, action: PayloadAction<Product>) => {
-      state.selectedProduct = action.payload;
+    SELECTED: (state, action: PayloadAction<Order>) => {
+      state.selectedOrder = action.payload;
     },
     PAGINATION: (
       state,
@@ -74,6 +74,6 @@ const productSlice = createSlice({
   },
 });
 
-export const { ORDER, FILTER, SELECTED, PAGINATION } = productSlice.actions;
+export const { ORDER, FILTER, SELECTED, PAGINATION } = orderSlice.actions;
 
-export default productSlice.reducer;
+export default orderSlice.reducer;
