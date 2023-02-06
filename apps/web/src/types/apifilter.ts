@@ -1,7 +1,6 @@
-import { Employee } from "./employee";
-
+export type Order = 'asc' | 'desc';
 export interface ApiFilter<T> {
-  order?:  'asc' | 'desc';
+  order?:  Order;
   orderBy?: keyof T;
   pagination: {
     page: number;

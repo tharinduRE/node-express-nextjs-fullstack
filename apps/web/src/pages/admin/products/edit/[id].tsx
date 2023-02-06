@@ -1,22 +1,18 @@
-import ProductForm from "@components/employee/EmployeeForm";
 import DashboardLayout from "@components/layout/DashboardLayout";
+import { ProductForm } from "@components/product";
 import { ArrowBackSharp } from "@mui/icons-material";
 import {
-  Alert,
-  Box,
-  Button,
-  CircularProgress,
+  Alert, CircularProgress,
   Grid,
   IconButton,
   Typography
 } from "@mui/material";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import { ReactElement } from "react";
 import { useSelector } from "react-redux";
 import useSWR from "swr";
 import { getProductById } from "../../../../lib/api/product";
-import { RootState } from "../../../../store";
+import { RootState } from "../../../../store/store";
 
 export default function ProductEdit() {
   const router = useRouter();

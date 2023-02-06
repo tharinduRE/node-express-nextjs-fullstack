@@ -5,8 +5,8 @@ import {
   getAll,
   getOne,
   updateOne,
-  validation,
-} from "./user.controller";
+} from "./order.controller";
+import { validation } from "./order.validation";
 import { validate } from "../../middleware/validate";
 
 export const router = Router();
@@ -17,33 +17,33 @@ router
   .post(validate(validation("save")), create);
 
 router
-  .route("/:empId")
+  .route("/:orderId")
   .get(validate(validation("getOne")), getOne)
-  .put(validate(validation("updateOne")), updateOne)
-  .delete(validate(validation("deleteOne")), deleteOne);
+  // .put(validate(validation("updateOne")), updateOne)
+  // .delete(validate(validation("deleteOne")), deleteOne);
 
 export default router;
 
 /**
  * @swagger
  * tags:
- *   name: Users
- *   description: User management and retrieval
+ *   name: Orders
+ *   description: Order management and retrieval
  */
 
 /**
  * @swagger
  * /employees:
  *   post:
- *     summary: Create a user
+ *     summary: Create a order
  *     description: Only admins can create other employees.
- *     tags: [Users]
+ *     tags: [Orders]
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/User'
+ *             $ref: '#/components/schemas/Order'
  *             example:
  *               first_name: fake name
  *               last_name: fake name
@@ -56,19 +56,19 @@ export default router;
  *         content:
  *           application/json:
  *             schema:
- *                $ref: '#/components/schemas/User'
+ *                $ref: '#/components/schemas/Order'
  *
  *   get:
  *     summary: Get all employees
  *     description: Only admins can retrieve all employees.
- *     tags: [Users]
+ *     tags: [Orders]
 
  *     parameters:
  *       - in: query
  *         name: order
  *         schema:
  *           type: string
- *         description: User role
+ *         description: Order role
  *       - in: query
  *         name: order
  *         schema:
@@ -99,7 +99,7 @@ export default router;
  *                 data:
  *                   type: array
  *                   items:
- *                     $ref: '#/components/schemas/User'
+ *                     $ref: '#/components/schemas/Order'
  *                 page:
  *                   type: integer
  *                   example: 1
@@ -118,41 +118,41 @@ export default router;
  * @swagger
  * /employees/{id}:
  *   get:
- *     summary: Get a user
- *     description: Logged in employees can fetch only their own user information. Only admins can fetch other employees.
- *     tags: [Users]
+ *     summary: Get a order
+ *     description: Logged in employees can fetch only their own order information. Only admins can fetch other employees.
+ *     tags: [Orders]
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
  *         schema:
  *           type: string
- *         description: User id
+ *         description: Order id
  *     responses:
  *       "200":
  *         description: OK
  *         content:
  *           application/json:
  *             schema:
- *                $ref: '#/components/schemas/User'
+ *                $ref: '#/components/schemas/Order'
  *
  *   put:
- *     summary: Update a user
+ *     summary: Update a order
  *     description: Logged in employees can only update their own information. Only admins can update other employees.
- *     tags: [Users]
+ *     tags: [Orders]
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
  *         schema:
  *           type: string
- *         description: User id
+ *         description: Order id
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *            schema:
- *             $ref: '#/components/schemas/User'
+ *             $ref: '#/components/schemas/Order'
  *         
  *     responses:
  *       "200":
@@ -160,20 +160,20 @@ export default router;
  *         content:
  *           application/json:
  *             schema:
- *                $ref: '#/components/schemas/User'
+ *                $ref: '#/components/schemas/Order'
  *
  *
  *   delete:
- *     summary: Delete a user
+ *     summary: Delete a order
  *     description: Logged in employees can delete only themselves. Only admins can delete other employees.
- *     tags: [Users]
+ *     tags: [Orders]
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
  *         schema:
  *           type: string
- *         description: User id
+ *         description: Order id
  *     responses:
  *       "200":
  *         description: No content

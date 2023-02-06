@@ -1,8 +1,7 @@
-import { EmployeeForm } from "@components/employee";
 import DashboardLayout from "@components/layout/DashboardLayout";
+import ProductForm from "@components/product/ProductForm";
 import { ArrowBackSharp } from "@mui/icons-material";
-import { Box, Button, Grid, IconButton, Typography } from "@mui/material";
-import Link from "next/link";
+import { Grid, IconButton, Typography } from "@mui/material";
 import { useRouter } from "next/router";
 import { ReactElement } from "react";
 
@@ -16,7 +15,7 @@ export default function EmployeeAdd() {
         </IconButton>
         <Typography variant='h6'>Add New Product</Typography>
       </Grid>
-      <EmployeeForm />
+      <ProductForm />
     </>
   );
 }

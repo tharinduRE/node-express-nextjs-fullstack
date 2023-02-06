@@ -4,38 +4,38 @@ import httpStatus from "http-status";
 import mongoose from "mongoose";
 import ApiError from "../common/apiError";
 import asyncHandler from "../../middleware/asyncHandler";
-import ProductModel from "./product.model";
-import { Product } from "./product";
+import OrderModel from "./order.model";
+import { Order } from "./order";
 import { PaginatedResults } from "../common/pagination";
 
 /**
  *  Create
  */
 export const create = asyncHandler(async (req: Request, res: Response) => {
-  const product = await new ProductModel(req.body).save();
-  if (product) {
-    res.status(httpStatus.CREATED).send(product);
+  const order = await new OrderModel(req.body).save();
+  if (order) {
+    res.status(httpStatus.CREATED).send(order);
   }
 });
 
 export const getOne = asyncHandler(async (req: Request, res: Response) => {
-  const product = await ProductModel.findOne({ _id: req.params["empId"] });
-  if (!product) {
-    throw new ApiError(httpStatus.NOT_FOUND, "product not found");
+  const order = await OrderModel.findOne({ _id: req.params["empId"] });
+  if (!order) {
+    throw new ApiError(httpStatus.NOT_FOUND, "order not found");
   }
-  res.send(product);
+  res.send(order);
 });
 
 export const updateOne = asyncHandler(async (req: Request, res: Response) => {
-  const product = await ProductModel.findByIdAndUpdate(
+  const order = await OrderModel.findByIdAndUpdate(
     new mongoose.Types.ObjectId(req.params["empId"]),
     req.body
   );
-  res.send(product);
+  res.send(order);
 });
 
 export const deleteOne = asyncHandler(async (req: Request, res: Response) => {
-  await ProductModel.findOneAndDelete(
+  await OrderModel.findOneAndDelete(
     new mongoose.Types.ObjectId(req.params["empId"])
   );
   res.status(httpStatus.NO_CONTENT).send();
@@ -45,7 +45,7 @@ export const deleteOne = asyncHandler(async (req: Request, res: Response) => {
  * Get All
  */
 export const getAll = asyncHandler(
-  async (req: Request, res: Response<PaginatedResults<Product>>) => {
+  async (req: Request, res: Response<PaginatedResults<Order>>) => {
     const { order, orderBy, filters } = req.query;
     const sortOrder = order == "asc" ? 1 : -1;
     let page = Number(req.query.page || 0);
@@ -56,7 +56,7 @@ export const getAll = asyncHandler(
       filterQuery = JSON.parse(filters as string);
     }
     // console.log(filterQuery);
-    let query = ProductModel.find(filterQuery);
+    let query = OrderModel.find(filterQuery);
 
     const data = await query
       .sort({ [String(orderBy)]: sortOrder })
@@ -64,7 +64,7 @@ export const getAll = asyncHandler(
       .limit(pageSize)
       .collation({ locale: "en_US", strength: 2 });
 
-    const count = await ProductModel.countDocuments(filterQuery);
+    const count = await OrderModel.countDocuments(filterQuery);
 
     res.status(httpStatus.OK).json({
       data,

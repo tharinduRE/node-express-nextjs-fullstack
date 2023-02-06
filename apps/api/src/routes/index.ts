@@ -1,8 +1,7 @@
 import express, { Router } from "express";
-import config from "../config";
 import docsRoute from "./swagger.route";
-import empRoute from "../modules/user/user.route";
 import productRoute from "../modules/product/product.route";
+import orderRoutes from "../modules/order/order.route";
 
 const router = express.Router();
 
@@ -16,8 +15,8 @@ interface IRoute {
  */
 const defaultIRoute: IRoute[] = [
   {
-    path: "/users",
-    route: empRoute,
+    path: "/orders",
+    route: orderRoutes,
   },
   {
     path: "/products",

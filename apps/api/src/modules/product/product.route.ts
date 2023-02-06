@@ -5,8 +5,8 @@ import {
   getAll,
   getOne,
   updateOne,
-  validation,
 } from "./product.controller";
+import { validation } from "./product.validation";
 import { validate } from "../../middleware/validate";
 
 export const router = Router();

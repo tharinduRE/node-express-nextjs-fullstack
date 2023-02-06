@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import { ShoppingCart } from "@components/shop/ShoppingCart";
+import { CartBadge } from "@components/shop/CartBadge";
 import LoginButton from "@components/ui/LoginButton";
 import ThemeSwitch from "@components/ui/ThemeSwitch";
 import { Button, styled } from "@mui/material";
@@ -60,7 +60,7 @@ export default function AppBarTop(props:{dark?:boolean}) {
           </div>
           <div className="hidden lg:flex lg:flex-1 lg:justify-end items-center">
             { router.pathname !== '/auth/signin' &&  <LoginButton/>}
-            <ShoppingCart />
+            <CartBadge />
             <ThemeSwitch />
             {status == 'authenticated' && <Link href='/admin/dashboard'><Button variant='outlined' >Admin</Button></Link>}
           </div>

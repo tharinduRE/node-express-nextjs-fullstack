@@ -2,10 +2,10 @@ import mongoose from "mongoose";
 import m2s from "mongoose-to-swagger";
 import { Product, Product as ProductModel } from "./product";
 
-const productSchema = new mongoose.Schema<Product>(
+export const productSchema = new mongoose.Schema<Product>(
   {
     itemId: {
-      required: true,
+      required: [true, "Item id is required."],
       type: String,
     },
     name: {

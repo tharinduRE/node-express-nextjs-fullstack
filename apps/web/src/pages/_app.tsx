@@ -14,9 +14,10 @@ import { ReactElement, ReactNode, useMemo, useState } from "react";
 import { Provider } from "react-redux";
 
 import apptheme from "../config/theme";
-import store from "../store";
+import store , {persistor} from "../store/store";
 import "../styles/global.css";
 import { SessionProvider } from "next-auth/react";
+import { PersistGate } from 'redux-persist/integration/react'
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -49,6 +50,7 @@ export default function MyApp({
     <>
       <ErrorBoundary>
         <Provider store={store}>
+          <PersistGate loading={null} persistor={persistor}>
           <ColorModeContext.Provider value={colorMode}>
             <ThemeProvider theme={theme}>
               <SessionProvider session={session}>
@@ -65,6 +67,7 @@ export default function MyApp({
               </SessionProvider>
             </ThemeProvider>
           </ColorModeContext.Provider>
+          </PersistGate>
         </Provider>
       </ErrorBoundary>
     </>

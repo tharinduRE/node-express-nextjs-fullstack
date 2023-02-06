@@ -100,7 +100,8 @@ API Documentation available via Swagger UI endpoint located at `/api/v1/docs` en
 - Frontend logs are handled by [sentry.io](https://sentry.io/). To configure, create a sentry project add following environment variable.
 
 ```
-SENTRY_DSN = ''
+SENTRY_DSN = 
+SENTRY_AUTH_TOKEN =
 ```
 
 ## Useful Links

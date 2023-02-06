@@ -9,7 +9,7 @@ import {
   TableFooter,
   TablePagination,
   TableSortLabel,
-  TextField,
+  TextField
 } from "@mui/material";
 import Paper from "@mui/material/Paper";
 import { styled } from "@mui/material/styles";
@@ -20,17 +20,8 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import { visuallyHidden } from "@mui/utils";
-import _ from "lodash";
 import { useState } from "react";
-import { useAppDispatch, useAppSelector } from "../../../store/hooks";
-import {
-  PRODUCT_FILTER,
-  PRODUCT_ORDER,
-  PRODUCT_PAGINATION,
-} from "../../../store/reducers/product";
-import { PaginatedResults } from "../../../types/pagination";
-import { Product } from "../../../types/product";
-import { HeadCell } from "./HeadCell";
+import { DataTableProps } from "./types";
 
 const HeadTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -51,61 +42,20 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-export interface TableViewProps<T> {
-  headCells: HeadCell<T>[];
-  data?: PaginatedResults<T>;
-  onEdit: (row: T) => void;
-  onDelete: (row: T) => void;
-}
-
-export function TableView({
+export function DataTable<T>({
   data,
   headCells,
-  onDelete,
-  onEdit,
-}: TableViewProps<Product>) {
-  const { order, orderBy, filters } = useAppSelector((state) => state.product);
-  const dispatch = useAppDispatch();
-
-  const handleRequestSort = (property: keyof Product) => {
-    const isAsc = orderBy === property && order === "asc";
-    dispatch({
-      type: PRODUCT_ORDER,
-      payload: { order: isAsc ? "desc" : "asc", orderBy: property },
-    });
-  };
-
-  const handleSearchField = _.debounce(
-    (property: keyof Product, value: any) => {
-      {
-        dispatch({
-          type: PRODUCT_FILTER,
-          payload: { field: property, value },
-        });
-      }
-    },
-    500
-  );
-
-  const handleChangePage = (
-    event: React.MouseEvent<HTMLButtonElement> | null,
-    newPage: number
-  ) => {
-    dispatch({
-      type: PRODUCT_PAGINATION,
-      payload: { page: newPage },
-    });
-  };
-
-  const handleRowsPerPageChange = (
-    event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
-  ) => {
-    dispatch({
-      type: PRODUCT_PAGINATION,
-      payload: { pageSize: event?.target.value },
-    });
-  };
-
+  sortBy,
+  sortOrder,
+  filters,
+  onDeleteRow,
+  onEditRow,
+  onSortCol,
+  onSearchCol,
+  onPageChange,
+  onRowsPerPageChange,
+}: DataTableProps<T>) {
+  
   const [anchorEls, setAnchorEl] = useState<{
     [s: string]: HTMLButtonElement | null;
   }>({});
@@ -126,18 +76,18 @@ export function TableView({
                   align={
                     headCell.align || (headCell.numeric ? "right" : "left")
                   }
-                  sortDirection={orderBy === headCell.id ? order : false}
+                  sortDirection={sortBy === headCell.id ? sortOrder : false}
                   className="capitalize"
                 >
                   <TableSortLabel
-                    active={orderBy === headCell.id}
-                    direction={orderBy === headCell.id ? order : "asc"}
-                    onClick={() => handleRequestSort(headCell.id)}
+                    active={sortBy === headCell.id}
+                    direction={sortBy === headCell.id ? sortOrder : "asc"}
+                    onClick={() => onSortCol && onSortCol(headCell.id)}
                   >
                     {headCell.label || headCell.id}
-                    {orderBy === headCell.id ? (
+                    {sortBy === headCell.id ? (
                       <Box component="span" sx={visuallyHidden}>
-                        {order === "desc"
+                        {sortOrder === "desc"
                           ? "sorted descending"
                           : "sorted ascending"}
                       </Box>
@@ -185,7 +135,7 @@ export function TableView({
                             defaultValue={filters[headCell.id]}
                             onChange={(e) => {
                               e.preventDefault();
-                              handleSearchField(headCell.id, e.target.value);
+                              onSearchCol && onSearchCol(headCell.id, e.target.value);
                             }}
                           />
                         </Box>
@@ -222,18 +172,18 @@ export function TableView({
                 {headCells.map((k, i) => (
                   <TableCell key={i}>
                     {k.formatter
-                      ? k.formatter(row[k.id as keyof Product])
-                      : row[k.id as keyof Product]}
+                      ? k.formatter(row[k.id] as React.ReactNode)
+                      : (row[k.id] as React.ReactNode ) }
                   </TableCell>
                 ))}
                 <TableCell align="center" sx={{ whiteSpace: "nowrap" }}>
-                  <IconButton onClick={() => onEdit(row)}>
+                  <IconButton onClick={() => onEditRow(row)}>
                     <Edit />
                   </IconButton>
                   <IconButton
                     aria-label="delete"
                     color="error"
-                    onClick={() => onDelete(row)}
+                    onClick={() => onDeleteRow(row)}
                   >
                     <DeleteIcon />
                   </IconButton>
@@ -252,8 +202,8 @@ export function TableView({
                 page={data?.pagination?.page}
                 showFirstButton={true}
                 showLastButton={true}
-                onPageChange={handleChangePage}
-                onRowsPerPageChange={handleRowsPerPageChange}
+                onPageChange={onPageChange}
+                onRowsPerPageChange={onRowsPerPageChange}
               />
             )}
           </TableRow>

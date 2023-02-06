@@ -4,7 +4,7 @@ import httpStatus from "http-status";
 import config from "../config";
 
 export default function ErrorHandler(err: any, req: Request, res: Response, next: NextFunction) {
-  let { statusCode, message } = err;
+  let { statusCode, message , errors} = err;
   res.locals["errorMessage"] = err.message;
   
   if (config.env === "production" && !err.isOperational) {
@@ -21,13 +21,15 @@ export default function ErrorHandler(err: any, req: Request, res: Response, next
 
   if (err instanceof mongoose.Error.ValidationError) {
     let errMsg = Object.fromEntries(Object.entries(err.errors).map(([k, v]) => ([k, v.message])));
-    message = errMsg;
+    message = 'Validation Error';
+    errors = errMsg;
     statusCode = httpStatus.BAD_REQUEST;
   }
 
   const response = {
     code: statusCode || httpStatus.INTERNAL_SERVER_ERROR,
-    message
+    message,
+    errors
   };
 
   res.status(response.code).json(response);

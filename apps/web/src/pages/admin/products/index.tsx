@@ -1,5 +1,5 @@
-import ProductTable from "@components/employee/TableView";
 import DashboardLayout from "@components/layout/DashboardLayout";
+import { ProductTable } from "@components/product";
 import { ConfirmationDialog } from "@components/ui/ConfirmDialog";
 import { Alert, Box, Button } from "@mui/material";
 import Link from "next/link";
@@ -9,7 +9,7 @@ import { ReactElement, useState } from "react";
 import useSWR, { mutate } from "swr";
 import { deleteOne, getProductList } from "../../../lib/api/product";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
-import { PRODUCT_SELECTED } from "../../../store/reducers/product";
+import { SELECTED } from "../../../store/slices/product";
 
 export default function EmployeeListPage() {
   const router = useRouter();
@@ -33,19 +33,19 @@ export default function EmployeeListPage() {
   const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
 
   const onEdit = (row: any) => {
-    dispatch({ type: PRODUCT_SELECTED, payload: row });
+    dispatch({ type: SELECTED, payload: row });
     router.push(`/admin/products/edit/${row._id}`);
   };
 
   const onDelete = (row: any) => {
-    dispatch({ type: PRODUCT_SELECTED, payload: row });
+    dispatch({ type: SELECTED, payload: row });
     setOpenConfirmDialog(true);
   };
 
   const onDeleteConfirmation = async () => {
     try {
       await deleteOne(selectedEmployee?._id);
-      dispatch({ type: PRODUCT_SELECTED, payload: null });
+      dispatch({ type: SELECTED, payload: null });
       mutate(bulidFetcherKey);
       enqueueSnackbar(`Successfully Deleted Employee`, { variant: "success" });
     } catch (error) {
@@ -64,7 +64,7 @@ export default function EmployeeListPage() {
             <Button id="add-button" variant="contained">Add Product</Button>
           </Link>
       </Box>
-        <ProductTable data={data?.data} onEdit={onEdit} onDelete={onDelete} />
+        <ProductTable data={data?.data} onEditRow={onEdit} onDeleteRow={onDelete} />
       <ConfirmationDialog
         open={openConfirmDialog}
         keepMounted={false}

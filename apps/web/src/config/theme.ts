@@ -40,8 +40,27 @@ const theme = (mode: PaletteMode): ThemeOptions => ({
       styleOverrides: {
         root: {
           "&.Mui-selected": {
-            fontWeight:'bolder'
+            fontWeight: "bolder",
           },
+        },
+      },
+    },
+    MuiTextField: {
+      styleOverrides: {
+        root: {
+          ".MuiInputLabel-standard": {
+            fontWeight: "semibold",
+            textTransform: "uppercase",
+            letterSpacing: 1,
+          },
+        },
+      },
+      defaultProps: {
+        margin: "dense",
+        variant: "standard",
+        fullWidth: true,
+        InputLabelProps: {
+          shrink: true,
         },
       },
     },

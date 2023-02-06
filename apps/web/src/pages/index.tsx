@@ -1,7 +1,8 @@
 /* This example requires Tailwind CSS v3.0+ */
 import ProductList from "@components/shop/ProductList";
+import Link from "next/link";
 
-export default function Example() {
+export default function HomePage() {
   return (
     <div className="isolate bg-white dark:bg-gray-900">
       <div className="absolute inset-x-0 top-[-10rem] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[-20rem]">
@@ -52,12 +53,12 @@ export default function Example() {
                 fugiat aliqua.
               </p>
               <div className="mt-10 flex items-center justify-center gap-x-6">
-                <a
-                  href="#"
+                <Link
+                  href="/products"
                   className="rounded-md bg-indigo-600 px-3.5 py-1.5 text-base font-semibold leading-7 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                 >
                   Shop now
-                </a>
+                </Link>
                 {/* <a
                   href="#"
                   className="text-base font-semibold leading-7 text-gray-900"
@@ -95,7 +96,7 @@ export default function Example() {
           </div>
         </div>
       </main>
-      <ProductList />
+      {/* <ProductList /> */}
     </div>
   );
 }
