@@ -1,18 +1,16 @@
 /* eslint-disable @next/next/no-img-element */
 import { ShoppingCartIcon } from "@heroicons/react/24/outline";
+import { ShoppingBag } from "@mui/icons-material";
 import {
   Badge,
   BadgeProps,
   Box,
-  Button,
-  Container,
-  Drawer,
+  Button, Drawer,
   Grid,
   IconButton,
   styled,
-  Typography,
+  Typography
 } from "@mui/material";
-import DialogTitle from "@mui/material/DialogTitle";
 import Link from "next/link";
 import { useState } from "react";
 import { useAppSelector } from "../../../store/hooks";
@@ -20,7 +18,7 @@ import ShoppingCart from "../ShoppingCart";
 
 const StyledBadge = styled(Badge)<BadgeProps>(({ theme }) => ({
   "& .MuiBadge-badge": {
-    right: 20,
+    right: 24,
     top: 8,
     border: `2px solid ${theme.palette.background.paper}`,
     padding: "0 4px",
@@ -43,13 +41,13 @@ export function CartBadge() {
     (acc, item) => acc + item.product.listPrice * item.quantity,
     0
   );
-  const totalItemCount = cart?.items?.reduce((a,b)=>(a + b.quantity),0);
+  const totalItemCount = cart?.items?.reduce((a, b) => a + b.quantity, 0);
 
   return (
     <>
       <StyledBadge badgeContent={totalItemCount} color="secondary">
         <IconButton className="mr-4" onClick={handleClickOpen}>
-          <ShoppingCartIcon className="w-6" />
+          <ShoppingBag/>
         </IconButton>
       </StyledBadge>
       <Drawer
@@ -60,18 +58,18 @@ export function CartBadge() {
         // hideBackdrop
       >
         <Box width={400} padding={3}>
-          <Typography variant="h6">Shopping Cart</Typography>
-          <Grid position='relative'>
+          <Typography variant="h6" sx={{ fontWeight: "bold" }}>
+            Bag
+          </Typography>
+          <Grid position="relative">
             <Grid>
-              <div className="flex justify-between text-base font-medium text-gray-900">
+              <Box sx={{ display: "flex", justifyContent: "space-between" }}>
                 <p>Subtotal</p>
                 <p>$ {cartTotal.toFixed(2)}</p>
-              </div>
-              <p className="mt-0.5 text-sm text-gray-500">
-                Shipping and taxes calculated at checkout.
-              </p>
+              </Box>
+
               <div className="mt-6">
-                <Link href="/shopping/checkout" onClick={handleClose}>
+                <Link href="/shopping/bag" onClick={handleClose}>
                   <Button variant="contained" fullWidth>
                     Checkout
                   </Button>
@@ -82,11 +80,7 @@ export function CartBadge() {
                 </Button>
               </div>
             </Grid>
-            <Grid container>
-              <Grid item>
-                <ShoppingCart />
-              </Grid>
-            </Grid>
+            <ShoppingCart />
           </Grid>
         </Box>
       </Drawer>
