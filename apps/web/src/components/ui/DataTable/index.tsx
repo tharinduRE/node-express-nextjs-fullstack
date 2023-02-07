@@ -103,7 +103,7 @@ export function DataTable<T>({
                         }
                       >
                         {Boolean(anchorEls[headCell.id]) ||
-                        (filters[headCell.id] && filters[headCell.id] != "") ? (
+                        (filters?.[headCell.id] && filters?.[headCell.id] != "") ? (
                           <FilterListOff />
                         ) : (
                           <FilterList />
@@ -131,7 +131,7 @@ export function DataTable<T>({
                             variant="outlined"
                             type="search"
                             placeholder={`Search by ${headCell.label}`}
-                            defaultValue={filters[headCell.id]}
+                            defaultValue={filters?.[headCell.id]}
                             onChange={(e) => {
                               e.preventDefault();
                               onSearchCol &&

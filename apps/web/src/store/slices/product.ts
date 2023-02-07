@@ -9,8 +9,8 @@ export interface ProductState extends FilterAPI<Product>{
 
 const initialState: ProductState = {
   selectedProduct: undefined,
-  order: "asc",
-  orderBy: "itemId",
+  sortOrder: "asc",
+  sortBy: "itemId",
   filters: {},
   pagination: {
     pageSize: 10,
@@ -29,8 +29,8 @@ const productSlice = createSlice({
         orderBy: keyof Product;
       }>
     ) => {
-      (state.order = action.payload.order),
-        (state.orderBy = action.payload.orderBy);
+      (state.sortOrder = action.payload.order),
+        (state.sortBy = action.payload.orderBy);
     },
     FILTER: (
       state,

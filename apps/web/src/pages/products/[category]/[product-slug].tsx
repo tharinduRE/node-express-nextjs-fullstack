@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { useState } from "react";
 import { StarIcon } from "@heroicons/react/20/solid";
 import { RadioGroup } from "@headlessui/react";
@@ -301,9 +302,9 @@ export default function Example() {
                 variant="contained"
                 fullWidth
                 size="large"
-                onClick={() => {
-                  dispatch(ADD(product));
-                }}
+                // onClick={() => {
+                //   dispatch(ADD(product));
+                // }}
               >
                 Add to bag
               </Button>

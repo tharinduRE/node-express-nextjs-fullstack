@@ -1,3 +1,4 @@
+import { FilterAPI } from './../../../types/IFilterApi';
 import { TableCellProps } from "@mui/material/TableCell";
 import { PaginatedResults } from "../../../types/IPagination";
 
@@ -14,9 +15,9 @@ export type HeadCell<T> = {
 export type DataTableProps<T> = {
   data?: PaginatedResults<T>;
   headCells: HeadCell<T>[];
-  sortOrder: 'asc' | 'desc'
-  sortBy : keyof T,
-  filters: {[s:string] : any}
+  sortOrder: FilterAPI<T>['sortOrder']
+  sortBy : FilterAPI<T>['sortBy'],
+  filters: FilterAPI<T>['filters'],
   onSortCol?: (property: keyof T) => void;
   onSearchCol?: (property: keyof T, value: any) => void;
   onEditRow?: (row: T) => void;

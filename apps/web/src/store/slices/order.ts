@@ -9,8 +9,8 @@ export interface OrderState extends FilterAPI<Order> {
 
 const initialState: OrderState = {
   selectedOrder: undefined,
-  order: "desc",
-  orderBy: 'createdAt',
+  sortOrder: "desc",
+  sortBy: 'createdAt',
   filters: {},
   pagination: {
     pageSize: 10,
@@ -29,8 +29,8 @@ const orderSlice = createSlice({
         orderBy: keyof Order;
       }>
     ) => {
-      (state.order = action.payload.order),
-        (state.orderBy = action.payload.orderBy);
+      (state.sortOrder = action.payload.order),
+        (state.sortBy = action.payload.orderBy);
     },
     FILTER: (
       state,

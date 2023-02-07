@@ -7,8 +7,8 @@ const employeeRoute = `/products`;
 export const getProductList = (apiFilter: FilterAPI<Product>) =>
   Client.get<PaginatedResults<Product>>(employeeRoute, {
     params: {
-      order: apiFilter.order,
-      orderBy: apiFilter.orderBy,
+      order: apiFilter.sortOrder,
+      orderBy: apiFilter.sortBy,
       ...apiFilter.pagination,
       filters: JSON.stringify(apiFilter.filters),
     },
@@ -18,8 +18,8 @@ export const search = (apiFilter: FilterAPI<Product>, q?: string) =>
   Client.get<PaginatedResults<Product>>(employeeRoute + "/search", {
     params: {
       q,
-      order: apiFilter.order,
-      orderBy: apiFilter.orderBy,
+      order: apiFilter.sortOrder,
+      orderBy: apiFilter.sortBy,
       ...apiFilter.pagination,
       filters: JSON.stringify(apiFilter.filters),
     },

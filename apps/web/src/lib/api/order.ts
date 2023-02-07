@@ -7,8 +7,8 @@ const route = `/orders`;
 export const getOrderList = (apiFilter: FilterAPI<Order>) =>
   Client.get<PaginatedResults<Order>>(route, {
     params: {
-      order: apiFilter.order,
-      orderBy: apiFilter.orderBy,
+      order: apiFilter.sortOrder,
+      orderBy: apiFilter.sortBy,
       ...apiFilter.pagination,
       filters: JSON.stringify(apiFilter.filters),
     },

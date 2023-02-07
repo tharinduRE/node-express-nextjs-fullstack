@@ -1,5 +1,12 @@
 import { ValidationError } from "@components/ui/ValidationError";
-import { Box, Button, Grid, TextField } from "@mui/material";
+import {
+  Box,
+  Button,
+  FormControlLabel,
+  Grid,
+  Switch,
+  TextField,
+} from "@mui/material";
 import { AxiosError } from "axios";
 import { useFormik } from "formik";
 import { useSnackbar } from "notistack";
@@ -61,7 +68,7 @@ export default function ProductForm({ product }: { product?: Product }) {
       sx={{ mx: "auto", display: "flex" }}
     >
       <form onSubmit={handleSubmit}>
-        <Grid container columns={12} maxWidth="xl">
+        <Grid container spacing={4} columns={12} maxWidth="xl">
           <Grid item xs={6}>
             <TextField
               id="name"
@@ -80,6 +87,7 @@ export default function ProductForm({ product }: { product?: Product }) {
               onChange={handleChange}
               value={values.name}
             />
+
             <TextField
               id="description"
               label="Description"
@@ -126,6 +134,32 @@ export default function ProductForm({ product }: { product?: Product }) {
                 onChange={handleChange}
               ></Select>
             </FormControl> */}
+          </Grid>
+          <Grid item xs={6}>
+            {product && (
+              <TextField
+                id="slug"
+                label="Slug"
+                InputProps={{
+                  readOnly: true,
+                }}
+                disabled
+                helperText="Used to build SEO friendly URLs"
+                value={values.slug}
+              />
+            )}
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={values.active}
+                  onChange={handleChange}
+                  value={values.active}
+                  name="active"
+                />
+              }
+              label="Active"
+              labelPlacement="start"
+            />
           </Grid>
         </Grid>
         <Box marginTop={2}>

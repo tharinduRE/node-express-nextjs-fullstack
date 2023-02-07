@@ -41,7 +41,7 @@ const headCells: HeadCell<Product>[] = [
 ];
 
 export default function TableView(props: TableViewProps<Product>) {
-  const { order, orderBy, filters } = useAppSelector((state) => state.product);
+  const { sortOrder: order, sortBy: orderBy, filters } = useAppSelector((state) => state.product);
   const dispatch = useAppDispatch();
 
   const handleRequestSort = (property: any) => {
