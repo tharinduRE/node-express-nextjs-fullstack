@@ -70,6 +70,7 @@ export default function ProductForm({ product }: { product?: Product }) {
                 readOnly: true,
               }}
               disabled
+              placeholder="Auto Generated"
               value={values.itemId}
             />
             <TextField

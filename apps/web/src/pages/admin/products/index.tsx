@@ -33,19 +33,19 @@ export default function EmployeeListPage() {
   const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
 
   const onEdit = (row: any) => {
-    dispatch({ type: SELECTED, payload: row });
+    dispatch(SELECTED(row));
     router.push(`/admin/products/edit/${row._id}`);
   };
 
   const onDelete = (row: any) => {
-    dispatch({ type: SELECTED, payload: row });
+    dispatch(SELECTED(row));
     setOpenConfirmDialog(true);
   };
 
   const onDeleteConfirmation = async () => {
     try {
       await deleteOne(selectedEmployee?._id);
-      dispatch({ type: SELECTED, payload: null });
+      dispatch(SELECTED(null));
       mutate(bulidFetcherKey);
       enqueueSnackbar(`Successfully Deleted Employee`, { variant: "success" });
     } catch (error) {

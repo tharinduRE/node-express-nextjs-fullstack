@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import { ShoppingCartIcon } from "@heroicons/react/24/outline";
-import { ShoppingBag } from "@mui/icons-material";
+import { ArrowBack, ShoppingBag } from "@mui/icons-material";
 import {
   Badge,
   BadgeProps,
@@ -57,7 +57,8 @@ export function CartBadge() {
         aria-describedby="alert-dialog-slide-description"
         // hideBackdrop
       >
-        <Box width={400} padding={3}>
+        <Box padding={3}>
+          <IconButton onClick={handleClose} sx={{marginBottom:1}}><ArrowBack/></IconButton>
           <Typography variant="h6" sx={{ fontWeight: "bold" }}>
             Bag
           </Typography>
@@ -69,8 +70,8 @@ export function CartBadge() {
               </Box>
 
               <div className="mt-6">
-                <Link href="/shopping/bag" onClick={handleClose}>
-                  <Button variant="contained" fullWidth>
+                <Link href="/shop/bag" onClick={handleClose}>
+                  <Button variant="contained" fullWidth disabled={cart.items.length == 0}>
                     Checkout
                   </Button>
                 </Link>

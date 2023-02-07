@@ -46,7 +46,7 @@ export const deleteOne = asyncHandler(async (req: Request, res: Response) => {
  */
 export const getAll = asyncHandler(
   async (req: Request, res: Response<PaginatedResults<Product>>) => {
-    const { order, orderBy, filters } = req.query;
+    const { order, orderBy, filters, q } = req.query;
     const sortOrder = order == "asc" ? 1 : -1;
     let page = Number(req.query.page || 0);
     let pageSize = Number(req.query.pageSize || 10);
@@ -56,15 +56,19 @@ export const getAll = asyncHandler(
       filterQuery = JSON.parse(filters as string);
     }
     // console.log(filterQuery);
-    let query = ProductModel.find(filterQuery);
+    let query : mongoose.FilterQuery<Product> = filterQuery;
 
-    const data = await query
+    if (q) {
+      query = { $text: { $search: q as string } };
+    }
+
+    const data = await ProductModel.find(query)
       .sort({ [String(orderBy)]: sortOrder })
       .skip((page + 1 - 1) * pageSize)
       .limit(pageSize)
       .collation({ locale: "en_US", strength: 2 });
 
-    const count = await ProductModel.countDocuments(filterQuery);
+    const count = await ProductModel.countDocuments(query);
 
     res.status(httpStatus.OK).json({
       data,
@@ -76,4 +80,3 @@ export const getAll = asyncHandler(
     });
   }
 );
-

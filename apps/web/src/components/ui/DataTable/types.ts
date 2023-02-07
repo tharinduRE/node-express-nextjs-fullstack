@@ -1,5 +1,5 @@
 import { TableCellProps } from "@mui/material/TableCell";
-import { PaginatedResults } from "../../../types/pagination";
+import { PaginatedResults } from "../../../types/IPagination";
 
 export type HeadCell<T> = {
   id: Extract<keyof T, string>;

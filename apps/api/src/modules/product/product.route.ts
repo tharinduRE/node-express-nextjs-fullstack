@@ -17,6 +17,10 @@ router
   .post(validate(validation("save")), create);
 
 router
+  .route("/search/")
+  .get(validate(validation("getAll")),getAll)
+
+router
   .route("/:empId")
   .get(validate(validation("getOne")), getOne)
   .put(validate(validation("updateOne")), updateOne)

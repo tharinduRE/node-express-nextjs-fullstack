@@ -76,19 +76,23 @@ export default function DashboardLayout({
         minHeight="100vh"
       >
         <Grid container>
-          <Grid
+          {/* <Grid
             item
             xs={12}
-            borderBottom={1}
-            borderColor="#f1f1f1"
+            sx={{
+              paddingY:1,
+              paddingX: 2,
+              borderBottom : 1,
+              borderColor:'#f1f1f1'
+            }}
             // className="bg-indigo-900/20"
           >
-            <Box alignItems="center" paddingY={1}>
-              {/* <Button variant="outlined" size="small">
-                Small
-              </Button> */}
+            <Box alignItems="center" justifyContent='flex-end'>
+              <Button variant="outlined" size="small">
+                Refresh
+              </Button>
             </Box>
-          </Grid>
+          </Grid> */}
           <Grid
             item
             xs={2}

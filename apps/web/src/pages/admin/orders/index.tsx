@@ -1,8 +1,7 @@
 import DashboardLayout from "@components/layout/DashboardLayout";
 import { OrderTable } from "@components/order";
 import { ConfirmationDialog } from "@components/ui/ConfirmDialog";
-import { Alert, Box, Button } from "@mui/material";
-import Link from "next/link";
+import { Alert } from "@mui/material";
 import { useRouter } from "next/router";
 import { useSnackbar } from "notistack";
 import { ReactElement, useState } from "react";
@@ -32,20 +31,15 @@ export default function OrderListPage() {
 
   const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
 
-  const onEdit = (row: any) => {
-    dispatch({ type: SELECTED, payload: row });
-    router.push(`/admin/orders/edit/${row._id}`);
-  };
-
   const onDelete = (row: any) => {
-    dispatch({ type: SELECTED, payload: row });
+    dispatch(SELECTED(row));
     setOpenConfirmDialog(true);
   };
 
   const onDeleteConfirmation = async () => {
     try {
       await deleteOne(selectedOrder?._id);
-      dispatch({ type: SELECTED, payload: null });
+      dispatch(SELECTED(null));
       mutate(bulidFetcherKey);
       enqueueSnackbar(`Successfully Deleted Order`, { variant: "success" });
     } catch (error) {

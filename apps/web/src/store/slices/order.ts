@@ -1,22 +1,15 @@
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
-import { SortOrder } from "../../types/apifilter";
 import { Order } from "../../types/order";
+import { FilterAPI,SortOrder } from '../../types/IFilterApi';
 
-export interface OrderState {
-  selectedOrder: Order | undefined;
-  orderBy: keyof Order;
-  order: SortOrder;
-  filters: any;
-  pagination: {
-    page: number;
-    pageSize: number;
-  };
+export interface OrderState extends FilterAPI<Order> {
+  selectedOrder?: Order | null;
 }
 
 const initialState: OrderState = {
   selectedOrder: undefined,
-  order: "asc",
+  order: "desc",
   orderBy: 'createdAt',
   filters: {},
   pagination: {
@@ -47,7 +40,7 @@ const orderSlice = createSlice({
       }>
     ) => {
       if (action.payload.value == "") {
-        delete state.filters[action.payload.field];
+        delete state.filters?.[action.payload.field];
       } else {
         state.filters = {
           ...state.filters,
@@ -56,15 +49,12 @@ const orderSlice = createSlice({
       }
       state.pagination = initialState.pagination;
     },
-    SELECTED: (state, action: PayloadAction<Order>) => {
+    SELECTED: (state, action: PayloadAction<OrderState['selectedOrder']>) => {
       state.selectedOrder = action.payload;
     },
     PAGINATION: (
       state,
-      action: PayloadAction<{
-        page: number;
-        pageSize: number;
-      }>
+      action: PayloadAction<OrderState['pagination']>
     ) => {
       state.pagination = {
         page: action.payload.page,

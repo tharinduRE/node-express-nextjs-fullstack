@@ -24,28 +24,35 @@ export const cartSlice = createSlice({
         state.items.push({ product: action.payload, quantity: 1 });
       }
     },
-    INCREMENT: (state, action: PayloadAction<Product>) => {
+    INCREMENT: (state, action: PayloadAction<string>) => {
       const item = state.items.find(
-        (item) => item.product._id === action.payload._id
+        (item) => item.product._id === action.payload
       );
       if (item) item.quantity++;
     },
-    DECREMENT: (state, action: PayloadAction<Product>) => {
+    DECREMENT: (state, action: PayloadAction<string>) => {
       const item = state.items.find(
-        (item) => item.product._id === action.payload._id
+        (item) => item.product._id === action.payload
       );
       if (item) {
         item.quantity === 1 ? (item.quantity = 1) : item.quantity--;
       }
     },
-    REMOVE: (state, action: PayloadAction<Product>) => {
+    REMOVE: (state, action: PayloadAction<string>) => {
       state.items = state.items.filter(
-        (item) => item.product._id !== action.payload._id
+        (item) => item.product._id !== action.payload
       );
     },
+    CLEAR: () => (initialState),
   },
 });
 
-export const { ADD, INCREMENT, DECREMENT, REMOVE } = cartSlice.actions;
+export const {
+  ADD,
+  INCREMENT,
+  DECREMENT,
+  REMOVE,
+  CLEAR,
+} = cartSlice.actions;
 
 export default cartSlice.reducer;

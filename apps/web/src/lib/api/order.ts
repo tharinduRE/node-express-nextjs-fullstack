@@ -1,10 +1,10 @@
-import { ApiFilter } from "../../types/apifilter";
+import { FilterAPI } from "../../types/IFilterApi";
 import { Order } from "../../types/order";
-import { PaginatedResults } from "../../types/pagination";
+import { PaginatedResults } from "../../types/IPagination";
 import Client from "..";
 
 const route = `/orders`;
-export const getOrderList = (apiFilter: ApiFilter<Order>) =>
+export const getOrderList = (apiFilter: FilterAPI<Order>) =>
   Client.get<PaginatedResults<Order>>(route, {
     params: {
       order: apiFilter.order,
@@ -14,7 +14,7 @@ export const getOrderList = (apiFilter: ApiFilter<Order>) =>
     },
   });
 
-export const addOne = (emp: Order) => Client.post<Order>(route, emp);
+export const addOne = (emp: Omit<Order,'_id'>) => Client.post<Order>(route, emp);
 
 export const updateOne = (emp: Order) =>
   Client.put<Order>(`${route}/${emp._id}`, emp);

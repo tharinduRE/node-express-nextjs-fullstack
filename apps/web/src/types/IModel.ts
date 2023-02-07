@@ -1,5 +1,5 @@
 export interface IModel {
-    _id?: string,
+    _id: string,
     updatedAt? : Date,
     createdAt?: Date
 }

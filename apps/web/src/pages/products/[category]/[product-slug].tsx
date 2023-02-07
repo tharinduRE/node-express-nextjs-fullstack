@@ -302,7 +302,7 @@ export default function Example() {
                 fullWidth
                 size="large"
                 onClick={() => {
-                  dispatch({ type: ADD, payload: product });
+                  dispatch(ADD(product));
                 }}
               >
                 Add to bag

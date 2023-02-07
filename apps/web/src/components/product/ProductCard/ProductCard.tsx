@@ -31,9 +31,7 @@ export function ProductCard({ product }: { product: Product }): JSX.Element {
         fullWidth
         variant="contained"
         sx={{ backgroundColor: "gray" }}
-        onClick={() => {
-          dispatch({ type: ADD, payload: product });
-        }}
+        onClick={() => dispatch(ADD(product)) }
       >
         Add To Bag
       </Button>

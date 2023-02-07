@@ -5,7 +5,7 @@ import {
   Card,
   CardMedia,
   IconButton,
-  Typography,
+  Typography
 } from "@mui/material";
 import { useAppDispatch } from "../../../store/hooks";
 import { DECREMENT, INCREMENT, REMOVE } from "../../../store/slices/cart";
@@ -73,23 +73,13 @@ export function CartProductCard({
           <div className="text-gray-500">
             Qty
             <IconButton
-              onClick={() => {
-                dispatch({
-                  type: DECREMENT,
-                  payload: product.product,
-                });
-              }}
+             onClick={() => dispatch(DECREMENT(product.product._id))}
             >
               <ArrowDropDownRounded fontSize="large" />
             </IconButton>
             {product.quantity}
             <IconButton
-              onClick={() => {
-                dispatch({
-                  type: INCREMENT,
-                  payload: product.product,
-                });
-              }}
+              onClick={() => dispatch(INCREMENT(product.product._id))}
             >
               <ArrowDropUpRounded fontSize="large" />
             </IconButton>
@@ -98,12 +88,7 @@ export function CartProductCard({
           <div className="flex">
             <Button
               color="error"
-              onClick={() => {
-                dispatch({
-                  type: REMOVE,
-                  payload: product.product,
-                });
-              }}
+              onClick={() => dispatch(REMOVE(product.product._id))}
             >
               Remove
             </Button>

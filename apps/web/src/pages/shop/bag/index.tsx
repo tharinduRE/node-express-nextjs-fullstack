@@ -12,10 +12,10 @@ export default function CheckoutPage() {
 
   return (
     <Grid container spacing={2} justifyContent="space-between">
-      <Grid item xs={5}>
+      <Grid item lg={5} xs={12}>
         <ShoppingCart />
       </Grid>
-      <Grid item xs={4} sx={{ position: "relative" }}>
+      <Grid item lg={4} xs={12} sx={{ position: "relative" }}>
         <Paper sx={{ padding: 2, position: "sticky", top: 72 }}>
           <Box
             sx={{

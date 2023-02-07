@@ -7,8 +7,10 @@ import Container from "@mui/material/Container";
 import CssBaseline from "@mui/material/CssBaseline";
 import Typography from "@mui/material/Typography";
 import { signIn } from "next-auth/react";
+import { useRouter } from "next/router";
 
 export default function SignIn() {
+  const { error, callbackUrl } = useRouter().query;
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -33,7 +35,7 @@ export default function SignIn() {
             variant="contained"
             sx={{ mt: 3, mb: 2, py: 1, backgroundColor: "black" }}
             startIcon={<GitHub />}
-            onClick={() => signIn("github", { callbackUrl: "/" })}
+            onClick={() => signIn("github", { callbackUrl : callbackUrl as string})}
           >
             Sign In with Github
           </Button>

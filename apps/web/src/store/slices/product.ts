@@ -1,17 +1,10 @@
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
-import { SortOrder } from "../../types/apifilter";
+import { SortOrder , FilterAPI } from "../../types/IFilterApi";
 import { Product } from "../../types/product";
 
-export interface ProductState {
-  selectedProduct: Product | undefined;
-  orderBy: keyof Product;
-  order: SortOrder;
-  filters: any;
-  pagination: {
-    page: number;
-    pageSize: number;
-  };
+export interface ProductState extends FilterAPI<Product>{
+  selectedProduct?: Product | null;
 }
 
 const initialState: ProductState = {
@@ -47,7 +40,7 @@ const productSlice = createSlice({
       }>
     ) => {
       if (action.payload.value == "") {
-        delete state.filters[action.payload.field];
+        delete state.filters?.[action.payload.field];
       } else {
         state.filters = {
           ...state.filters,
@@ -56,15 +49,12 @@ const productSlice = createSlice({
       }
       state.pagination = initialState.pagination;
     },
-    SELECTED: (state, action: PayloadAction<Product>) => {
+    SELECTED: (state, action: PayloadAction<ProductState['selectedProduct']>) => {
       state.selectedProduct = action.payload;
     },
     PAGINATION: (
       state,
-      action: PayloadAction<{
-        page: number;
-        pageSize: number;
-      }>
+      action: PayloadAction<ProductState['pagination']>
     ) => {
       state.pagination = {
         page: action.payload.page,

@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import { CartBadge } from "@components/shop/CartBadge";
 import LoginButton from "@components/ui/LoginButton";
+import SearchBar from "@components/ui/SearchBar";
 import ThemeSwitch from "@components/ui/ThemeSwitch";
 import { Button, styled } from "@mui/material";
 import { useSession } from "next-auth/react";
@@ -21,15 +22,15 @@ const Header = styled("header")(({ theme }) => [
 ]);
 
 const navigation = [
-  { name: "Shop", href: "/products" },
+  { name: "Shop", href: "/shop" },
   // { name: "Features", href: "#" },
   // { name: "Marketplace", href: "#" },
   { name: "About", href: "#" },
 ];
 
-export default function AppBarTop(props:{dark?:boolean}) {
-  const {status} = useSession()
-  const router = useRouter()
+export default function AppBarDefault(props: { dark?: boolean }) {
+  const { status } = useSession();
+  const router = useRouter();
   return (
     <Header>
       <div className="px-6 lg:px-8">
@@ -37,8 +38,8 @@ export default function AppBarTop(props:{dark?:boolean}) {
           className="flex items-center justify-between h-16"
           aria-label="Global"
         >
-          <div className="flex lg:flex-1">
-            <Link href="/" className="-m-1.5 p-1.5">
+          <div className="flex lg:flex-1 items-center">
+            <Link href="/" className="-m-1.5 p-1.5 mr-4">
               <span className="sr-only">Your Company</span>
               <img
                 className="h-8"
@@ -46,23 +47,30 @@ export default function AppBarTop(props:{dark?:boolean}) {
                 alt=""
               />
             </Link>
+            <div className="hidden lg:flex lg:gap-x-12">
+              {navigation.map((item) => (
+                <a
+                  key={item.name}
+                  href={item.href}
+                  className="text-sm font-semibold leading-6 text-gray-900"
+                >
+                  {item.name}
+                </a>
+              ))}
+            </div>
           </div>
           <div className="hidden lg:flex lg:gap-x-12">
-            {navigation.map((item) => (
-              <a
-                key={item.name}
-                href={item.href}
-                className="text-sm font-semibold leading-6 text-gray-900"
-              >
-                {item.name}
-              </a>
-            ))}
+            <SearchBar />
           </div>
-          <div className="hidden lg:flex lg:flex-1 lg:justify-end items-center">
-            { router.pathname !== '/auth/signin' &&  <LoginButton/>}
+          <div className="flex flex-1 justify-end items-center">
+            {router.pathname !== "/auth/signin" && <LoginButton />}
             <CartBadge />
-            <ThemeSwitch />
-            {status == 'authenticated' && <Link href='/admin/dashboard'><Button variant='outlined' >Admin</Button></Link>}
+            {/* <ThemeSwitch /> */}
+            {status == "authenticated" && (
+              <Link href="/admin/dashboard">
+                <Button variant="outlined">Admin</Button>
+              </Link>
+            )}
           </div>
         </nav>
       </div>

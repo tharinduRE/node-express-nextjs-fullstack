@@ -5,28 +5,32 @@ import { Product, Product as ProductModel } from "./product";
 export const productSchema = new mongoose.Schema<Product>(
   {
     itemId: {
-      required: [true, "Item id is required."],
       type: String,
     },
     name: {
       type: String,
-      required: true,
+      required: [true,'required'],
       trim: true,
+      text: true,
     },
     description: {
       type: String,
-      required: true,
+      required:  [true,'required'],
     },
     listPrice: {
       type: Number,
+      required:  [true,'required'],
     },
     category: {
       type: String,
-      required: true,
+      required:  [true,'required'],
     },
     subcategory: {
       type: String,
     },
+    slug :{
+      type: String,
+    }
   },
   {
     timestamps: true,
