@@ -21,7 +21,7 @@ router
   .get(validate(validation("getAll")),getAll)
 
 router
-  .route("/:empId")
+  .route("/:id")
   .get(validate(validation("getOne")), getOne)
   .put(validate(validation("updateOne")), updateOne)
   .delete(validate(validation("deleteOne")), deleteOne);

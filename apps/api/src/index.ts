@@ -2,30 +2,23 @@
  * Module dependencies.
  */
 
-import app from "./app";
-var debug = require("debug")("api:server");
 import http from "http";
 import { AddressInfo } from "net";
+import app from "./app";
 import config from "./config";
+import logger from "./config/logger";
 import mongodb from "./config/mongodb";
+var debug = require("debug")("api:server");
 
 /**
  * Connect to MongoDB
  */
 mongodb();
-/**
- * Get port from environment and store in Express.
- */
 
 var port = config.port;
 app.set("port", port);
 
 var server = http.createServer(app);
-
-/**
- * Listen on provided port, on all network interfaces.
- */
-
 server.listen(port);
 server.on("error", onError);
 server.on("listening", onListening);
@@ -62,10 +55,8 @@ function onError(error: any) {
 
 function onListening() {
   var addr = server.address() as AddressInfo;
-  console.log(`[env] : ${config.env}`);
-  console.log(
-    `⚡️[server]: Server is running at http://${addr.address}${port}`
-  );
+  logger.info(`Environment : ${config.env}`);
+  logger.info(`Server is running at http://${addr.address}${port}`);
 
   var bind = typeof addr === "string" ? "pipe " + addr : "port " + addr?.port;
   debug("Listening on " + bind);

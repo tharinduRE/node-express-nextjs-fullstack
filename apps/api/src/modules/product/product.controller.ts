@@ -19,7 +19,7 @@ export const create = asyncHandler(async (req: Request, res: Response) => {
 });
 
 export const getOne = asyncHandler(async (req: Request, res: Response) => {
-  const product = await ProductModel.findOne({ _id: req.params["empId"] });
+  const product = await ProductModel.findOne({ _id: req.params["id"] });
   if (!product) {
     throw new ApiError(httpStatus.NOT_FOUND, "product not found");
   }
@@ -28,15 +28,16 @@ export const getOne = asyncHandler(async (req: Request, res: Response) => {
 
 export const updateOne = asyncHandler(async (req: Request, res: Response) => {
   const product = await ProductModel.findByIdAndUpdate(
-    new mongoose.Types.ObjectId(req.params["empId"]),
-    req.body
+    new mongoose.Types.ObjectId(req.params["id"]),
+    req.body,
+    { new : true}
   );
   res.send(product);
 });
 
 export const deleteOne = asyncHandler(async (req: Request, res: Response) => {
   await ProductModel.findOneAndDelete(
-    new mongoose.Types.ObjectId(req.params["empId"])
+    new mongoose.Types.ObjectId(req.params["id"])
   );
   res.status(httpStatus.NO_CONTENT).send();
 });

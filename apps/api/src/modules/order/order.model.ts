@@ -1,11 +1,11 @@
 import mongoose from "mongoose";
 import m2s from "mongoose-to-swagger";
-import { productSchema } from "../product/product.model";
+import { ProductSchema } from "../product/product.model";
 import { Order, Order as OrderModel } from "./order";
 
 const orderSchema = new mongoose.Schema<Order>(
   {
-    items: [{ product: productSchema, quantity: Number }],
+    items: [{ product: ProductSchema, quantity: Number }],
     amount: {
       type: Number,
     },

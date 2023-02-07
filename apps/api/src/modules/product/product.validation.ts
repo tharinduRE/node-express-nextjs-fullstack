@@ -21,7 +21,7 @@ export const validation = (method: any) => {
     case "updateOne":
     case "deleteOne": {
       return [
-        param("empId").exists().isMongoId().withMessage("Invalid Product Id"),
+        param("id").exists().isMongoId().withMessage("Invalid Product Id"),
       ];
     }
     case "getAll": {

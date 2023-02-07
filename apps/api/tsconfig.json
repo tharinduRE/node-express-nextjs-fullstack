@@ -3,5 +3,5 @@
   "compilerOptions": {
     "outDir": "dist"
   },
-  "exclude": ["dist/**/*", "src/tests/**/*","src/modules/keyvalue"]
+  "exclude": ["dist", "src/**/*.test.ts"]
 }

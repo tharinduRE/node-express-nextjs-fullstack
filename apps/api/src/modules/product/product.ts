@@ -11,6 +11,7 @@ export interface Product {
     subcategory: string;
     thumbnailUrl?: string;
     photoUrl?:string
-    slug?:string
+    slug?:string,
+    active?:boolean,
   }
   
