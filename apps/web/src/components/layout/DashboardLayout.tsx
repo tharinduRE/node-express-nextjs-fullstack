@@ -16,7 +16,7 @@ import { useRouter } from "next/router";
 import FolderIcon from "@mui/icons-material/Folder";
 import Head from "next/head";
 
-const menu = ["dashboard", "products", "orders", "sales"];
+const menu = ["dashboard", "products", "orders", "users"];
 
 const links_menu = ["/", "products"];
 

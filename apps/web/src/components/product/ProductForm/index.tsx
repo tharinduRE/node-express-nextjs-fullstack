@@ -149,6 +149,7 @@ export default function ProductForm({ product }: { product?: Product }) {
               />
             )}
             <FormControlLabel
+              sx={{ marginLeft: 0 }}
               control={
                 <Switch
                   checked={values.active}

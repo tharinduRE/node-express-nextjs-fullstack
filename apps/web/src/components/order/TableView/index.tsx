@@ -1,5 +1,5 @@
 import { DataTable } from "@components/ui/DataTable";
-import { Button } from "@mui/material";
+import { Button, Chip, ChipProps } from "@mui/material";
 import { format } from "date-fns";
 import _ from "lodash";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
@@ -7,9 +7,16 @@ import { FILTER, ORDER, PAGINATION } from "../../../store/slices/order";
 import { Order } from "../../../types/order";
 import { HeadCell, TableViewProps } from "../../ui/DataTable/types";
 
+const orderStatusColors : {[s:string]: ChipProps['color']} = {
+  'NEW' : 'info',
+}
+
 const headCells: HeadCell<Order>[] = [
   {
     id: "status",
+    formatter(x) {
+      return <Chip label={x} size="small" color={orderStatusColors[x]} />;
+    },
   },
   {
     id: "items",
@@ -27,6 +34,13 @@ const headCells: HeadCell<Order>[] = [
     // searchable: true,
     formatter(x) {
       return x.toFixed(2);
+    },
+  },
+  {
+    id: 'userId',
+    label : 'Ordered By',
+    formatter(x) {
+      return x?.email || x;
     },
   },
   {

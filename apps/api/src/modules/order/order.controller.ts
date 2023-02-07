@@ -12,7 +12,7 @@ import { PaginatedResults } from "../common/pagination";
  *  Create
  */
 export const create = asyncHandler(async (req: Request, res: Response) => {
-  const order = await new OrderModel(req.body).save();
+  const order = await new OrderModel({...req.body,userId : req.user?._id }).save();
   if (order) {
     res.status(httpStatus.CREATED).send(order);
   }
@@ -59,6 +59,7 @@ export const getAll = asyncHandler(
     let query = OrderModel.find(filterQuery);
 
     const data = await query
+      .populate(['userId'])
       .sort({ [String(orderBy)]: sortOrder })
       .skip((page + 1 - 1) * pageSize)
       .limit(pageSize)

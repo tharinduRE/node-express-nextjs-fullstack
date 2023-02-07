@@ -11,6 +11,7 @@ const orderSchema = new mongoose.Schema<Order>(
     },
     userId: {
       type: String,
+      ref: 'User'
     },
     status: {
       type: String,

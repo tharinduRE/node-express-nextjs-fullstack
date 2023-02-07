@@ -1,4 +1,5 @@
 import { DataTable } from "@components/ui/DataTable";
+import { Chip } from "@mui/material";
 import { format } from "date-fns";
 import _ from "lodash";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
@@ -33,11 +34,17 @@ const headCells: HeadCell<Product>[] = [
     // searchable: true,
   },
   {
-    id: "createdAt",
+    id: "active",
     formatter(x) {
-      return format(new Date(x), "MM-dd-yyyy");
+      return <Chip label={x ? "Active" : "Inactive"}size="small" color={x ? "success" : "error"} />;
     },
   },
+  // {
+  //   id: "createdAt",
+  //   formatter(x) {
+  //     return format(new Date(x), "MM-dd-yyyy");
+  //   },
+  // },
 ];
 
 export default function TableView(props: TableViewProps<Product>) {

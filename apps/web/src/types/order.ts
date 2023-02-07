@@ -6,7 +6,7 @@ export interface Order extends IModel {
       quantity: number
     }[];
     amount: number
-    userId?: string
+    userId?: any
     status?: string
   }
   
