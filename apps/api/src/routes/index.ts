@@ -2,6 +2,9 @@ import express, { Router } from "express";
 import docsRoute from "./swagger.route";
 import productRoute from "../modules/product/product.route";
 import orderRoutes from "../modules/order/order.route";
+import userRoutes from "../modules/users/user.route";
+import authRoutes from "../modules/auth/auth.route";
+import { authenticateJWT } from "../modules/auth/auth.middleware";
 
 const router = express.Router();
 
@@ -13,7 +16,7 @@ interface IRoute {
 /**
  * Declare routes for all models
  */
-const defaultIRoute: IRoute[] = [
+const protectedRoutes: IRoute[] = [
   {
     path: "/orders",
     route: orderRoutes,
@@ -22,14 +25,30 @@ const defaultIRoute: IRoute[] = [
     path: "/products",
     route: productRoute,
   },
+  {
+    path: "/users",
+    route: userRoutes,
+  },
 ];
 
-defaultIRoute.forEach((route) => {
-  router.use(route.path, route.route);
+protectedRoutes.forEach((route) => {
+  router.use(route.path, authenticateJWT, route.route);
 });
 
-// if (config.env === "development" || config.env === "production") {
-  router.use("/docs", docsRoute);
-// }
+
+const publicRoutes: IRoute[] = [
+  {
+    path: "/docs",
+    route: docsRoute,
+  },
+  {
+    path: "/auth",
+    route: authRoutes,
+  },
+];
+
+publicRoutes.forEach((route) => {
+  router.use(route.path, route.route);
+});
 
 export default router;

@@ -10,9 +10,13 @@
 ![cypress](https://img.shields.io/badge/cypress-20232A?style=for-the-badge&logo=cypress)
 
 
-### Architecture
-![architecture](./docs/architecture.png)
-
+## Features
+- ### Express API
+  - JWT authentication/ OAuth2 support
+  - Request Validation
+- ### Next.js
+  - Authentication with Next-Auth which supports OAuth 2.0
+  - MUI / Tailwind styling
 ### Apps and Packages
 
 - [`apps/api`](./apps/api): a [Express.js](https://expressjs.com/) app
@@ -20,6 +24,9 @@
 - [`packages`](./packages)
   - `eslint-config-custom`: custom `eslint` config used throughout the monorepo
   - `tsconfig`: `tsconfig.json`s used throughout the monorepo
+### Architecture
+
+![architecture](./docs/architecture.png)
 
 ### Development
 

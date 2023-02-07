@@ -14,10 +14,11 @@ import { ReactElement, ReactNode, useMemo, useState } from "react";
 import { Provider } from "react-redux";
 
 import apptheme from "../config/theme";
-import store , {persistor} from "../store/store";
+import store, { persistor } from "../store/store";
 import "../styles/global.css";
 import { SessionProvider } from "next-auth/react";
-import { PersistGate } from 'redux-persist/integration/react'
+import { PersistGate } from "redux-persist/integration/react";
+import SessionLoader from "@components/common/SessionLoader";
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -51,22 +52,24 @@ export default function MyApp({
       <ErrorBoundary>
         <Provider store={store}>
           <PersistGate loading={null} persistor={persistor}>
-          <ColorModeContext.Provider value={colorMode}>
-            <ThemeProvider theme={theme}>
-              <SessionProvider session={session}>
-                <SnackbarProvider maxSnack={3}>
-                  <CssBaseline />
-                  {Component.getLayout ? (
-                    getLayout(<Component {...pageProps} />)
-                  ) : (
-                    <Layout>
-                      <Component {...pageProps} />
-                    </Layout>
-                  )}
-                </SnackbarProvider>
-              </SessionProvider>
-            </ThemeProvider>
-          </ColorModeContext.Provider>
+            <ColorModeContext.Provider value={colorMode}>
+              <ThemeProvider theme={theme}>
+                <SessionProvider session={session}>
+                  <SessionLoader>
+                    <SnackbarProvider maxSnack={3}>
+                      <CssBaseline />
+                      {Component.getLayout ? (
+                        getLayout(<Component {...pageProps} />)
+                      ) : (
+                        <Layout>
+                          <Component {...pageProps} />
+                        </Layout>
+                      )}
+                    </SnackbarProvider>
+                  </SessionLoader>
+                </SessionProvider>
+              </ThemeProvider>
+            </ColorModeContext.Provider>
           </PersistGate>
         </Provider>
       </ErrorBoundary>
