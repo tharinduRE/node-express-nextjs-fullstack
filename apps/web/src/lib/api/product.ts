@@ -4,24 +4,24 @@ import { PaginatedResults } from "../../types/IPagination";
 import Client from "..";
 
 const employeeRoute = `/products`;
-export const getProductList = (apiFilter: FilterAPI<Product>) =>
+export const getProductList = (apiFilter?: FilterAPI<Product>) =>
   Client.get<PaginatedResults<Product>>(employeeRoute, {
     params: {
-      order: apiFilter.sortOrder,
-      orderBy: apiFilter.sortBy,
-      ...apiFilter.pagination,
-      filters: JSON.stringify(apiFilter.filters),
+      order: apiFilter?.sortOrder,
+      orderBy: apiFilter?.sortBy,
+      ...apiFilter?.pagination,
+      filters: JSON.stringify(apiFilter?.filters),
     },
   });
 
-export const search = (apiFilter: FilterAPI<Product>, q?: string) =>
+export const search = (apiFilter?: FilterAPI<Product>, q?: string) =>
   Client.get<PaginatedResults<Product>>(employeeRoute + "/search", {
     params: {
       q,
-      order: apiFilter.sortOrder,
-      orderBy: apiFilter.sortBy,
-      ...apiFilter.pagination,
-      filters: JSON.stringify(apiFilter.filters),
+      order: apiFilter?.sortOrder,
+      orderBy: apiFilter?.sortBy,
+      ...apiFilter?.pagination,
+      filters: JSON.stringify(apiFilter?.filters),
     },
   });
 

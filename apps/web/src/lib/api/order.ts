@@ -4,13 +4,13 @@ import { PaginatedResults } from "../../types/IPagination";
 import Client from "..";
 
 const route = `/orders`;
-export const getOrderList = (apiFilter: FilterAPI<Order>) =>
+export const getOrderList = (apiFilter?: FilterAPI<Order>) =>
   Client.get<PaginatedResults<Order>>(route, {
     params: {
-      order: apiFilter.sortOrder,
-      orderBy: apiFilter.sortBy,
-      ...apiFilter.pagination,
-      filters: JSON.stringify(apiFilter.filters),
+      order: apiFilter?.sortOrder,
+      orderBy: apiFilter?.sortBy,
+      ...apiFilter?.pagination,
+      filters: JSON.stringify(apiFilter?.filters),
     },
   });
 

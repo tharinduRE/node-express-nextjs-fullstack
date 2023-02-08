@@ -57,8 +57,8 @@ const orderSlice = createSlice({
       action: PayloadAction<OrderState['pagination']>
     ) => {
       state.pagination = {
-        page: action.payload.page,
-        pageSize: action.payload.pageSize || state.pagination.pageSize,
+        page: action.payload?.page,
+        pageSize: action.payload?.pageSize || state.pagination?.pageSize,
       };
     },
   },

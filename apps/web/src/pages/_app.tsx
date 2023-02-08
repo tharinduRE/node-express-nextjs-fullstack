@@ -13,12 +13,37 @@ import { SnackbarProvider } from "notistack";
 import { ReactElement, ReactNode, useMemo, useState } from "react";
 import { Provider } from "react-redux";
 
+import SessionLoader from "@components/common/SessionLoader";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+  BarElement,
+  Filler,
+} from "chart.js";
+import { SessionProvider } from "next-auth/react";
+import { PersistGate } from "redux-persist/integration/react";
 import apptheme from "../config/theme";
 import store, { persistor } from "../store/store";
 import "../styles/global.css";
-import { SessionProvider } from "next-auth/react";
-import { PersistGate } from "redux-persist/integration/react";
-import SessionLoader from "@components/common/SessionLoader";
+import { SWRConfig } from "swr";
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  BarElement,
+  Filler,
+  Title,
+  Tooltip,
+  Legend
+);
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -45,6 +70,13 @@ export default function MyApp({
     []
   );
 
+  const swrConfig: typeof SWRConfig.defaultProps = {
+    value: {
+      revalidateOnFocus: false,
+      revalidateIfStale: false,
+      revalidateOnMount: true,
+    },
+  };
   const theme = useMemo(() => createTheme(apptheme(mode)), [mode]);
   const getLayout = Component.getLayout ?? ((page) => page);
   return (
@@ -52,24 +84,26 @@ export default function MyApp({
       <ErrorBoundary>
         <Provider store={store}>
           <PersistGate loading={null} persistor={persistor}>
-            <ColorModeContext.Provider value={colorMode}>
-              <ThemeProvider theme={theme}>
-                <SessionProvider session={session}>
-                  <SessionLoader>
-                    <SnackbarProvider maxSnack={3}>
-                      <CssBaseline />
-                      {Component.getLayout ? (
-                        getLayout(<Component {...pageProps} />)
-                      ) : (
-                        <Layout>
-                          <Component {...pageProps} />
-                        </Layout>
-                      )}
-                    </SnackbarProvider>
-                  </SessionLoader>
-                </SessionProvider>
-              </ThemeProvider>
-            </ColorModeContext.Provider>
+            <SWRConfig {...swrConfig}>
+              <ColorModeContext.Provider value={colorMode}>
+                <ThemeProvider theme={theme}>
+                  <SessionProvider session={session}>
+                    <SessionLoader>
+                      <SnackbarProvider maxSnack={3}>
+                        <CssBaseline />
+                        {Component.getLayout ? (
+                          getLayout(<Component {...pageProps} />)
+                        ) : (
+                          <Layout>
+                            <Component {...pageProps} />
+                          </Layout>
+                        )}
+                      </SnackbarProvider>
+                    </SessionLoader>
+                  </SessionProvider>
+                </ThemeProvider>
+              </ColorModeContext.Provider>
+            </SWRConfig>
           </PersistGate>
         </Provider>
       </ErrorBoundary>

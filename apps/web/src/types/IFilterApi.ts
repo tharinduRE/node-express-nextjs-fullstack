@@ -3,7 +3,7 @@ export type SortOrder = 'asc' | 'desc';
 export interface FilterAPI<T> {
   sortOrder?:  SortOrder;
   sortBy?: keyof T;
-  pagination: {
+  pagination?: {
     page?: number;
     pageSize?: number;
   };
