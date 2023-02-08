@@ -5,13 +5,11 @@ import GithubProvider from "next-auth/providers/github";
 import { API_BASE_URL } from "../../../lib";
 
 export const authOptions: AuthOptions = {
-  // Configure one or more authentication providers
   providers: [
     GithubProvider({
       clientId: process.env.GITHUB_ID as string,
       clientSecret: process.env.GITHUB_SECRET as string,
     }),
-    // ...add more providers here
   ],
   pages: {
     signIn: "/auth/signin",
@@ -36,8 +34,10 @@ export const authOptions: AuthOptions = {
       return token;
     },
     async session({ session, token }) {
-      session.user.accessToken = token?.accessToken;
-      session.user.refreshToken = token?.refreshToken;
+      if(session.user){
+        session.user.accessToken = token?.accessToken;
+        session.user.refreshToken = token?.refreshToken;
+      }
       return session;
     },
   },
