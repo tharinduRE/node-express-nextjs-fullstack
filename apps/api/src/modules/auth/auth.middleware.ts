@@ -1,27 +1,32 @@
-import { Request, Response, NextFunction } from "express";
-import httpStatus from "http-status";
-import * as jwt from "jsonwebtoken";
-import ApiError from "../common/apiError";
+import { NextFunction, Request, Response } from "express";
+import * as jose from "jose";
+import { UnauthorizedError } from "../common/errors";
+import getToken from "./getToken";
 
-export const authenticateJWT = (
-  req: Request | any,
+const secret = new TextEncoder().encode(
+  "cc7e0d44fd473002f1c42167459001140ec6389b7353f8088f4d9a95f2f596f2"
+);
+
+export const authenticateJWT = async (
+  req: Request,
   res: Response,
   next: NextFunction
 ) => {
-  const authHeader = req.headers.authorization;
+  
+  try {
+    const token = getToken(req.headers);
 
-  if (authHeader) {
-    const token = authHeader.split(" ")[1];
-
-    jwt.verify(token, "accessTokenSecret", (err: any, user: any) => {
-      if (err) {
-        throw new ApiError(httpStatus.FORBIDDEN,'Forbidden'); 
-      }
-
-      req.user = user;
-      next();
+    const { payload } = await jose.jwtVerify(token, secret, {
+      issuer: "urn:expressapi:issuer",
+      audience: "urn:expressapi:audience",
     });
-  } else {
-    throw new ApiError(httpStatus.UNAUTHORIZED,'Unauthorized'); 
+
+    req.auth = {
+      token,
+      payload,
+    };
+    next();
+  } catch (error: any) {
+    next(new UnauthorizedError());
   }
 };

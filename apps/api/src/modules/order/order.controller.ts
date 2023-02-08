@@ -12,7 +12,7 @@ import { PaginatedResults } from "../common/pagination";
  *  Create
  */
 export const create = asyncHandler(async (req: Request, res: Response) => {
-  const order = await new OrderModel({...req.body,userId : req.user?._id }).save();
+  const order = await new OrderModel({...req.body,userId : req.auth.payload.sub }).save();
   if (order) {
     res.status(httpStatus.CREATED).send(order);
   }

@@ -3,10 +3,14 @@ import useSWR from "swr";
 import { search } from "../../../lib/api/product";
 import { ProductCard } from "../../product/ProductCard/ProductCard";
 
-export default function ProductList({query}:{query?:string}) {
+export default function ProductList({ query }: { query?: string }) {
   const { data: data, error } = useSWR(
     `products-${query}`,
-    () => search({ pagination: { page: 0, pageSize: 10 } }, query),
+    () =>
+      search(
+        { pagination: { page: 0, pageSize: 10 }, filters: { active: true } },
+        query
+      ),
     {
       revalidateOnFocus: false,
       revalidateIfStale: false,
@@ -15,7 +19,11 @@ export default function ProductList({query}:{query?:string}) {
   );
   return (
     <div className="bg-white rounded-xl">
-      {query && <Typography variant="h6">Search results for : <b>{query}</b></Typography>}
+      {query && (
+        <Typography variant="h6">
+          Search results for : <b>{query}</b>
+        </Typography>
+      )}
       <div className="mx-auto max-w-2xl py-8 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
         <h2 className="sr-only">Products</h2>
 

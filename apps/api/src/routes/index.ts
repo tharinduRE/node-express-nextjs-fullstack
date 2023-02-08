@@ -11,12 +11,13 @@ const router = express.Router();
 interface IRoute {
   path: string;
   route: Router;
+  public?: boolean;
 }
 
 /**
  * Declare routes for all models
  */
-const protectedRoutes: IRoute[] = [
+const routes: IRoute[] = [
   {
     path: "/orders",
     route: orderRoutes,
@@ -24,31 +25,28 @@ const protectedRoutes: IRoute[] = [
   {
     path: "/products",
     route: productRoute,
+    public: true,
   },
   {
     path: "/users",
     route: userRoutes,
   },
-];
-
-protectedRoutes.forEach((route) => {
-  router.use(route.path, authenticateJWT, route.route);
-});
-
-
-const publicRoutes: IRoute[] = [
   {
     path: "/docs",
     route: docsRoute,
+    public: true,
   },
   {
     path: "/auth",
     route: authRoutes,
+    public: true,
   },
 ];
 
-publicRoutes.forEach((route) => {
-  router.use(route.path, route.route);
+routes.forEach((route) => {
+  route.public
+    ? router.use(route.path, route.route)
+    : router.use(route.path, authenticateJWT, route.route);
 });
 
 export default router;
