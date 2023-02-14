@@ -12,6 +12,7 @@ import { DECREMENT, INCREMENT, REMOVE } from "../../../store/slices/cart";
 import { Product } from "../../../types/product";
 
 import { ArrowDropDownRounded, ArrowDropUpRounded } from "@mui/icons-material";
+import { useSnackbar } from "notistack";
 
 export function CartProductCard({
   product,
@@ -19,6 +20,12 @@ export function CartProductCard({
   product: { product: Product; quantity: number };
 }) {
   const dispatch = useAppDispatch();
+  const { enqueueSnackbar } = useSnackbar();
+
+  const handleRemoveFromCart = () => { 
+    enqueueSnackbar('Removed from Cart',{variant : 'success'})
+    dispatch(REMOVE(product.product._id))
+   }
   return (
     <Card sx={{ display: "flex", marginY: 3 }} elevation={0}>
       <Box
@@ -88,7 +95,7 @@ export function CartProductCard({
           <div className="flex">
             <Button
               color="error"
-              onClick={() => dispatch(REMOVE(product.product._id))}
+              onClick={handleRemoveFromCart}
             >
               Remove
             </Button>

@@ -2,11 +2,11 @@
 import { Breadcrumbs, Button } from "@mui/material";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useSnackbar } from "notistack";
 import useSWR from "swr";
 import { getProductBySlug } from "../../../lib/api/product";
 import { useAppDispatch } from "../../../store";
 import { ADD } from "../../../store/slices/cart";
-
 
 const images = [
   {
@@ -37,6 +37,17 @@ export default function Example() {
   const product = data?.data;
 
   const dispatch = useAppDispatch();
+  const { enqueueSnackbar } = useSnackbar();
+
+  const handleAddToCart = () => {
+    if (product) {
+      dispatch(ADD(product));
+      enqueueSnackbar("Added to Cart", {
+        key: product._id,
+        variant: "success",
+      });
+    }
+  };
 
   return (
     <div className="bg-white">
@@ -47,9 +58,7 @@ export default function Example() {
           sx={{ fontSize: "small" }}
         >
           <Link href="/shop">shop</Link>
-          <Link href={`/shop/${category}`}>
-            {category}
-          </Link>
+          <Link href={`/shop/${category}`}>{category}</Link>
           <Link
             color="text.primary"
             href={`/shop/${category}/${product?.slug}`}
@@ -111,9 +120,7 @@ export default function Example() {
               size="large"
               fullWidth
               variant="contained"
-              onClick={() => {
-                if (product) dispatch(ADD(product));
-              }}
+              onClick={handleAddToCart}
             >
               Add to Bag
             </Button>

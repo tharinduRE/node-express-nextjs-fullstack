@@ -34,6 +34,10 @@ export default function CheckoutPage() {
       <Grid item xs={12} lg={6}>
         <Paper sx={{ padding: 2 }}>
           <div className="flex justify-between text-base font-medium text-gray-900">
+            <p>Payment Method</p>
+            <p>COD</p>
+          </div>
+          <div className="flex justify-between text-base font-medium text-gray-900">
             <p>Subtotal</p>
             <p>$ {cartTotal.toFixed(2)}</p>
           </div>

@@ -1,14 +1,22 @@
 /* eslint-disable @next/next/no-img-element */
 import { Button } from "@mui/material";
 import Link from "next/link";
+import { useSnackbar } from "notistack";
 import { useAppDispatch } from "../../../store/hooks";
 import { ADD } from "../../../store/slices/cart";
 import { Product } from "../../../types/product";
 
 export function ProductCard({ product }: { product: Product }): JSX.Element {
   const dispatch = useAppDispatch();
-  const getDummyImage = `https://tailwindui.com/img/ecommerce-images/category-page-01-image-card-0${Number(product.itemId) % 9 || 9}.jpg`
-  
+  const { enqueueSnackbar } = useSnackbar();
+  const getDummyImage = `https://tailwindui.com/img/ecommerce-images/category-page-01-image-card-0${
+    Number(product.itemId) % 9 || 9
+  }.jpg`;
+
+  const handleAddToCart = () => {
+    enqueueSnackbar('Added to Cart',{key : product._id,variant : 'success'})
+    dispatch(ADD(product));
+  };
   return (
     <div>
       <Link
@@ -24,15 +32,15 @@ export function ProductCard({ product }: { product: Product }): JSX.Element {
           />
         </div>
       </Link>
-      <h3 className="mt-4 text-sm text-gray-700">{product.name}</h3>
-      <p className="mt-1 text-lg font-medium text-gray-900">
+      <div className="mt-4 text-sm text-gray-700 font-bold">{product.name}</div>
+      <div className="my-2 text-base font-medium text-gray-900">
         $ {product.listPrice}
-      </p>
+      </div>
       <Button
         fullWidth
         variant="contained"
-        sx={{ backgroundColor: "gray" }}
-        onClick={() => dispatch(ADD(product)) }
+        // sx={{ backgroundColor: "gray" }}
+        onClick={handleAddToCart}
       >
         Add To Bag
       </Button>
