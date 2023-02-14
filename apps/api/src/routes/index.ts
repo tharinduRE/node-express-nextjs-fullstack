@@ -46,7 +46,7 @@ const routes: IRoute[] = [
 routes.forEach((route) => {
   route.public
     ? router.use(route.path, route.route)
-    : router.use(route.path, route.route);
+    : router.use(route.path, authenticateJWT, route.route);
 });
 
 export default router;

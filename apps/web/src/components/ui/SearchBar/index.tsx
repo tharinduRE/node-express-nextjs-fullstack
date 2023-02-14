@@ -1,15 +1,13 @@
-import { CloseRounded } from "@mui/icons-material";
 import SearchIcon from "@mui/icons-material/Search";
 import IconButton from "@mui/material/IconButton";
 import InputBase from "@mui/material/InputBase";
 import Paper from "@mui/material/Paper";
 import { useRouter } from "next/router";
-import React from "react";
 
 export default function SearchBar() {
   const router = useRouter()
   const handleSearch = (
-    e: React.FormEvent<HTMLFormElement>
+    e: any
   ) => {
     e.preventDefault();
     let q = e.target?.[0].value
