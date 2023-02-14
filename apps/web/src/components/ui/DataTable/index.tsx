@@ -48,6 +48,8 @@ export function DataTable<T>({
   sortBy,
   sortOrder,
   filters,
+  hideActions = false,
+  isLoading,
   onDeleteRow,
   onEditRow,
   onSortCol,
@@ -145,13 +147,13 @@ export function DataTable<T>({
                 </HeadTableCell>
               )
             )}
-            <HeadTableCell key="actions" className="capitalize">
+            {!hideActions && <HeadTableCell key="actions" className="capitalize">
               Actions
-            </HeadTableCell>
+            </HeadTableCell>}
           </TableRow>
         </TableHead>
         <TableBody>
-          {!data ? (
+          {!data? (
             <TableRow>
               <TableCell colSpan={7}>
                 <SpinnerUI />
@@ -176,7 +178,7 @@ export function DataTable<T>({
                       : (row[k.id] as React.ReactNode)}
                   </TableCell>
                 ))}
-                <TableCell align="center" sx={{ whiteSpace: "nowrap" }}>
+               {!hideActions && <TableCell align="center" sx={{ whiteSpace: "nowrap" }}>
                   {onEditRow && (
                     <IconButton onClick={() => onEditRow(row)}>
                       <Edit />
@@ -191,7 +193,7 @@ export function DataTable<T>({
                       <DeleteIcon />
                     </IconButton>
                   )}
-                </TableCell>
+                </TableCell> }
               </StyledTableRow>
             ))
           )}

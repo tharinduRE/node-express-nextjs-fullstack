@@ -1,7 +1,8 @@
 import { PaletteMode, ThemeOptions } from "@mui/material";
 import { deepPurple, indigo, purple } from "@mui/material/colors";
 import { Plus_Jakarta_Sans } from "@next/font/google";
-const font = Plus_Jakarta_Sans({ subsets: ["latin"] });
+
+export const font = Plus_Jakarta_Sans({ subsets: ["latin"] });
 
 /**
  *  MUI Theme

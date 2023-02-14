@@ -1,13 +1,15 @@
-import { Logout } from "@mui/icons-material";
+import { Logout, Settings } from "@mui/icons-material";
 import {
   Avatar,
   Button,
   Divider,
-  IconButton, ListItemIcon,
+  IconButton,
+  ListItemIcon,
   Menu,
-  MenuItem
+  MenuItem,
 } from "@mui/material";
 import { signIn, signOut, useSession } from "next-auth/react";
+import Link from "next/link";
 import { useState } from "react";
 
 export default function LoginButton() {
@@ -78,9 +80,19 @@ export default function LoginButton() {
           anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
         >
           <MenuItem disabled>
-            <Avatar /> {session?.user?.name}
+            <Avatar {...stringAvatar(session?.user?.name as string)} />{" "}
+            {session?.user?.name}
           </MenuItem>
           <MenuItem disabled>{session?.user?.email}</MenuItem>
+          <Divider />
+          <MenuItem>
+            <Link href="/admin/dashboard">
+              <ListItemIcon>
+                <Settings fontSize="small" />
+              </ListItemIcon>
+              Admin
+            </Link>
+          </MenuItem>
           <Divider />
           <MenuItem onClick={handleLogout}>
             <ListItemIcon>

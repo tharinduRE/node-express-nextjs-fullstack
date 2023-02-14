@@ -3,6 +3,7 @@ import {
   create,
   deleteOne,
   getAll,
+  getAllDailyOrders,
   getOne,
   updateOne,
 } from "./order.controller";
@@ -17,9 +18,13 @@ router
   .post(validate(validation("save")), create);
 
 router
+  .route("/getdailyorders")
+  .get(getAllDailyOrders)
+
+router
   .route("/:orderId")
   .get(validate(validation("getOne")), getOne)
-  // .put(validate(validation("updateOne")), updateOne)
+  .put(validate(validation("updateOne")), updateOne)
   .delete(validate(validation("deleteOne")), deleteOne);
 
 export default router;

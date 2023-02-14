@@ -2,9 +2,7 @@
 import { CartBadge } from "@components/shop/CartBadge";
 import LoginButton from "@components/ui/LoginButton";
 import SearchBar from "@components/ui/SearchBar";
-import ThemeSwitch from "@components/ui/ThemeSwitch";
-import { Button, styled } from "@mui/material";
-import { useSession } from "next-auth/react";
+import { styled } from "@mui/material";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
@@ -29,7 +27,6 @@ const navigation = [
 ];
 
 export default function AppBarDefault(props: { dark?: boolean }) {
-  const { status } = useSession();
   const router = useRouter();
   return (
     <Header>
@@ -66,11 +63,6 @@ export default function AppBarDefault(props: { dark?: boolean }) {
             {router.pathname !== "/auth/signin" && <LoginButton />}
             <CartBadge />
             {/* <ThemeSwitch /> */}
-            {status == "authenticated" && (
-              <Link href="/admin/dashboard">
-                <Button variant="outlined">Admin</Button>
-              </Link>
-            )}
           </div>
         </nav>
       </div>

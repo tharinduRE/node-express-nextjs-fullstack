@@ -15,8 +15,21 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import FolderIcon from "@mui/icons-material/Folder";
 import Head from "next/head";
+import { DashboardRounded } from "@mui/icons-material";
 
-const menu = ["dashboard", "products", "orders", "users"];
+const navMenu = [
+  {
+    name: "Dashboard",
+    icon: <DashboardRounded />,
+    link: "/admin",
+    children: ["dashboard", "products", "orders"],
+  },
+  {
+    name: "Administration",
+    link: "/admin/administration",
+    children: ["users", "roles"],
+  },
+];
 
 const links_menu = ["/", "products"];
 
@@ -38,6 +51,12 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   const router = useRouter();
+  const activeMenuLink =
+    router.pathname.split("/")[router.pathname.split("/").length - 1];
+  const activeMenu = navMenu.find(
+    (e) => e.children.findIndex((e) => e == activeMenuLink) !== -1
+  );
+
   return (
     <>
       <Head>
@@ -76,23 +95,32 @@ export default function DashboardLayout({
         minHeight="100vh"
       >
         <Grid container>
-          {/* <Grid
+          <Grid
             item
             xs={12}
             sx={{
-              paddingY:1,
+              paddingY: 0.5,
               paddingX: 2,
-              borderBottom : 1,
-              borderColor:'#f1f1f1'
+              borderBottom: 1,
+              borderColor: "#f1f1f1",
             }}
             // className="bg-indigo-900/20"
           >
-            <Box alignItems="center" justifyContent='flex-end'>
-              <Button variant="outlined" size="small">
-                Refresh
-              </Button>
+            <Box alignItems="center" justifyContent="flex-end">
+              {navMenu.map((item, i) => (
+                <Link href={`${item.link}/${item.children[0]}`} key={i}>
+                  <Button
+                    size="small"
+                    className="mr-2"
+                    startIcon={item.icon}
+                    variant={activeMenuLink == item.link ? "outlined" : "text"}
+                  >
+                    {item?.name}
+                  </Button>
+                </Link>
+              ))}
             </Box>
-          </Grid> */}
+          </Grid>
           <Grid
             item
             xs={2}
@@ -107,10 +135,12 @@ export default function DashboardLayout({
                 elevation={0}
               >
                 <MenuList id="basic-menu">
-                  {menu.map((item, i) => (
-                    <Link href={`/admin/${item}`} key={i}>
+                  {activeMenu?.children.map((item, i) => (
+                    <Link href={`${activeMenu.link}/${item}`} key={i}>
                       <MenuItem
-                        selected={router.pathname == `/admin/${item}`}
+                        selected={
+                          router.pathname == `${activeMenu.link}/${item}`
+                        }
                         className="capitalize"
                       >
                         {item}

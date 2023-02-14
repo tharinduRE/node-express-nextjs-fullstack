@@ -10,3 +10,10 @@ export interface Order extends IModel {
     status?: string
   }
   
+
+  export interface DailyOrders {
+    orders : Order[],
+    count: number,
+    date: string,
+    _id: string
+  }

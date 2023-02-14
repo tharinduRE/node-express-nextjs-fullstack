@@ -3,7 +3,7 @@ import m2s from "mongoose-to-swagger";
 import { ProductSchema } from "../product/product.model";
 import { Order, Order as OrderModel } from "./order";
 
-const orderSchema = new mongoose.Schema<Order>(
+export const orderSchema = new mongoose.Schema<Order>(
   {
     items: [{ product: ProductSchema, quantity: Number }],
     amount: {

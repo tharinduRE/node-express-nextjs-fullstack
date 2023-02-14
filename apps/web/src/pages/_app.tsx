@@ -25,10 +25,11 @@ import {
   Legend,
   BarElement,
   Filler,
+  defaults,
 } from "chart.js";
 import { SessionProvider } from "next-auth/react";
 import { PersistGate } from "redux-persist/integration/react";
-import apptheme from "../config/theme";
+import apptheme, { font } from "../config/theme";
 import store, { persistor } from "../store/store";
 import "../styles/global.css";
 import { SWRConfig } from "swr";
@@ -44,6 +45,8 @@ ChartJS.register(
   Tooltip,
   Legend
 );
+
+defaults.font.family = font.style.fontFamily;
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode;

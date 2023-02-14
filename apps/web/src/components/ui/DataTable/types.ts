@@ -18,6 +18,8 @@ export type DataTableProps<T> = {
   sortOrder: FilterAPI<T>['sortOrder']
   sortBy : FilterAPI<T>['sortBy'],
   filters: FilterAPI<T>['filters'],
+  hideActions?: boolean,
+  isLoading?:boolean,
   onSortCol?: (property: keyof T) => void;
   onSearchCol?: (property: keyof T, value: any) => void;
   onEditRow?: (row: T) => void;

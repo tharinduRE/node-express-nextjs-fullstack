@@ -31,8 +31,12 @@ export const addOne = (emp: Product) =>
 export const updateOne = (emp: Product) =>
   Client.put<Product>(`${employeeRoute}/${emp._id}`, emp);
 
-export const getProductById = (empId?: string) =>
-  Client.get<Product>(`${employeeRoute}/${empId}`);
+export const getProductById = (_id?: string) =>
+  Client.get<Product>(`${employeeRoute}/${_id}`);
 
-export const deleteOne = (empId?: string) =>
-  Client.delete(`${employeeRoute}/${empId}`);
+  export const getProductBySlug = (slug?: string) =>
+  Client.get<Product>(`${employeeRoute}/getbyslug/${slug}`);
+
+
+export const deleteOne = (_id?: string) =>
+  Client.delete(`${employeeRoute}/${_id}`);

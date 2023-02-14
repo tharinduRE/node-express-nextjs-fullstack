@@ -32,12 +32,22 @@ export const ProductSchema = new mongoose.Schema<Product>(
     slug: {
       type: String,
     },
-    active : {
+    active: {
       type: Boolean,
     },
   },
   {
     timestamps: true,
+  }
+);
+
+ProductSchema.index(
+  { category: 1 },
+  {
+    collation: {
+      locale: "en_US",
+      strength: 2,
+    },
   }
 );
 
@@ -49,7 +59,7 @@ ProductSchema.pre("save", async function (next) {
 ProductSchema.pre("insertMany", async function (next, docs) {
   if (Array.isArray(docs) && docs.length) {
     for (const doc of docs) {
-      doc.slug = slugify(doc.name)
+      doc.slug = slugify(doc.name);
     }
     next();
   }

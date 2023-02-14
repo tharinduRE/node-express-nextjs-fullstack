@@ -1,5 +1,5 @@
 import { FilterAPI } from "../../types/IFilterApi";
-import { Order } from "../../types/order";
+import { DailyOrders, Order } from "../../types/order";
 import { PaginatedResults } from "../../types/IPagination";
 import Client from "..";
 
@@ -14,10 +14,13 @@ export const getOrderList = (apiFilter?: FilterAPI<Order>) =>
     },
   });
 
+  
+export const getDailyOrders = () => Client.get<DailyOrders[]>(route + '/getdailyorders');
+
 export const addOne = (emp: Omit<Order,'_id'>) => Client.post<Order>(route, emp);
 
 export const updateOne = (emp: Order) =>
   Client.put<Order>(`${route}/${emp._id}`, emp);
-export const getOrderById = (empId?: string) =>
-  Client.get<Order>(`${route}/${empId}`);
-export const deleteOne = (empId?: string) => Client.delete(`${route}/${empId}`);
+export const getOrderById = (_id?: string) =>
+  Client.get<Order>(`${route}/${_id}`);
+export const deleteOne = (_id?: string) => Client.delete(`${route}/${_id}`);

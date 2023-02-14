@@ -26,6 +26,14 @@ export const getOne = asyncHandler(async (req: Request, res: Response) => {
   res.send(product);
 });
 
+export const getBySlug= asyncHandler(async (req: Request, res: Response) => {
+  const product = await ProductModel.findOne({ slug : req.params["slug"] });
+  if (!product) {
+    throw new ApiError(httpStatus.NOT_FOUND, "product not found");
+  }
+  res.send(product);
+});
+
 export const updateOne = asyncHandler(async (req: Request, res: Response) => {
   const product = await ProductModel.findByIdAndUpdate(
     new mongoose.Types.ObjectId(req.params["id"]),
@@ -56,13 +64,13 @@ export const getAll = asyncHandler(
     if (filters) {
       filterQuery = JSON.parse(filters as string);
     }
-    // console.log(filterQuery);
     let query : mongoose.FilterQuery<Product> = filterQuery;
-
+    
     if (q) {
       query = { $text: { $search: q as string } };
     }
-
+    
+    // console.log(query);
     const data = await ProductModel.find(query)
       .sort({ [String(orderBy)]: sortOrder })
       .skip((page + 1 - 1) * pageSize)
@@ -70,7 +78,6 @@ export const getAll = asyncHandler(
       .collation({ locale: "en_US", strength: 2 });
 
     const count = await ProductModel.countDocuments(query);
-
     res.status(httpStatus.OK).json({
       data,
       pagination: {

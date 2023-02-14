@@ -1,5 +1,4 @@
 /* eslint-disable @next/next/no-img-element */
-import { ShoppingCartIcon } from "@heroicons/react/24/outline";
 import { ArrowBack, ShoppingBag } from "@mui/icons-material";
 import {
   Badge,

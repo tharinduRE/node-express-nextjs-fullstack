@@ -3,6 +3,7 @@ import {
   create,
   deleteOne,
   getAll,
+  getBySlug,
   getOne,
   updateOne,
 } from "./product.controller";
@@ -19,6 +20,10 @@ router
 router
   .route("/search/")
   .get(validate(validation("getAll")),getAll)
+
+router
+  .route("/getBySlug/:slug")
+  .get(getBySlug)
 
 router
   .route("/:id")

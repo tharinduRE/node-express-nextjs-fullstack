@@ -1,7 +1,8 @@
 import DashboardLayout from "@components/layout/DashboardLayout";
 import { ProductTable } from "@components/product";
 import { ConfirmationDialog } from "@components/ui/ConfirmDialog";
-import { Alert, Box, Button } from "@mui/material";
+import { RefreshRounded } from "@mui/icons-material";
+import { Alert, Box, Button, IconButton } from "@mui/material";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useSnackbar } from "notistack";
@@ -15,12 +16,11 @@ export default function EmployeeListPage() {
   const router = useRouter();
   const dispatch = useAppDispatch();
   const { enqueueSnackbar } = useSnackbar();
-
-  const empState = useAppSelector((state) => state.product);
-  const { selectedProduct: selectedEmployee, ...rest } = empState;
+  const { selectedProduct: selectedEmployee, ...rest } = useAppSelector((state) => state.product);
+  
   const bulidFetcherKey = `products-${JSON.stringify(rest)}`;
 
-  const { data: data, error } = useSWR(
+  const { data: data, error,isValidating } = useSWR(
     bulidFetcherKey,
     () => getProductList({ ...rest }),
     {
@@ -29,6 +29,8 @@ export default function EmployeeListPage() {
       revalidateOnMount: true,
     }
   );
+
+  const refresh= () => mutate(bulidFetcherKey)
 
   const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
 
@@ -46,7 +48,7 @@ export default function EmployeeListPage() {
     try {
       await deleteOne(selectedEmployee?._id);
       dispatch(SELECTED(null));
-      mutate(bulidFetcherKey);
+      refresh();
       enqueueSnackbar(`Successfully Deleted Employee`, { variant: "success" });
     } catch (error) {
       enqueueSnackbar("Error Occured while deleteing", { variant: "error" });
@@ -55,16 +57,18 @@ export default function EmployeeListPage() {
     }
   };
 
+
   if (error)
     return <Alert severity="error">Error Occured during fetching data</Alert>;
   return (
     <>
-      <Box sx={{ display: "flex"}} marginBottom={1}>
+      <Box sx={{ display: "flex",justifyContent:'space-between'}} marginBottom={1}>
           <Link passHref href={`${router.pathname}/add`}>
             <Button id="add-button" variant="contained">Add Product</Button>
           </Link>
+          <Button onClick={refresh} id="refresh-button" startIcon={<RefreshRounded/>}>Refresh</Button>
       </Box>
-        <ProductTable data={data?.data} onEditRow={onEdit} onDeleteRow={onDelete} />
+        <ProductTable data={data?.data} onEditRow={onEdit} onDeleteRow={onDelete} isLoading={isValidating}/>
       <ConfirmationDialog
         open={openConfirmDialog}
         keepMounted={false}

@@ -1,18 +1,29 @@
 import { useTheme } from "@mui/material";
 import { ChartOptions } from "chart.js";
-import { format } from "date-fns";
-import { Line } from "react-chartjs-2";
-import { Order } from "../../../types/order";
+import { Bar, Line } from "react-chartjs-2";
+import { DailyOrders } from "../../../types/order";
 
-export function OrderChart({ data }: { data?: Order[] }) {
+export function OrderChart({ data }: { data?: DailyOrders[] }) {
   const theme = useTheme();
 
-  const options: ChartOptions<"line"> = {
+  const options: ChartOptions<"bar"> = {
     responsive: true,
     plugins: {
       legend: {
         display: false,
       },
+    },
+    scales: {
+      x: {
+        grid : {
+          display : false
+        }
+      },
+      y: {
+        grid : {
+          display : false
+        }
+      }
     },
     elements: {
       line: {
@@ -20,6 +31,11 @@ export function OrderChart({ data }: { data?: Order[] }) {
         borderWidth: 2,
         borderColor: theme.palette.primary.dark,
         fill: "start",
+        backgroundColor: theme.palette.info.light,
+      },
+      bar: {
+        borderWidth: 2,
+        borderColor: theme.palette.primary.dark,
         backgroundColor: theme.palette.info.light,
       },
       point: {
@@ -30,13 +46,11 @@ export function OrderChart({ data }: { data?: Order[] }) {
   };
 
   return (
-    <Line
+    <Bar
       options={options}
       data={{
-        labels: data?.map((e) =>
-          format(new Date(e.createdAt as Date), "MM-dd")
-        ),
-        datasets: [{ data: data?.map((e) => e.amount) }],
+        labels: data?.map((e) => e.date),
+        datasets: [{ data: data?.map((e) => e.count) }],
       }}
     />
   );

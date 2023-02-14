@@ -6,7 +6,7 @@ import Grid from "@mui/material/Grid";
 import DashboardLayout from "@components/layout/DashboardLayout";
 import { OrderChart } from "@components/dashboard/OrderChart";
 import useSWR from "swr";
-import { getOrderList } from "../../../lib/api/order";
+import { getDailyOrders, getOrderList } from "../../../lib/api/order";
 import StatCard from "@components/dashboard/StatCard";
 import { getProductList } from "../../../lib/api/product";
 import { getUserList } from "../../../lib/api/user";
@@ -26,6 +26,8 @@ export default function AdminDashboard() {
       filters: { status: "NEW" },
     })
   );
+
+  const { data: dailyOrders } = useSWR("dailyorder-chart", getDailyOrders);
 
   const { data: productData } = useSWR("product-chart", () =>
     getProductList({
@@ -56,9 +58,9 @@ export default function AdminDashboard() {
         <Grid item xs={4}>
           <StatCard number={userData?.data?.pagination?.count} title="Users" />
         </Grid>
-        <Grid item xs={8}>
+        <Grid item xs={6}>
           <Item>
-            <OrderChart data={orderData?.data?.data} />
+            <OrderChart data={dailyOrders?.data} />
           </Item>
         </Grid>
         <Grid item xs={4}>

@@ -1,14 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
-import { ShoppingCartIcon } from "@heroicons/react/24/outline";
-import { Badge, BadgeProps, Box, Button, Dialog, Drawer, Grid, IconButton, Slide, styled } from "@mui/material";
+import { ShoppingBag } from "@mui/icons-material";
+import { Badge, BadgeProps, Box, Button, Drawer, IconButton, styled } from "@mui/material";
+import DialogTitle from '@mui/material/DialogTitle';
 import { useState } from "react";
 import ShoppingCart from "./ShoppingCart";
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
-import { TransitionProps } from "@mui/material/transitions";
-import React from "react";
 
 const StyledBadge = styled(Badge)<BadgeProps>(({ theme }) => ({
   "& .MuiBadge-badge": {
@@ -34,7 +29,7 @@ export function CartBadge() {
     <>
       <StyledBadge badgeContent={4} color="secondary">
         <IconButton className="mr-4" onClick={handleClickOpen}>
-          <ShoppingCartIcon className="w-6" />
+          <ShoppingBag/>
         </IconButton>
       </StyledBadge>
       <Drawer

@@ -15,8 +15,6 @@
   "dependencies": {
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
-    "@headlessui/react": "^1.7.8",
-    "@heroicons/react": "^2.0.14",
     "@mui/icons-material": "^5.10.9",
     "@mui/material": "^5.10.12",
     "@next/font": "^13.1.6",

@@ -1,10 +1,9 @@
-import { Product } from "./product";
+import { faker } from "@faker-js/faker";
 import httpStatus from "http-status";
 import mongoose, { connect, Mongoose } from "mongoose";
 import request from "supertest";
-import config from "../../config";
-import { faker } from "@faker-js/faker";
 import app from "../../app";
+import config from "../../config";
 import { slugify } from "../common/utils";
 import ProductModel from "./product.model";
 
@@ -29,15 +28,21 @@ const insertProducts = async (products: Record<string, any>[]) => {
 
 describe("product routes", () => {
   let connection: Mongoose;
+  let token:string;
   beforeAll(async () => {
     connection = await connect(String(config.mongoose.url));
+    const response = await request(app).post(`/api/v1/auth/login`).send({email:'tharindure@gmail.com'})
+    token = response.body
+    console.log(token);
     // await ProductModel.deleteMany({})
-    // await insertProducts(createProducts());
+    await insertProducts(createProducts());
   });
+
 
   it("should return 201 & new product should created.", async () => {
     const res = await request(app)
       .post(`/api/v1/products`)
+      .set('Authorization',`Bearer ${token}`)
       .send(testProduct)
       .expect(httpStatus.CREATED);
 
