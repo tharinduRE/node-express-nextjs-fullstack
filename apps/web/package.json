@@ -28,7 +28,7 @@
     "formik": "^2.2.9",
     "js-cookie": "^3.0.1",
     "next": "^13.1.6",
-    "next-auth": "^4.19.2",
+    "next-auth": "latest",
     "next-themes": "^0.2.1",
     "notistack": "^2.0.8",
     "pino": "^8.8.0",
