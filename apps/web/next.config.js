@@ -9,12 +9,12 @@ const nextConfig = {
 
 module.exports = nextConfig;
 
-module.exports = withSentryConfig(
-  module.exports,
-  { silent: true },
-  {
-    hideSourcemaps: true,
-    disableServerWebpackPlugin: false,
-    disableClientWebpackPlugin: false,
-  }
-);
+// module.exports = withSentryConfig(
+//   module.exports,
+//   { silent: true },
+//   {
+//     hideSourcemaps: true,
+//     disableServerWebpackPlugin: false,
+//     disableClientWebpackPlugin: false,
+//   }
+// );
