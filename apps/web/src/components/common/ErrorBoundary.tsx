@@ -1,6 +1,5 @@
 import { Alert } from "@mui/material";
 import { Component, ErrorInfo, ReactNode } from "react";
-import logger from "../../config/logger";
 
 interface Props {
   children?: ReactNode;
@@ -21,7 +20,7 @@ class ErrorBoundary extends Component<Props, State> {
   }
 
   public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    logger.error("Uncaught error:", error, errorInfo);
+    console.log("Uncaught error:", error, errorInfo);
   }
 
   public render() {
