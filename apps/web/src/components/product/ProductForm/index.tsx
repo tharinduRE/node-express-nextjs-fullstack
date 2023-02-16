@@ -12,9 +12,11 @@ import { useFormik } from "formik";
 import { useSnackbar } from "notistack";
 import { addOne, updateOne } from "../../../lib/api/product";
 import { Product } from "../../../types/product";
+import { validationSchema } from "./validationSchema";
 
 export default function ProductForm({ product }: { product?: Product }) {
   const { enqueueSnackbar } = useSnackbar();
+
 
   const {
     handleSubmit,
@@ -30,10 +32,11 @@ export default function ProductForm({ product }: { product?: Product }) {
       description: "",
       listPrice: 0,
       category: "",
+      active : true,
       ...product,
     },
     enableReinitialize: true,
-    // validationSchema: validationSchema,
+    validationSchema: validationSchema,
     onSubmit: async () => {
       try {
         const emp = product
@@ -59,6 +62,12 @@ export default function ProductForm({ product }: { product?: Product }) {
       }
     },
   });
+
+
+  const errorProps = (field: keyof Product) => ({
+    error: touched[field] && Boolean(errors[field]),
+    helperText: touched[field] && errors[field],
+  })
 
   return (
     <Box
@@ -86,6 +95,7 @@ export default function ProductForm({ product }: { product?: Product }) {
               name="name"
               onChange={handleChange}
               value={values.name}
+              {...errorProps('name')}
             />
 
             <TextField
@@ -96,6 +106,7 @@ export default function ProductForm({ product }: { product?: Product }) {
               rows={5}
               onChange={handleChange}
               value={values.description}
+              {...errorProps('description')}
             />
             <TextField
               id="name"
@@ -103,6 +114,7 @@ export default function ProductForm({ product }: { product?: Product }) {
               name="listPrice"
               onChange={handleChange}
               value={values.listPrice}
+              {...errorProps('listPrice')}
             />
             <TextField
               id="name"
@@ -110,6 +122,7 @@ export default function ProductForm({ product }: { product?: Product }) {
               name="category"
               onChange={handleChange}
               value={values.category}
+              {...errorProps('category')}
             />
             <TextField
               id="name"
@@ -117,6 +130,7 @@ export default function ProductForm({ product }: { product?: Product }) {
               name="subcategory"
               onChange={handleChange}
               value={values.subcategory}
+              {...errorProps('subcategory')}
             />
             {/* <FormControl
               variant="standard"

@@ -5,6 +5,7 @@ import {
   getAll,
   getAllDailyOrders,
   getOne,
+  getOrdersByStatus,
   updateOne,
 } from "./order.controller";
 import { validation } from "./order.validation";
@@ -20,6 +21,10 @@ router
 router
   .route("/getdailyorders")
   .get(getAllDailyOrders)
+
+router
+  .route("/getordersbystatus")
+  .get(getOrdersByStatus)
 
 router
   .route("/:orderId")

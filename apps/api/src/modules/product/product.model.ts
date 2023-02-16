@@ -2,11 +2,13 @@ import { slugify } from "./../common/utils";
 import mongoose from "mongoose";
 import m2s from "mongoose-to-swagger";
 import { Product, Product as ProductModel } from "./product";
+import { faker } from "@faker-js/faker";
 
 export const ProductSchema = new mongoose.Schema<Product>(
   {
     itemId: {
       type: String,
+      default : faker.random.numeric(6, { allowLeadingZeros: true })
     },
     name: {
       type: String,
@@ -34,6 +36,7 @@ export const ProductSchema = new mongoose.Schema<Product>(
     },
     active: {
       type: Boolean,
+      default : false,
     },
   },
   {

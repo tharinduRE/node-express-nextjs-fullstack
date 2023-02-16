@@ -11,7 +11,7 @@ export default function SearchBar() {
   ) => {
     e.preventDefault();
     let q = e.target?.[0].value
-    router.push({pathname : 'shop', query : {q}})
+    router.push({pathname : `${router.basePath}/shop`, query : {q}})
   };
 
   return (

@@ -1,4 +1,4 @@
-import DashboardLayout from "@components/layout/DashboardLayout";
+import DashboardLayout from "@components/layout/Dashboard";
 import ProductForm from "@components/product/ProductForm";
 import { ArrowBackSharp } from "@mui/icons-material";
 import { Grid, IconButton, Typography } from "@mui/material";

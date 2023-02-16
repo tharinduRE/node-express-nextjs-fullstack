@@ -1,5 +1,5 @@
 import DashboardLayout from "@components/layout/Dashboard";
-import { ProductForm } from "@components/product";
+import OrderForm from "@components/order/OrderForm";
 import { ArrowBackSharp } from "@mui/icons-material";
 import {
   Alert, CircularProgress,
@@ -11,20 +11,20 @@ import { useRouter } from "next/router";
 import { ReactElement } from "react";
 import { useSelector } from "react-redux";
 import useSWR from "swr";
-import { getProductById } from "../../../../lib/api/product";
+import { getOrderById } from "../../../../lib/api/order";
 import { RootState } from "../../../../store/store";
 
-export default function ProductEdit() {
+export default function OrderEdit() {
   const router = useRouter();
   const { id } = router.query;
 
-  const selectedProduct = useSelector(
-    (state: RootState) => state.product.selectedProduct
+  const selectedOrder = useSelector(
+    (state: RootState) => state.order.selectedOrder
   );
 
   const { data: data, error } = useSWR(
-    !selectedProduct && id ? `employe-${id}` : null,
-    () => getProductById(String(id)),
+    !selectedOrder && id ? `employe-${id}` : null,
+    () => getOrderById(String(id)),
     {
       revalidateOnFocus: false,
     }
@@ -36,23 +36,23 @@ export default function ProductEdit() {
         <IconButton onClick={() => router.back()} sx={{marginRight:1}}>
           <ArrowBackSharp />
         </IconButton>
-        <Typography variant='h6'>Edit Product</Typography>
+        <Typography variant='h6'>Order Details</Typography>
       </Grid>
-      {!data && !selectedProduct ? (
+      {!data && !selectedOrder ? (
         error ? (
-          <Alert severity="error">No Matching Product Found</Alert>
+          <Alert severity="error">No Matching Order Found</Alert>
         ) : (
           <CircularProgress />
         )
       ) : (
-        <ProductForm product={selectedProduct || data?.data} />
+        <OrderForm order={selectedOrder || data?.data} />
       )}
     </>
   );
 }
 
 
-ProductEdit.getLayout = function getLayout(page:ReactElement) {
+OrderEdit.getLayout = function getLayout(page:ReactElement) {
   return (
     <DashboardLayout>
       {page}

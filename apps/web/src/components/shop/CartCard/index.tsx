@@ -13,18 +13,19 @@ import { Product } from "../../../types/product";
 
 import { ArrowDropDownRounded, ArrowDropUpRounded } from "@mui/icons-material";
 import { useSnackbar } from "notistack";
+import { getDummyImage } from "@components/product/helpers";
 
 export function CartProductCard({
-  product,
+  cartItem,
 }: {
-  product: { product: Product; quantity: number };
+  cartItem: { product: Product; quantity: number };
 }) {
   const dispatch = useAppDispatch();
   const { enqueueSnackbar } = useSnackbar();
 
   const handleRemoveFromCart = () => { 
     enqueueSnackbar('Removed from Cart',{variant : 'success'})
-    dispatch(REMOVE(product.product._id))
+    dispatch(REMOVE(cartItem.product._id))
    }
   return (
     <Card sx={{ display: "flex", marginY: 3 }} elevation={0}>
@@ -39,7 +40,7 @@ export function CartProductCard({
       >
         <CardMedia
           component="img"
-          src="https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-01.jpg"
+          src={getDummyImage(cartItem.product)}
           alt="product-image"
         />
       </Box>
@@ -63,9 +64,9 @@ export function CartProductCard({
             flexDirection: "column",
           }}
         >
-          <Typography variant="body1">{product.product.name}</Typography>
+          <Typography variant="body1">{cartItem.product.name}</Typography>
           <Typography variant="subtitle1" sx={{ marginTop: 1 }}>
-            $ {product.product.listPrice}
+            $ {cartItem.product.listPrice}
           </Typography>
         </Box>
 
@@ -80,13 +81,13 @@ export function CartProductCard({
           <div className="text-gray-500">
             Qty
             <IconButton
-             onClick={() => dispatch(DECREMENT(product.product._id))}
+             onClick={() => dispatch(DECREMENT(cartItem.product._id))}
             >
               <ArrowDropDownRounded fontSize="large" />
             </IconButton>
-            {product.quantity}
+            {cartItem.quantity}
             <IconButton
-              onClick={() => dispatch(INCREMENT(product.product._id))}
+              onClick={() => dispatch(INCREMENT(cartItem.product._id))}
             >
               <ArrowDropUpRounded fontSize="large" />
             </IconButton>

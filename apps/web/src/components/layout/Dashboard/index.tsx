@@ -1,37 +1,21 @@
 /* eslint-disable @next/next/no-img-element */
 import LoginButton from "@components/ui/LoginButton";
+import { Home } from "@mui/icons-material";
 import {
-  Avatar,
   Button,
   Container,
   Grid,
   MenuItem,
   MenuList,
   Paper,
-  styled,
+  styled
 } from "@mui/material";
 import Box from "@mui/material/Box";
+import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import FolderIcon from "@mui/icons-material/Folder";
-import Head from "next/head";
-import { DashboardRounded } from "@mui/icons-material";
+import { navbarMenu } from "./navbarMenu";
 
-const navMenu = [
-  {
-    name: "Dashboard",
-    icon: <DashboardRounded />,
-    link: "/admin",
-    children: ["dashboard", "products", "orders"],
-  },
-  {
-    name: "Administration",
-    link: "/admin/administration",
-    children: ["users", "roles"],
-  },
-];
-
-const links_menu = ["/", "products"];
 
 const Header = styled("header")(({ theme }) => [
   {
@@ -53,7 +37,7 @@ export default function DashboardLayout({
   const router = useRouter();
   const activeMenuLink =
     router.pathname.split("/")[router.pathname.split("/").length - 1];
-  const activeMenu = navMenu.find(
+  const activeMenu = navbarMenu.find(
     (e) => e.children.findIndex((e) => e == activeMenuLink) !== -1
   );
 
@@ -64,7 +48,7 @@ export default function DashboardLayout({
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <Box sx={{ flexGrow: 1 }}>
-        <Header className="bg-indigo-900/50">
+        <Header className="bg-gray-900/90">
           <div className="px-6 lg:px-8">
             <nav
               className="flex items-center justify-between h-12"
@@ -106,19 +90,30 @@ export default function DashboardLayout({
             }}
             // className="bg-indigo-900/20"
           >
-            <Box alignItems="center" justifyContent="flex-end">
-              {navMenu.map((item, i) => (
-                <Link href={`${item.link}/${item.children[0]}`} key={i}>
-                  <Button
-                    size="small"
-                    className="mr-2"
-                    startIcon={item.icon}
-                    variant={activeMenuLink == item.link ? "outlined" : "text"}
-                  >
-                    {item?.name}
-                  </Button>
-                </Link>
-              ))}
+            <Box
+              alignItems="center"
+              display="flex"
+              justifyContent="space-between"
+            >
+              <div>
+                {navbarMenu.map((item, i) => (
+                  <Link href={`${item.link}/${item.children[0]}`} key={i}>
+                    <Button
+                      size="small"
+                      className="mr-2"
+                      startIcon={item.icon}
+                      variant={
+                        activeMenuLink == item.link ? "outlined" : "text"
+                      }
+                    >
+                      {item?.name}
+                    </Button>
+                  </Link>
+                ))}
+              </div>
+              <Link href={`/`}>
+                <Button size="small" startIcon={<Home/>}>Home</Button>
+              </Link>
             </Box>
           </Grid>
           <Grid
@@ -150,23 +145,6 @@ export default function DashboardLayout({
                 </MenuList>
               </Paper>
             </Grid>
-            {/* <Grid item><Paper
-              sx={{ width: 320, maxWidth: "100%", height: "100%" }}
-              elevation={0}
-            
-            >
-              <MenuList id="links-menu">
-                {links_menu.map((item, i) => (
-                  <Link href={`/${item}`} key={i}>
-                    <MenuItem
-                      className="capitalize"
-                    >
-                      {item}
-                    </MenuItem>
-                  </Link>
-                ))}
-              </MenuList>
-            </Paper></Grid> */}
           </Grid>
           <Grid item xs={10} paddingX={2} paddingTop={1}>
             <Container maxWidth="xl" disableGutters sx={{ minHeight: "100vh" }}>

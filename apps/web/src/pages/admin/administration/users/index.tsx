@@ -1,4 +1,4 @@
-import DashboardLayout from "@components/layout/DashboardLayout";
+import DashboardLayout from "@components/layout/Dashboard";
 import { UserTable } from "@components/user";
 import { Alert } from "@mui/material";
 import { ReactElement } from "react";

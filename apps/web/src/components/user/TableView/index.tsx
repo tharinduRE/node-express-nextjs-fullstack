@@ -20,6 +20,9 @@ const headCells: HeadCell<User>[] = [
     id: "_id",
   },
   {
+    id: "role",
+  },
+  {
     id: "name",
   },
   {

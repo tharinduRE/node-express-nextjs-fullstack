@@ -20,7 +20,6 @@ export default function PrimaryLayout({
       </Box>
       <Box
         paddingBottom={10}
-        paddingTop={5}
         component="main"
         marginTop={8}
         minHeight="100vh"

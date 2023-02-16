@@ -31,3 +31,18 @@ export async function getDailyOrders() {
   await OrderModel.aggregate(pipeline);
   return DailyOrderModel.find();
 }
+
+export async function getOrderCountByStatus() {
+  const pipeline: PipelineStage[] = [
+    {
+      $group: {
+        _id: "$status",
+        count: {
+          $sum: 1,
+        },
+      },
+    },
+  ];
+
+  return OrderModel.aggregate(pipeline);
+}

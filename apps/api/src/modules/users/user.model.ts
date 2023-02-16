@@ -18,6 +18,11 @@ export const UserSchema = new mongoose.Schema<User>(
     provider: {
       type: String,
     },
+    role: {
+      type: String,
+      default : 'USER',
+      enum: ["ADMIN","USER"],
+    },
   },
   {
     timestamps: true,

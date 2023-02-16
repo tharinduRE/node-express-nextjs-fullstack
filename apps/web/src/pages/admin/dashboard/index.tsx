@@ -3,13 +3,18 @@ import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
-import DashboardLayout from "@components/layout/DashboardLayout";
+import DashboardLayout from "@components/layout/Dashboard";
 import { OrderChart } from "@components/dashboard/OrderChart";
 import useSWR from "swr";
-import { getDailyOrders, getOrderList } from "../../../lib/api/order";
+import {
+  getDailyOrders,
+  getOrderCountByStatus,
+  getOrderList,
+} from "../../../lib/api/order";
 import StatCard from "@components/dashboard/StatCard";
 import { getProductList } from "../../../lib/api/product";
 import { getUserList } from "../../../lib/api/user";
+import { OrderPieChart } from "@components/dashboard/OrderPieChart";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -20,12 +25,7 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 export default function AdminDashboard() {
-  const { data: orderData } = useSWR("order-chart", () =>
-    getOrderList({
-      pagination: { page: 0, pageSize: 10 },
-      filters: { status: "NEW" },
-    })
-  );
+  const { data: ordercountData } = useSWR("order-chart", getOrderCountByStatus);
 
   const { data: dailyOrders } = useSWR("dailyorder-chart", getDailyOrders);
 
@@ -43,28 +43,41 @@ export default function AdminDashboard() {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={2}>
-        <Grid item xs={4}>
+        <Grid item xs={3}>
           <StatCard
-            number={orderData?.data?.pagination?.count}
+            number={
+              ordercountData?.data?.find((e) => e._id === "NEW")?.count || 0
+            }
             title="New Orders"
           />
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={3}>
+          <StatCard
+            number={
+              ordercountData?.data?.find((e) => e._id === "CANCELLED")?.count ||
+              0
+            }
+            title="Cancelled Orders"
+          />
+        </Grid>
+        <Grid item xs={3}>
           <StatCard
             number={productData?.data?.pagination?.count}
             title="Active Products"
           />
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={3}>
           <StatCard number={userData?.data?.pagination?.count} title="Users" />
+        </Grid>
+        <Grid item xs={3}>
+          <Item>
+            <OrderPieChart data={ordercountData?.data} />
+          </Item>
         </Grid>
         <Grid item xs={6}>
           <Item>
             <OrderChart data={dailyOrders?.data} />
           </Item>
-        </Grid>
-        <Grid item xs={4}>
-          {/* <Item>xs=4</Item> */}
         </Grid>
       </Grid>
     </Box>

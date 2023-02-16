@@ -1,3 +1,4 @@
+import { OrderCountResponse, OrderStatus } from './../../types/order';
 import { FilterAPI } from "../../types/IFilterApi";
 import { DailyOrders, Order } from "../../types/order";
 import { PaginatedResults } from "../../types/IPagination";
@@ -16,6 +17,8 @@ export const getOrderList = (apiFilter?: FilterAPI<Order>) =>
 
   
 export const getDailyOrders = () => Client.get<DailyOrders[]>(route + '/getdailyorders');
+
+export const getOrderCountByStatus = () => Client.get<OrderCountResponse>(route + '/getordersbystatus');
 
 export const addOne = (emp: Omit<Order,'_id'>) => Client.post<Order>(route, emp);
 

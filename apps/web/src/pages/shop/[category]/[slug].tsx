@@ -51,7 +51,7 @@ export default function Example() {
 
   return (
     <div className="bg-white">
-      <div className="pt-6">
+      <div className="pt-2">
         <Breadcrumbs
           aria-label="breadcrumb"
           className="px-8 pt-4"

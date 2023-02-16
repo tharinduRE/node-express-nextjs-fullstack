@@ -2,9 +2,14 @@ import mongoose from "mongoose";
 import m2s from "mongoose-to-swagger";
 import { ProductSchema } from "../product/product.model";
 import { Order, Order as OrderModel } from "./order";
+import { faker } from "@faker-js/faker";
 
 export const orderSchema = new mongoose.Schema<Order>(
   {
+    orderNo:{
+      type: String,
+      default : faker.random.numeric(9, { allowLeadingZeros: true })
+    },
     items: [{ product: ProductSchema, quantity: Number }],
     amount: {
       type: Number,

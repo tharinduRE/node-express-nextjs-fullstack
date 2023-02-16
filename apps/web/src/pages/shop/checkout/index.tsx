@@ -22,7 +22,7 @@ export default function CheckoutPage() {
       });
       if (res.status == 201) {
         dispatch(CLEAR());
-        router.replace('/')
+        router.replace({pathname : `/shop/order/completed`,query : {ref : res?.data?.orderNo}})
       }
     } catch (e) {
       console.error(e);
@@ -47,7 +47,7 @@ export default function CheckoutPage() {
             size="large"
             onClick={confirmOrder}
           >
-            Confirm
+            Confirm &amp; Pay
           </Button>
         </Paper>
       </Grid>

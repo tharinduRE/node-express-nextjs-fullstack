@@ -58,13 +58,13 @@ export default function ProductList({
   return (
     <div className="bg-white rounded-xl">
       {query && (
-        <Typography variant="h6">
+        <Typography variant="h6" sx={{paddingTop:3}}>
           Search results for : <b>{query}</b>
         </Typography>
       )}
       {filter &&
         Object.entries(filter).map(([k, v]) => (
-          <Typography variant="h6" className="capitalize">
+          <Typography variant="h6" className="capitalize" sx={{paddingTop:3}}>
             {k}{" "}
             <Typography variant="body1" component="span" className="ml-3">
               <b>{v}</b>

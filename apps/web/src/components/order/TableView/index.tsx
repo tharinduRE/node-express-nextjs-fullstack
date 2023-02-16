@@ -1,20 +1,23 @@
 import { DataTable } from "@components/ui/DataTable";
-import { Button, Chip, ChipProps } from "@mui/material";
+import { Button, Chip } from "@mui/material";
 import { format } from "date-fns";
 import _ from "lodash";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
-import { FILTER, ORDER, PAGINATION } from "../../../store/slices/order";
-import { Order } from "../../../types/order";
+import {
+  FILTER,
+  ORDER, PAGINATION
+} from "../../../store/slices/order";
+import { Order, OrderStatus } from "../../../types/order";
 import { HeadCell, TableViewProps } from "../../ui/DataTable/types";
-
-const orderStatusColors : {[s:string]: ChipProps['color']} = {
-  'NEW' : 'info',
-}
+import { orderStatusColors } from "../statuscolors";
 
 const headCells: HeadCell<Order>[] = [
   {
+    id: 'orderNo',
+  },
+  {
     id: "status",
-    formatter(x) {
+    formatter(x: OrderStatus) {
       return <Chip label={x} size="small" color={orderStatusColors[x]} />;
     },
   },
@@ -37,8 +40,8 @@ const headCells: HeadCell<Order>[] = [
     },
   },
   {
-    id: 'userId',
-    label : 'Ordered By',
+    id: "userId",
+    label: "Ordered By",
     formatter(x) {
       return x?.email || x;
     },
@@ -52,7 +55,11 @@ const headCells: HeadCell<Order>[] = [
 ];
 
 export default function TableView(props: TableViewProps<Order>) {
-  const { sortOrder: order, sortBy: orderBy, filters } = useAppSelector((state) => state.order);
+  const {
+    sortOrder: order,
+    sortBy: orderBy,
+    filters,
+  } = useAppSelector((state) => state.order);
   const dispatch = useAppDispatch();
 
   const handleRequestSort = (property: any) => {

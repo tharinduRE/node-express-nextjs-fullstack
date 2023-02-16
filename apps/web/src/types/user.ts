@@ -5,5 +5,6 @@ export interface User extends IModel {
     email: string,
     name : string,
     provider: string
+    role: 'ADMIN' | 'USER'
   }
   

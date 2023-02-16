@@ -18,8 +18,8 @@ export const login = asyncHandler(async (req: Request, res: Response) => {
   }
 
   if (user) {
-    const { email, id, provider } = user;
-    const jwt = await new jose.SignJWT({ user: { email, id, provider } })
+    const { email, id, provider,role } = user;
+    const jwt = await new jose.SignJWT({ user: { email, id, provider,role } })
       .setProtectedHeader({ alg: "HS256" })
       .setIssuedAt()
       .setIssuer("urn:expressapi:issuer")

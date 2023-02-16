@@ -1,4 +1,4 @@
-import DashboardLayout from "@components/layout/DashboardLayout";
+import DashboardLayout from "@components/layout/Dashboard";
 import { OrderTable } from "@components/order";
 import { ConfirmationDialog } from "@components/ui/ConfirmDialog";
 import { Alert } from "@mui/material";
@@ -36,6 +36,11 @@ export default function OrderListPage() {
     setOpenConfirmDialog(true);
   };
 
+  const onEdit = (row: any) => {
+    dispatch(SELECTED(row));
+    router.push({pathname : router.pathname + `/details/${row._id}`});
+  };
+
   const onDeleteConfirmation = async () => {
     try {
       await deleteOne(selectedOrder?._id);
@@ -58,7 +63,7 @@ export default function OrderListPage() {
             <Button id="add-button" variant="contained">Add Order</Button>
           </Link>
       </Box> */}
-        <OrderTable data={data?.data} onDeleteRow={onDelete} />
+        <OrderTable data={data?.data} onEditRow={onEdit}/>
       <ConfirmationDialog
         open={openConfirmDialog}
         keepMounted={false}

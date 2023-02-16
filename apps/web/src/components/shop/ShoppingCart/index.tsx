@@ -8,7 +8,7 @@ export default function ShoppingCart() {
   return (
     <Grid>
       {cart?.items?.map((product, i) => (
-        <CartProductCard product={product} key={i} />
+        <CartProductCard cartItem={product} key={i} />
       ))}
     </Grid>
   );

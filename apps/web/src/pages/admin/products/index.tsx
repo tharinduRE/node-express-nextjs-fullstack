@@ -1,4 +1,4 @@
-import DashboardLayout from "@components/layout/DashboardLayout";
+import DashboardLayout from "@components/layout/Dashboard";
 import { ProductTable } from "@components/product";
 import { ConfirmationDialog } from "@components/ui/ConfirmDialog";
 import { RefreshRounded } from "@mui/icons-material";

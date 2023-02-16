@@ -7,7 +7,7 @@ import asyncHandler from "../../middleware/asyncHandler";
 import OrderModel from "./order.model";
 import { Order } from "./order";
 import { PaginatedResults } from "../common/pagination";
-import { getDailyOrders } from "./order.service";
+import { getDailyOrders, getOrderCountByStatus } from "./order.service";
 
 /**
  *  Create
@@ -37,6 +37,11 @@ export const updateOne = asyncHandler(async (req: Request, res: Response) => {
 
 export const getAllDailyOrders = asyncHandler(async (req: Request, res: Response) => {
   const orders = await getDailyOrders()
+  res.send(orders);
+});
+
+export const getOrdersByStatus = asyncHandler(async (req: Request, res: Response) => {
+  const orders = await getOrderCountByStatus()
   res.send(orders);
 });
 
