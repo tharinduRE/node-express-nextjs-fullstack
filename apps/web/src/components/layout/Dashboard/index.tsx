@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import LoginButton from "@components/ui/LoginButton";
-import { Home } from "@mui/icons-material";
+import Home from "@mui/icons-material/Home";
 import {
   Button,
   Container,

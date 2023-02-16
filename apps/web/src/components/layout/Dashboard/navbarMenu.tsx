@@ -1,4 +1,4 @@
-import { DashboardRounded } from "@mui/icons-material";
+import DashboardRounded from "@mui/icons-material/DashboardRounded";
 
 export const navbarMenu = [
   {

@@ -1,4 +1,5 @@
-import { Logout, Settings } from "@mui/icons-material";
+import Settings from "@mui/icons-material/Settings";
+import Logout from "@mui/icons-material/Logout";
 import {
   Avatar,
   Button,

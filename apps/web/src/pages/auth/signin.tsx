@@ -1,5 +1,6 @@
-import { GitHub } from "@mui/icons-material";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import GitHub  from "@mui/icons-material/GitHub";
+import LockOutlined  from "@mui/icons-material/LockOutlined";
+
 import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -23,7 +24,7 @@ export default function SignIn() {
         }}
       >
         <Avatar sx={{ m: 1, bgcolor: "black" }}>
-          <LockOutlinedIcon />
+          <LockOutlined />
         </Avatar>
         <Typography component="h1" variant="h5" fontWeight="bolder">
           Sign in

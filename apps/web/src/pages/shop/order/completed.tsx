@@ -1,4 +1,4 @@
-import { CheckCircleRounded } from "@mui/icons-material";
+import CheckCircleRounded  from "@mui/icons-material/CheckCircleRounded";
 import { Button } from "@mui/material";
 import Link from "next/link";
 import { useRouter } from "next/router";

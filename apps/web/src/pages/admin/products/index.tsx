@@ -1,7 +1,7 @@
 import DashboardLayout from "@components/layout/Dashboard";
 import { ProductTable } from "@components/product";
 import { ConfirmationDialog } from "@components/ui/ConfirmDialog";
-import { RefreshRounded } from "@mui/icons-material";
+import RefreshRounded from "@mui/icons-material/RefreshRounded";
 import { Alert, Box, Button, IconButton } from "@mui/material";
 import Link from "next/link";
 import { useRouter } from "next/router";

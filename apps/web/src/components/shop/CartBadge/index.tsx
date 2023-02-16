@@ -1,5 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
-import { ArrowBack, ShoppingBag } from "@mui/icons-material";
+import ShoppingBag from "@mui/icons-material/ShoppingBag";
+import ArrowBack from "@mui/icons-material/ArrowBack";
+
 import {
   Badge,
   BadgeProps,

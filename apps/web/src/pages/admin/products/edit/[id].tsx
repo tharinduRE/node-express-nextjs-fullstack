@@ -1,6 +1,6 @@
 import DashboardLayout from "@components/layout/Dashboard";
 import { ProductForm } from "@components/product";
-import { ArrowBackSharp } from "@mui/icons-material";
+import ArrowBackSharp from "@mui/icons-material/ArrowBackSharp";
 import {
   Alert, CircularProgress,
   Grid,

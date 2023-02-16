@@ -1,6 +1,8 @@
 import { SpinnerUI } from "@components/ui/SpinnerUI";
-import { Edit, FilterList, FilterListOff } from "@mui/icons-material";
-import DeleteIcon from "@mui/icons-material/Delete";
+import Delete from "@mui/icons-material/Delete";
+import Edit from "@mui/icons-material/Edit";
+import FilterList from "@mui/icons-material/FilterList";
+import FilterListOff from "@mui/icons-material/FilterListOff";
 import {
   Alert,
   Box,
@@ -190,7 +192,7 @@ export function DataTable<T>({
                       color="error"
                       onClick={() => onDeleteRow(row)}
                     >
-                      <DeleteIcon />
+                      <Delete />
                     </IconButton>
                   )}
                 </TableCell> }

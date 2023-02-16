@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import { ShoppingBag } from "@mui/icons-material";
+import ShoppingBag  from "@mui/icons-material/ShoppingBag";
 import { Badge, BadgeProps, Box, Button, Drawer, IconButton, styled } from "@mui/material";
 import DialogTitle from '@mui/material/DialogTitle';
 import { useState } from "react";

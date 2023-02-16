@@ -1,4 +1,4 @@
-import SearchIcon from "@mui/icons-material/Search";
+import Search from "@mui/icons-material/Search";
 import IconButton from "@mui/material/IconButton";
 import InputBase from "@mui/material/InputBase";
 import Paper from "@mui/material/Paper";
@@ -36,7 +36,7 @@ export default function SearchBar() {
         name='query'
       />
       <IconButton type="submit" sx={{ p: "10px" }} aria-label="search">
-        <SearchIcon />
+        <Search />
       </IconButton>
     </Paper>
   );

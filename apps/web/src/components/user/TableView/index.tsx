@@ -1,5 +1,5 @@
 import { DataTable } from "@components/ui/DataTable";
-import { GitHub } from "@mui/icons-material";
+import GitHub from "@mui/icons-material/GitHub";
 import { format } from "date-fns";
 import _ from "lodash";
 import { OAuthProviderType } from "next-auth/providers";

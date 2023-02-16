@@ -11,7 +11,9 @@ import { useAppDispatch } from "../../../store/hooks";
 import { DECREMENT, INCREMENT, REMOVE } from "../../../store/slices/cart";
 import { Product } from "../../../types/product";
 
-import { ArrowDropDownRounded, ArrowDropUpRounded } from "@mui/icons-material";
+import ArrowDropUpRounded  from "@mui/icons-material/ArrowDropUpRounded";
+import ArrowDropDownRounded  from "@mui/icons-material/ArrowDropDownRounded";
+
 import { useSnackbar } from "notistack";
 import { getDummyImage } from "@components/product/helpers";
 
