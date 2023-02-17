@@ -42,10 +42,10 @@ export default router;
 
 /**
  * @swagger
- * /employees:
+ * /products:
  *   post:
  *     summary: Create a product
- *     description: Only admins can create other employees.
+ *     description: Only admins can create other products.
  *     tags: [Products]
  *     requestBody:
  *       required: true
@@ -68,8 +68,8 @@ export default router;
  *                $ref: '#/components/schemas/Product'
  *
  *   get:
- *     summary: Get all employees
- *     description: Only admins can retrieve all employees.
+ *     summary: Get all products
+ *     description: Only admins can retrieve all products.
  *     tags: [Products]
 
  *     parameters:
@@ -89,7 +89,7 @@ export default router;
  *           type: integer
  *           minimum: 1
  *         default: 10
- *         description: Maximum number of employees
+ *         description: Maximum number of products
  *       - in: query
  *         name: page
  *         schema:
@@ -125,10 +125,10 @@ export default router;
 
 /**
  * @swagger
- * /employees/{id}:
+ * /products/{id}:
  *   get:
  *     summary: Get a product
- *     description: Logged in employees can fetch only their own product information. Only admins can fetch other employees.
+ *     description: Logged in products can fetch only their own product information. Only admins can fetch other products.
  *     tags: [Products]
  *     parameters:
  *       - in: path
@@ -147,7 +147,7 @@ export default router;
  *
  *   put:
  *     summary: Update a product
- *     description: Logged in employees can only update their own information. Only admins can update other employees.
+ *     description: Logged in products can only update their own information. Only admins can update other products.
  *     tags: [Products]
  *     parameters:
  *       - in: path
@@ -174,7 +174,7 @@ export default router;
  *
  *   delete:
  *     summary: Delete a product
- *     description: Logged in employees can delete only themselves. Only admins can delete other employees.
+ *     description: Logged in products can delete only themselves. Only admins can delete other products.
  *     tags: [Products]
  *     parameters:
  *       - in: path

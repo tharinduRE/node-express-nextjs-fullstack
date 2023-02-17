@@ -36,6 +36,7 @@ export function ProductCard({ product }: { product: Product }): JSX.Element {
         $ {product.listPrice}
       </div>
       <Button
+        role='add-to-cart-button'
         fullWidth
         variant="contained"
         // sx={{ backgroundColor: "gray" }}

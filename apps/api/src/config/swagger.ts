@@ -1,4 +1,5 @@
 import { OAS3Definition } from "swagger-jsdoc";
+import { swaggerSchemas } from "../modules/common/swaggerSchema";
 
 /**
  *  Swagger Definition
@@ -7,9 +8,9 @@ import { OAS3Definition } from "swagger-jsdoc";
 const swagger: OAS3Definition = {
   openapi: "3.0.0",
   info: {
-    title: "Employee Manager API documentation",
+    title: "Shopping App API documentation",
     version: "0.0.1",
-    description: "This is a node express mongoose typescript",
+    description: "This is a node express mongoose typescript API",
     license: {
       name: "MIT",
     },
@@ -20,7 +21,16 @@ const swagger: OAS3Definition = {
       description: "Express Server",
     },
   ],
-  // components: { schemas: swaggerSchema },
+  components: {
+    schemas: swaggerSchemas,
+    securitySchemes: {
+      bearerAuth: {
+        type: "http",
+        scheme: "bearer",
+        bearerFormat: "JWT",
+      },
+    },
+  },
 };
 
 export default swagger;

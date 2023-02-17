@@ -36,7 +36,7 @@ const headCells: HeadCell<Order>[] = [
     id: "amount",
     // searchable: true,
     formatter(x) {
-      return x.toFixed(2);
+      return x?.toFixed(2);
     },
   },
   {

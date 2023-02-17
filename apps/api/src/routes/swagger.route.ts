@@ -13,7 +13,10 @@ router.use("/", swaggerUi.serve);
 router.get(
   "/",
   swaggerUi.setup(specs, {
-    explorer: true,
+    explorer: false,
+    swaggerOptions: {
+      docExpansion:"list"
+    }
   })
 );
 

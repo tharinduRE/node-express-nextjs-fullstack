@@ -33,10 +33,10 @@ export default router;
 
 /**
  * @swagger
- * /employees:
+ * /users:
  *   post:
  *     summary: Create a user
- *     description: Only admins can create other employees.
+ *     description: Only admins can create other users.
  *     tags: [Users]
  *     requestBody:
  *       required: true
@@ -59,8 +59,8 @@ export default router;
  *                $ref: '#/components/schemas/User'
  *
  *   get:
- *     summary: Get all employees
- *     description: Only admins can retrieve all employees.
+ *     summary: Get all users
+ *     description: Only admins can retrieve all users.
  *     tags: [Users]
 
  *     parameters:
@@ -80,7 +80,7 @@ export default router;
  *           type: integer
  *           minimum: 1
  *         default: 10
- *         description: Maximum number of employees
+ *         description: Maximum number of users
  *       - in: query
  *         name: page
  *         schema:
@@ -116,10 +116,10 @@ export default router;
 
 /**
  * @swagger
- * /employees/{id}:
+ * /users/{id}:
  *   get:
  *     summary: Get a user
- *     description: Logged in employees can fetch only their own user information. Only admins can fetch other employees.
+ *     description: Logged in users can fetch only their own user information. Only admins can fetch other users.
  *     tags: [Users]
  *     parameters:
  *       - in: path
@@ -138,7 +138,7 @@ export default router;
  *
  *   put:
  *     summary: Update a user
- *     description: Logged in employees can only update their own information. Only admins can update other employees.
+ *     description: Logged in users can only update their own information. Only admins can update other users.
  *     tags: [Users]
  *     parameters:
  *       - in: path
@@ -165,7 +165,7 @@ export default router;
  *
  *   delete:
  *     summary: Delete a user
- *     description: Logged in employees can delete only themselves. Only admins can delete other employees.
+ *     description: Logged in users can delete only themselves. Only admins can delete other users.
  *     tags: [Users]
  *     parameters:
  *       - in: path

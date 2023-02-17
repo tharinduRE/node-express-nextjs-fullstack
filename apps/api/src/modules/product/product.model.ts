@@ -1,6 +1,5 @@
 import { slugify } from "./../common/utils";
 import mongoose from "mongoose";
-import m2s from "mongoose-to-swagger";
 import { Product, Product as ProductModel } from "./product";
 import { faker } from "@faker-js/faker";
 
@@ -71,7 +70,3 @@ ProductSchema.pre("insertMany", async function (next, docs) {
 const ProductModel = mongoose.model<ProductModel>("Product", ProductSchema);
 
 export default ProductModel;
-
-export const swaggerSchema = {
-  Product: m2s(ProductModel, { omitFields: ["_id"] }),
-};

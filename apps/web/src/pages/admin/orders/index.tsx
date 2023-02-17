@@ -63,7 +63,7 @@ export default function OrderListPage() {
             <Button id="add-button" variant="contained">Add Order</Button>
           </Link>
       </Box> */}
-        <OrderTable data={data?.data} onEditRow={onEdit}/>
+      <OrderTable data={data?.data} onEditRow={onEdit} onDeleteRow={undefined}/>
       <ConfirmationDialog
         open={openConfirmDialog}
         keepMounted={false}

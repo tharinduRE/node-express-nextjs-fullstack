@@ -43,10 +43,10 @@ export default router;
 
 /**
  * @swagger
- * /employees:
+ * /orders:
  *   post:
  *     summary: Create a order
- *     description: Only admins can create other employees.
+ *     description: Only admins can create other orders.
  *     tags: [Orders]
  *     requestBody:
  *       required: true
@@ -69,8 +69,8 @@ export default router;
  *                $ref: '#/components/schemas/Order'
  *
  *   get:
- *     summary: Get all employees
- *     description: Only admins can retrieve all employees.
+ *     summary: Get all orders
+ *     description: Only admins can retrieve all orders.
  *     tags: [Orders]
 
  *     parameters:
@@ -90,7 +90,7 @@ export default router;
  *           type: integer
  *           minimum: 1
  *         default: 10
- *         description: Maximum number of employees
+ *         description: Maximum number of orders
  *       - in: query
  *         name: page
  *         schema:
@@ -126,10 +126,10 @@ export default router;
 
 /**
  * @swagger
- * /employees/{id}:
+ * /orders/{id}:
  *   get:
  *     summary: Get a order
- *     description: Logged in employees can fetch only their own order information. Only admins can fetch other employees.
+ *     description: Logged in orders can fetch only their own order information. Only admins can fetch other orders.
  *     tags: [Orders]
  *     parameters:
  *       - in: path
@@ -148,7 +148,7 @@ export default router;
  *
  *   put:
  *     summary: Update a order
- *     description: Logged in employees can only update their own information. Only admins can update other employees.
+ *     description: Logged in orders can only update their own information. Only admins can update other orders.
  *     tags: [Orders]
  *     parameters:
  *       - in: path
@@ -175,7 +175,7 @@ export default router;
  *
  *   delete:
  *     summary: Delete a order
- *     description: Logged in employees can delete only themselves. Only admins can delete other employees.
+ *     description: Logged in orders can delete only themselves. Only admins can delete other orders.
  *     tags: [Orders]
  *     parameters:
  *       - in: path

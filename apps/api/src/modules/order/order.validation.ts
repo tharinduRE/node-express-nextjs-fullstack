@@ -1,4 +1,5 @@
-import { param, query } from "express-validator";
+import { body, param, query } from "express-validator";
+import { status } from "./order";
 
 
 export const validation = (method: any) => {
@@ -6,15 +7,9 @@ export const validation = (method: any) => {
     case "updateOne":
     case "save": {
       return [
-        // body("email", "invalid email address").exists().isEmail(),
-        // body("number").exists().isInt().isMobilePhone("si-LK"),
-        // body("gender").exists().isIn(["M", "F"]),
-        // body(["first_name",'last_name'])
-        //   .exists()
-        //   .isAlpha()
-        //   .withMessage("must contain only alphabets")
-        //   .isLength({ min: 6 })
-        //   .withMessage("must be min. 6"),
+        body("items").exists().isArray({min : 1}),
+        body("status").optional().isIn(status),
+        body("userId").exists(),
       ];
     }
     case "getOne":

@@ -9,7 +9,7 @@ export type HeadCell<T> = {
   nonSortable?: boolean;
   searchable?: boolean;
   align?: TableCellProps["align"];
-  formatter?: (x: any) => string | React.ReactNode;
+  formatter?: (x?: any) => string | React.ReactNode;
 };
 
 export type DataTableProps<T> = {

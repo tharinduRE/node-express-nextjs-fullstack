@@ -4,7 +4,7 @@ export interface Product extends IModel {
     name: string;
     description: string;
     listPrice: number;
-    discount: string;
+    discount?: string;
     category: string;
     subcategory: string;
     thumbnailUrl?: string;
