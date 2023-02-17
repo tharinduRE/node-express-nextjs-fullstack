@@ -26,7 +26,7 @@
   - `tsconfig`: `tsconfig.json`s used throughout the monorepo
 ### Architecture
 
-![architecture](./docs/architecture.png)
+![architecture](./docs/architecture-2.png)
 
 ### Development
 
