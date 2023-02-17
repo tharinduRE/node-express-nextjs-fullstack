@@ -8,7 +8,7 @@ export interface Product extends IModel {
     category: string;
     subcategory: string;
     thumbnailUrl?: string;
-    photoUrl?:string,
+    photoUrls?:string[]
     slug?:string
     active?:boolean
   }

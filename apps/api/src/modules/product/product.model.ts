@@ -30,6 +30,9 @@ export const ProductSchema = new mongoose.Schema<Product>(
     subcategory: {
       type: String,
     },
+    photoUrls : {
+      type : [String]
+    },
     slug: {
       type: String,
     },

@@ -52,6 +52,7 @@ describe("product routes", () => {
       _id: expect.anything(),
       createdAt: expect.anything(),
       updatedAt: expect.anything(),
+      photoUrls:expect.anything(),
       slug: slugify(testProduct.name),
       __v: 0,
     });

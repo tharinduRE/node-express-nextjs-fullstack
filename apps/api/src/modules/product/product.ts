@@ -10,7 +10,7 @@ export interface Product {
     category: string;
     subcategory: string;
     thumbnailUrl?: string;
-    photoUrl?:string
+    photoUrls?:string[]
     slug?:string,
     active?:boolean,
   }
