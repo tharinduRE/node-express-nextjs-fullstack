@@ -9,7 +9,7 @@ export const validation = (method: any) => {
       return [
         body("items").exists().isArray({min : 1}),
         body("status").optional().isIn(status),
-        body("userId").exists(),
+        body("userId").optional(),
       ];
     }
     case "getOne":
