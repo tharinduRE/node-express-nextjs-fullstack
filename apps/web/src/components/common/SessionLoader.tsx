@@ -3,7 +3,7 @@ import { useSession } from "next-auth/react";
 import { setToken } from "../../lib";
 
 const SessionLoader = ({ children }: { children: React.ReactNode }) => {
-  const session = useSession({ required: true });
+  const session = useSession();
 
   if (session.status === "loading") {
     return <div className="loading" />;
