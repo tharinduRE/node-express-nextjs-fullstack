@@ -110,6 +110,12 @@ API Documentation available via Swagger UI endpoint located at `/api/v1/docs` en
 SENTRY_DSN = 
 SENTRY_AUTH_TOKEN =
 ```
+## TODO
+- [x] Add JWT token authentication 
+- [ ] Add Refresh token support on frontend
+- [ ] Add full OAuth 2.0 support along with credential login
+- [ ] Add Role-Based Authorization
+- [ ] Add S3 Image upload function
 
 ## Useful Links
 
