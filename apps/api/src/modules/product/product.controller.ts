@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { body } from "express-validator";
 import httpStatus from "http-status";
 import mongoose from "mongoose";
-import ApiError from "../common/apiError";
+import ApiError from "../../errors/ApiError";
 import asyncHandler from "../../middleware/asyncHandler";
 import ProductModel from "./product.model";
 import { Product } from "./product";
@@ -55,25 +55,18 @@ export const deleteOne = asyncHandler(async (req: Request, res: Response) => {
  */
 export const getAll = asyncHandler(
   async (req: Request, res: Response<PaginatedResults<Product>>) => {
-    const { order, orderBy, filters, q } = req.query;
-    const sortOrder = order == "asc" ? 1 : -1;
-    let page = Number(req.query.page || 0);
-    let pageSize = Number(req.query.pageSize || 10);
-
-    let filterQuery;
-    if (filters) {
-      filterQuery = JSON.parse(filters as string);
-    }
-    let query : mongoose.FilterQuery<Product> = filterQuery;
+    const {page,pageSize,sortOrder,sortBy } = req._pagination 
+    let query = req._filterQuery 
     
-    if (q) {
-      query = { $text: { $search: q as string } };
+    if (req.query.q) {
+      query = { $text: { $search: req.query.q as string } };
     }
     
     // console.log(query);
-    const data = await ProductModel.find(query)
-      .sort({ [String(orderBy)]: sortOrder })
-      .skip((page + 1 - 1) * pageSize)
+    const data = await ProductModel
+      .find(query)
+      .sort({ [sortBy] : sortOrder })
+      .skip(page * pageSize)
       .limit(pageSize)
       .collation({ locale: "en_US", strength: 2 });
 

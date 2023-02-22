@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import * as jose from "jose";
-import { UnauthorizedError } from "../common/errors";
+import { UnauthorizedError } from "../../errors/errors";
 import getToken from "./getToken";
 
 const secret = new TextEncoder().encode(

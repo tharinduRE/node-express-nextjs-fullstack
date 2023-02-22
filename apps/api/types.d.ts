@@ -5,5 +5,15 @@ declare namespace Express {
             token?:string
             payload?: JWTPayload
         }
+    
+        _pagination : {
+            page:number,
+            pageSize:number,
+            sortBy: string,
+            sortOrder: any,
+        }
+
+        _filterQuery : any
+        
     }
   }

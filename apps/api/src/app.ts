@@ -4,9 +4,9 @@ import helmet from "helmet";
 import httpStatus from "http-status";
 import config from "./config";
 import logger from './config/logger';
-import ApiError from "./modules/common/apiError";
+import ApiError from "./errors/ApiError";
+import ErrorHandler from './middleware/errorHandler';
 import router from "./routes";
-import ErrorHandler  from './middleware/errorHandler';
 
 var path = require("path");
 var morgan = require("morgan");

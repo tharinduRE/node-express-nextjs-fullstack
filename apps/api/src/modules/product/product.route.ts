@@ -9,17 +9,18 @@ import {
 } from "./product.controller";
 import { validation } from "./product.validation";
 import { validate } from "../../middleware/validate";
+import { paginatedRequest } from "../../middleware/paginatedRequest";
 
 export const router = Router();
 
 router
   .route("/")
-  .get(validate(validation("getAll")),getAll)
+  .get(validate(validation("getAll")),paginatedRequest,getAll)
   .post(validate(validation("save")), create);
 
 router
   .route("/search/")
-  .get(validate(validation("getAll")),getAll)
+  .get(validate(validation("getAll")),paginatedRequest,getAll)
 
 router
   .route("/getBySlug/:slug")

@@ -2,6 +2,7 @@ import { slugify } from "./../common/utils";
 import mongoose from "mongoose";
 import { Product, Product as ProductModel } from "./product";
 import { faker } from "@faker-js/faker";
+import metadataPlugin from "../metadata/metadata.plugin";
 
 export const ProductSchema = new mongoose.Schema<Product>(
   {
@@ -55,6 +56,8 @@ ProductSchema.index(
     },
   }
 );
+
+ProductSchema.plugin(metadataPlugin)
 
 ProductSchema.pre("save", async function (next) {
   this.slug = slugify(this.name);

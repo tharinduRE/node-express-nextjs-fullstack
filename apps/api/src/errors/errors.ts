@@ -1,5 +1,5 @@
 import httpStatus from "http-status";
-import ApiError from "./apiError";
+import ApiError from "./ApiError";
 
 export class UnauthorizedError extends ApiError {
   constructor(message?: string) {

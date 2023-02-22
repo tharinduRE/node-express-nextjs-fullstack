@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { body } from "express-validator";
 import httpStatus from "http-status";
 import mongoose from "mongoose";
-import ApiError from "../common/apiError";
+import ApiError from "../../errors/ApiError";
 import asyncHandler from "../../middleware/asyncHandler";
 import UserModel from "./user.model";
 import { User } from "./user";

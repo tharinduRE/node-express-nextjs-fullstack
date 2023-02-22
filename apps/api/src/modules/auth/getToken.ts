@@ -4,7 +4,7 @@
  *  Sourced from unpublished package from https://github.com/auth0/node-oauth2-jwt-bearer/tree/main/packages/oauth2-bearer
  */
 
-import { InvalidRequestError, UnauthorizedError } from "../common/errors";
+import { InvalidRequestError, UnauthorizedError } from "../../errors/errors";
 
 type QueryLike = Record<string, unknown> & { access_token?: string };
 type BodyLike = QueryLike;

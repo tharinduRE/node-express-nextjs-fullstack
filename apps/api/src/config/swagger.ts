@@ -1,5 +1,21 @@
 import { OAS3Definition } from "swagger-jsdoc";
-import { swaggerSchemas } from "../modules/common/swaggerSchema";
+import m2s from "mongoose-to-swagger";
+
+/**
+ * Import all modules here
+ */
+import OrderModel from "../modules/order/order.model";
+import ProductModel from "../modules/product/product.model";
+import UserModel from "../modules/users/user.model";
+
+const omitFields = { omitFields: ["_id", "createdAt", "updatedAt"] };
+
+const swaggerSchemas = {
+  Product: m2s(ProductModel, omitFields),
+  Order: m2s(OrderModel, omitFields),
+  User: m2s(UserModel, omitFields),
+};
+
 
 /**
  *  Swagger Definition

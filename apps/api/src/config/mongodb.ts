@@ -1,14 +1,15 @@
-import { connect } from "mongoose";
+import { Mongoose, connect } from "mongoose";
 import config from ".";
-import logger from './logger'
+import logger from "./logger";
 
+let mongoose: Mongoose | null = null;
 /**
  *  Mongo DB Connection
  */
 const mongodb = async () => {
   try {
     const mongoURI = config.mongoose.url;
-    await connect(mongoURI as string);
+    mongoose = await connect(mongoURI as string);
     logger.info("MongoDB Connected.");
   } catch (err: any) {
     console.error(err.message);
