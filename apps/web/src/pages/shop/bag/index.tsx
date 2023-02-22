@@ -38,7 +38,7 @@ export default function CheckoutPage() {
           </Box>
 
           <Link href="checkout">
-            <Button variant="contained" fullWidth disabled={cart.items?.length == 0}>
+            <Button variant="contained" fullWidth disabled={cart.items?.length == 0} id="checkout-btn">
               Checkout
             </Button>
           </Link>

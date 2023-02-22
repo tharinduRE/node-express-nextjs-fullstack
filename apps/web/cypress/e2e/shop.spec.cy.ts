@@ -44,8 +44,17 @@ describe("shop features", () => {
     cy.get('#checkout-btn').click()
     cy.url().should('contain','/shop/bag')
 
-    cy.get('a > .MuiButtonBase-root').click()
+    cy.get('#checkout-btn').click()
     cy.url().should('contain','/auth/signin')
+  });
+
+  
+  it("should display disabled checkout button", () => {
+    cy.get('#shop-now-btn').click()
+
+    cy.get('#bag-icon').click()
+    cy.get('#checkout-btn').should('have.attr','disabled')
+
   });
 });
 
