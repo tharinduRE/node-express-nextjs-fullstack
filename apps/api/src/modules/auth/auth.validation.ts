@@ -1,11 +1,14 @@
 import { body, param, query } from "express-validator";
-import * as controllerFns from './auth.controller';
+import * as controllerFns from "./auth.controller";
 
-export const validation = (method : any) => {
+export const validation = (method: any) => {
   switch (method) {
-    case 'login':
-      body("email").exists()
-      body("provider").exists().isIn(['github'])
+    case "login":
+      return [
+        body("id").exists(),
+        body("email").exists().isEmail(),
+        body("provider").exists().isIn(["github"]),
+      ];
     default:
       return [];
   }

@@ -1,4 +1,4 @@
-import { slugify } from "./../common/utils";
+import { slugify } from "../../utils/slugify";
 import mongoose from "mongoose";
 import { Product, Product as ProductModel } from "./product";
 import { faker } from "@faker-js/faker";

@@ -20,7 +20,7 @@ export const paginatedRequest = (
   req._pagination = {
     page,
     pageSize,
-    sortBy: String(orderBy),
+    sortBy: orderBy ? String(orderBy) : 'createdAt',
     sortOrder: sortOrder,
   };
 

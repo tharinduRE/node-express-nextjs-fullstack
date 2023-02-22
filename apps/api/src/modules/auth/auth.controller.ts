@@ -1,33 +1,19 @@
+import { Request, Response } from "express";
 import httpStatus from "http-status";
 import asyncHandler from "../../middleware/asyncHandler";
 import UserModel from "../users/user.model";
-import { Request, Response } from "express";
-import * as jose from "jose";
-
-const secret = new TextEncoder().encode(
-  "cc7e0d44fd473002f1c42167459001140ec6389b7353f8088f4d9a95f2f596f2"
-);
+import { generateAuthToken } from "./auth.service";
 
 export const login = asyncHandler(async (req: Request, res: Response) => {
-  const { email } = req.body;
+  const { email} = req.body;
 
   let user;
   user = await UserModel.findOne({ email });
   if (!user) {
     user = await new UserModel(req.body).save();
   }
-
   if (user) {
-    const { email, id, provider,role } = user;
-    const jwt = await new jose.SignJWT({ user: { email, id, provider,role } })
-      .setProtectedHeader({ alg: "HS256" })
-      .setIssuedAt()
-      .setIssuer("urn:expressapi:issuer")
-      .setAudience("urn:expressapi:audience")
-      .setExpirationTime("24h")
-      .setSubject(user._id)
-      .sign(secret);
-
-    res.status(httpStatus.OK).json(jwt);
+    const accessToken = await generateAuthToken(user);
+    res.status(httpStatus.OK).json(accessToken);
   }
 });

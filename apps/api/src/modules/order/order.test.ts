@@ -1,55 +1,43 @@
-import { status } from './../../../../web/src/types/order';
 import httpStatus from "http-status";
-import mongoose, { connect, Mongoose } from "mongoose";
 import request from "supertest";
-import { faker } from "@faker-js/faker";
-import config from "../../config";
-import { Order } from "./order";
 import app from "../../app";
+import { createTestProducts, createTestUser } from '../../utils/setupTestData';
+import setupTestDB from "../../utils/setupTestDB";
+import { generateAuthToken } from "../auth/auth.service";
 
-describe("order routes", () => {
-  let db: Mongoose;
-  let items: any[] = [];
-  let token: string;
+setupTestDB();
 
-  beforeAll(async () => {
-    db = await connect(String(config.mongoose.url));
-    const response = await request(app)
-      .post(`/api/v1/auth/login`)
-      .send({ email: "test@gmail.com", provider: "github", id: "test" });
-    token = response.body;
+const userOne = createTestUser()
 
-    let products = await db.model("Product").find().limit(5);
-    items.push(...products.map((e) => ({ product: e, quantity: 2 })));
+let testOrder = {
+  items : createTestProducts(10).map((e) => ({ product: e, quantity: 2 })),
+  userId: userOne._id,
+};
+
+describe("order module", () => {
+
+  let accessToken:string;
+
+  beforeAll(async function () {
+    accessToken = await generateAuthToken(userOne);
   });
 
-  let testOrder = {
-    items,
-    userId: "test",
-  };
-  
-  it.skip("should return 201 & new order should created.", async () => {
+  it("should return 201 & new order should created.", async () => {
     const res = await request(app)
       .post(`/api/v1/orders`)
-      .set("Authorization", `Bearer ${token}`)
-      .send(testOrder)
+      .set("Authorization", `Bearer ${accessToken}`)
+      .send(testOrder);
     expect(httpStatus.CREATED);
     expect(res.body.status).toEqual("NEW");
-  
   });
-  
 
   it("should return 400 if there's no items", async () => {
     testOrder.items = [];
 
     await request(app)
       .post(`/api/v1/orders`)
-      .set("Authorization", `Bearer ${token}`)
+      .set("Authorization", `Bearer ${accessToken}`)
       .send(testOrder)
       .expect(httpStatus.BAD_REQUEST);
-  });
-
-  afterAll(() => {
-    db.disconnect();
   });
 });

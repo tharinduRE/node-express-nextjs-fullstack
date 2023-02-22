@@ -1,27 +1,34 @@
-import { faker } from "@faker-js/faker";
 import httpStatus from "http-status";
-import mongoose, { connect, Mongoose } from "mongoose";
 import request from "supertest";
 import app from "../../app";
-import config from "../../config";
+import { faker } from "@faker-js/faker";
+import setupTestDB from "../../utils/setupTestDB";
 
-describe("auth routes", () => {
-  let connection: Mongoose;
-  beforeAll(async () => {
-    connection = await connect(String(config.mongoose.url));
-  });
+setupTestDB();
+
+describe("auth module", () => {
 
   it("should throw error if not valid provider", async () => {
     await request(app)
-      .post(`/api/v1/login`)
+      .post(`/api/v1/auth/login`)
       .send({
+        id: faker.random.numeric(0),
+        email: faker.internet.email(),
         provider : 'google',
       })
     
     expect(httpStatus.BAD_REQUEST);
   });
 
-  afterAll(() => {
-    connection.disconnect();
+  it("should throw error if email not provided", async () => {
+    await request(app)
+      .post(`/api/v1/auth/login`)
+      .send({
+        id: faker.random.numeric(0),
+        provider : 'github',
+      })
+    
+    expect(httpStatus.BAD_REQUEST);
   });
+
 });
