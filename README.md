@@ -30,16 +30,30 @@
 
 ### Development
 
-Download dependencies
+1. Download dependencies
 ```shell
 npm install
 ```
+
+2. Environment Variables
+  - Backend 
 Create a `.env` file on the <b>root</b> and add `MongoDB Connection String/URL` as Environment Variable
 
-```
+```shell
 MONGODB_URL=mongodb+srv://...
 ```
-To develop all apps and packages, run the following command:
+  - Frontend
+Add `.env.local` on apps/web directory and add following.
+
+```.env
+GITHUB_ID=
+GITHUB_SECRET=
+NEXTAUTH_SECRET=secret
+NEXTAUTH_URL=http://localhost:3000
+NEXT_PUBLIC_API_BASE_URL=http://localhost:8080/api/v1
+```
+
+3. To develop all apps and packages, run the following command:
 
 ```
 npm run dev
