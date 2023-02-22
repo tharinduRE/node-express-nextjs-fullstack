@@ -59,7 +59,7 @@ export default function ProductList({
     <div className="bg-white rounded-xl">
       {query && (
         <Typography variant="h6" sx={{paddingTop:3}}>
-          Search results for : <b>{query}</b>
+          Search results for : <b id="search-query">{query}</b>
         </Typography>
       )}
       {filter &&

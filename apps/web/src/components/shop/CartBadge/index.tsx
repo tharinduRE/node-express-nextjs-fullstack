@@ -46,8 +46,8 @@ export function CartBadge() {
 
   return (
     <>
-      <StyledBadge badgeContent={totalItemCount} color="secondary">
-        <IconButton className="mr-4" onClick={handleClickOpen}>
+      <StyledBadge badgeContent={totalItemCount} color="secondary" id="cart-badge">
+        <IconButton className="mr-4" onClick={handleClickOpen} id='bag-icon'>
           <ShoppingBag/>
         </IconButton>
       </StyledBadge>
@@ -72,7 +72,7 @@ export function CartBadge() {
 
               <div className="mt-6">
                 <Link href="/shop/bag" onClick={handleClose}>
-                  <Button variant="contained" fullWidth disabled={cart.items.length == 0}>
+                  <Button variant="contained" fullWidth disabled={cart.items.length == 0} id='checkout-btn'>
                     Checkout
                   </Button>
                 </Link>

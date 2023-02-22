@@ -35,7 +35,7 @@ export default function SearchBar() {
         inputProps={{ "aria-label": "search" }}
         name='query'
       />
-      <IconButton type="submit" sx={{ p: "10px" }} aria-label="search">
+      <IconButton type="submit" sx={{ p: "10px" }} aria-label="search-btn">
         <Search />
       </IconButton>
     </Paper>
