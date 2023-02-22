@@ -15,7 +15,7 @@ export default function SelectField<T>({label,data,valueKey,...props}: SelectFie
       >
         {label || props.name}
       </InputLabel>
-      <Select {...props}>
+      <Select defaultValue='' {...props} >
         {data?.map((e, i) => (
           <MenuItem value={e[valueKey] as string} key={i}>
             {e[valueKey] as string}
