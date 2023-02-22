@@ -2,7 +2,7 @@ import DashboardLayout from "@components/layout/Dashboard";
 import { KeyTypeTable, KeyValueTable } from "@components/metadata";
 import KeyTypeForm from "@components/metadata/KTypeForm";
 import { ConfirmationDialog } from "@components/ui";
-import { Alert, Box, Button } from "@mui/material";
+import { Alert, Box, Button, Divider, Typography } from "@mui/material";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useSnackbar } from "notistack";
@@ -59,7 +59,7 @@ export default function UserListPage() {
     <>
       <Box
         sx={{ display: "flex", gap: 1, justifyContent: "space-between" }}
-        marginBottom={1}
+        // marginBottom={1}
       >
         <div>
         <Link passHref href={{pathname : `${router.pathname}/add` , query :{ meta : 'KEYTYPE'}}}>
@@ -70,7 +70,11 @@ export default function UserListPage() {
         </Link>
         </div>
       </Box>
+      <Divider sx={{marginTop : 1}}/>
+      <Typography variant='body1' paddingY={2}>Key Types</Typography>
       <KeyTypeTable data={keytypes?.data} onEditRow={onEdit}  hideActions />
+      <Divider sx={{paddingY:2}}/>
+      <Typography variant='body1' paddingY={2}>Key Values</Typography>
       <KeyValueTable data={keyvalues?.data} hideActions />
       <ConfirmationDialog
         open={openConfirmDialog}

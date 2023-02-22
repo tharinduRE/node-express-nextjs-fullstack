@@ -89,7 +89,7 @@ export default function ProductList({
           onChange={handlePageChange}
           page={Number(data?.data?.pagination?.page) + 1}
           count={
-            data
+            data && data?.data?.pagination
               ? Math.ceil(
                   data?.data?.pagination?.count /
                     data?.data?.pagination?.pageSize
