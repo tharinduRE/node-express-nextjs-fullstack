@@ -1,6 +1,6 @@
 export interface PaginatedResults<T> {
   data: T[];
-  pagination: {
+  pagination?: {
     page: number;
     pageSize: number;
     count: number;

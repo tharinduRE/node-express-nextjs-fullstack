@@ -10,6 +10,6 @@ export const navbarMenu = [
   {
     name: "Administration",
     link: "/admin/administration",
-    children: ["users"],
+    children: ["users",'metadata'],
   },
 ];

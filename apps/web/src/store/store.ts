@@ -15,6 +15,7 @@ import product from "./slices/product";
 import cart from "./slices/cart";
 import order from "./slices/order";
 import user from "./slices/user";
+import metadata from "./slices/metadata";
 
 const persistConfig = {
   key: "root",
@@ -28,6 +29,7 @@ const rootReducer = combineReducers({
   product,
   order,
   user,
+  metadata,
 });
 
 const store = configureStore({

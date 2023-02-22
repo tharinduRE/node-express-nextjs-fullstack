@@ -64,8 +64,8 @@ export function DataTable<T>({
   }>({});
 
   return (
-    <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} aria-label="simple table" size="small">
+    <TableContainer component={Paper} >
+      <Table aria-label="simple table" size="small">
         <TableHead>
           <TableRow>
             {headCells.map((headCell) =>
@@ -202,15 +202,15 @@ export function DataTable<T>({
         </TableBody>
         <TableFooter>
           <TableRow>
-            {data && (
+            {data && onPageChange && (
               <TablePagination
                 colSpan={4}
-                count={data?.pagination?.count}
-                rowsPerPage={data?.pagination?.pageSize}
-                page={data?.pagination?.page}
+                count={data?.pagination?.count || 0}
+                rowsPerPage={data?.pagination?.pageSize || 0}
+                page={data?.pagination?.page || 0}
                 showFirstButton={true}
                 showLastButton={true}
-                onPageChange={onPageChange}
+                onPageChange={onPageChange as ( event: React.MouseEvent<HTMLButtonElement> | null,newPage: number) => void}
                 onRowsPerPageChange={onRowsPerPageChange}
               />
             )}

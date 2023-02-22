@@ -1,15 +1,20 @@
+import SelectField from "@components/ui/SelectField/SelectField";
 import { ValidationError } from "@components/ui/ValidationError";
+import Delete from "@mui/icons-material/Delete";
 import {
   Box,
   Button,
-  FormControlLabel,
-  Grid,
+  FormControlLabel, Grid,
+  IconButton,
   Switch,
   TextField,
+  Typography
 } from "@mui/material";
 import { AxiosError } from "axios";
-import { useFormik } from "formik";
+import { FieldArray, FormikProvider, useFormik } from "formik";
 import { useSnackbar } from "notistack";
+import useSWR from "swr";
+import { getKeyValuesByKey } from "../../../lib/api/keyvalue";
 import { addOne, updateOne } from "../../../lib/api/product";
 import { Product } from "../../../types/product";
 import { validationSchema } from "./validationSchema";
@@ -17,16 +22,11 @@ import { validationSchema } from "./validationSchema";
 export default function ProductForm({ product }: { product?: Product }) {
   const { enqueueSnackbar } = useSnackbar();
 
+  const {data : _categorys} = useSWR('kv-category',()=> getKeyValuesByKey('CATEGORY'))
+  const {data : _subcategorys} = useSWR('kv-subcategory',()=> getKeyValuesByKey('SUB_CATEGORY'))
+  const {data : _product_attrib} = useSWR('kv-product_attrib',()=> getKeyValuesByKey('PROD_ATTRIB'))
 
-  const {
-    handleSubmit,
-    handleChange,
-    resetForm,
-    values,
-    touched,
-    errors,
-    isSubmitting,
-  } = useFormik({
+ const formik = useFormik({
     initialValues: {
       name: "",
       description: "",
@@ -37,7 +37,7 @@ export default function ProductForm({ product }: { product?: Product }) {
     },
     enableReinitialize: true,
     validationSchema: validationSchema,
-    onSubmit: async () => {
+    onSubmit: async (values) => {
       try {
         const emp = product
           ? await updateOne(values as Product)
@@ -63,6 +63,15 @@ export default function ProductForm({ product }: { product?: Product }) {
     },
   });
 
+  const {
+    handleSubmit,
+    handleChange,
+    resetForm,
+    values,
+    touched,
+    errors,
+    isSubmitting,
+  } = formik
 
   const errorProps = (field: keyof Product) => ({
     error: touched[field] && Boolean(errors[field]),
@@ -76,133 +85,189 @@ export default function ProductForm({ product }: { product?: Product }) {
       marginX={16}
       sx={{ mx: "auto", display: "flex" }}
     >
-      <form onSubmit={handleSubmit}>
-        <Grid container spacing={4} columns={12} maxWidth="xl">
-          <Grid item xs={6}>
-            <TextField
-              id="name"
-              label="Product ID"
-              InputProps={{
-                readOnly: true,
-              }}
-              disabled
-              placeholder="Auto Generated"
-              value={values.itemId}
-            />
-            <TextField
-              id="name"
-              label="Name"
-              name="name"
-              onChange={handleChange}
-              value={values.name}
-              {...errorProps('name')}
-            />
-
-            <TextField
-              id="description"
-              label="Description"
-              multiline
-              name="description"
-              rows={5}
-              onChange={handleChange}
-              value={values.description}
-              {...errorProps('description')}
-            />
-            <TextField
-              id="name"
-              label="Price"
-              name="listPrice"
-              onChange={handleChange}
-              value={values.listPrice}
-              {...errorProps('listPrice')}
-            />
-            <TextField
-              id="name"
-              label="Category"
-              name="category"
-              onChange={handleChange}
-              value={values.category}
-              {...errorProps('category')}
-            />
-            <TextField
-              id="name"
-              label="Sub Category"
-              name="subcategory"
-              onChange={handleChange}
-              value={values.subcategory}
-              {...errorProps('subcategory')}
-            />
-            {/* <FormControl
-              variant="standard"
-              sx={{ minWidth: 120 }}
-              margin="dense"
-            >
-              <InputLabel id="demo-simple-select-standard-label">
-                Category
-              </InputLabel>
-
-              <Select
-                id="category"
-                value={values.category}
-                name="category"
-                onChange={handleChange}
-              ></Select>
-            </FormControl> */}
-          </Grid>
-          <Grid item xs={6}>
-            {product && (
+      <FormikProvider value={formik}>
+        <form onSubmit={handleSubmit}>
+          <Grid container spacing={4} columns={12} maxWidth="xl">
+            <Grid item xs={6}>
               <TextField
-                id="slug"
-                label="Slug"
+                id="name"
+                label="Product ID"
                 InputProps={{
                   readOnly: true,
                 }}
                 disabled
-                helperText="Used to build SEO friendly URLs"
-                value={values.slug}
+                placeholder="Auto Generated"
+                value={values.itemId}
               />
-            )}
-            <FormControlLabel
-              sx={{ marginLeft: 0 }}
-              control={
-                <Switch
-                  checked={values.active}
-                  onChange={handleChange}
-                  value={values.active}
-                  name="active"
+              <TextField
+                id="name"
+                label="Name"
+                name="name"
+                onChange={handleChange}
+                value={values.name}
+                {...errorProps("name")}
+              />
+
+              <TextField
+                id="description"
+                label="Description"
+                multiline
+                name="description"
+                rows={5}
+                onChange={handleChange}
+                value={values.description}
+                {...errorProps("description")}
+              />
+              <TextField
+                id="name"
+                label="Price"
+                name="listPrice"
+                onChange={handleChange}
+                value={values.listPrice}
+                {...errorProps("listPrice")}
+              />
+              <SelectField
+                id="category"
+                value={values.category}
+                name="category"
+                valueKey='value'
+                data={_categorys?.data?.data}
+                onChange={handleChange}
+                {...errorProps("category")}
                 />
-              }
-              label="Active"
-              labelPlacement="start"
-            />
+              <SelectField
+                id="name"
+                label="Sub Category"
+                name="subcategory"
+                valueKey='value'
+                data={_subcategorys?.data?.data}
+                onChange={handleChange}
+                value={values.subcategory}
+                {...errorProps("subcategory")}
+              />
+                    
+            </Grid>
+            <Grid item xs={6}>
+              {product && (
+                <TextField
+                  id="slug"
+                  label="Slug"
+                  InputProps={{
+                    readOnly: true,
+                  }}
+                  disabled
+                  helperText="Used to build SEO friendly URLs"
+                  value={values.slug}
+                />
+              )}
+              <FormControlLabel
+                sx={{ marginLeft: 0 }}
+                control={
+                  <Switch
+                    checked={values.active}
+                    onChange={handleChange}
+                    value={values.active}
+                    name="active"
+                  />
+                }
+                label="Active"
+                labelPlacement="start"
+              />
+              {/* <Typography paddingBottom={2}>Attributes</Typography>
+              <FieldArray
+                name="attributes"
+                render={(arrayHelpers) => (
+                  <div>
+                    {values.attributes &&
+                      values.attributes.length > 0 &&
+                      values.attributes.map((attr, index) => (
+                        <>
+                          <div
+                            key={index}
+                            className="flex justify-between gap-2 items-center"
+                          >
+                            <SelectField
+                              name={`attributes.${index}.key`}
+                              label="key"
+                              value={attr.key}
+                              onChange={handleChange}
+                              data={_product_attrib?.data?.data}
+                              valueKey='value'
+                              />
+                            <TextField
+                              name={`attributes.${index}.value`}
+                              label="value"
+                              value={attr.value}
+                              onChange={handleChange}
+                            />
+                            <div>
+                              {" "}
+                              <IconButton
+                                type="button"
+                                onClick={() => arrayHelpers.remove(index)}
+                              >
+                                <Delete />
+                              </IconButton>
+                            </div>
+                          </div>
+                        </>
+                      ))}
+                    <Button
+                      type="button"
+                      onClick={() => arrayHelpers.push({ key: "", value: "" })}
+                    >
+                      Add Attribute
+                    </Button>
+                  </div>
+                )}
+              /> */}
+            </Grid>
+            {/* <Grid item xs={8}> <AttributeTable attributes={values?.attributes}/></Grid> */}
           </Grid>
-        </Grid>
-        <Box marginTop={2}>
-          <Button
-            variant="outlined"
-            id="add-button-form"
-            sx={{ marginTop: 1 }}
-            type="submit"
-            disabled={isSubmitting}
-            role="button"
-            color={product ? "primary" : "success"}
-          >
-            {product ? "Save" : "Add"}
-          </Button>
-          {!product && (
+          <Box marginTop={2}>
             <Button
-              variant="text"
-              id="reset-button-form"
+              variant="outlined"
+              id="add-button-form"
               sx={{ marginTop: 1 }}
-              type="button"
+              type="submit"
               disabled={isSubmitting}
-              onClick={() => resetForm()}
+              role="button"
+              color={product ? "primary" : "success"}
             >
-              Clear
+              {product ? "Save" : "Add"}
             </Button>
-          )}
-        </Box>
-      </form>
+            {!product && (
+              <Button
+                variant="text"
+                id="reset-button-form"
+                sx={{ marginTop: 1 }}
+                type="button"
+                disabled={isSubmitting}
+                onClick={() => resetForm()}
+              >
+                Clear
+              </Button>
+            )}
+          </Box>
+        </form>
+      </FormikProvider>
     </Box>
   );
 }
+
+// export function AttributeTable({ attributes }: { attributes: any }) {
+//   return (
+//     <DataTable
+//       data={{data : attributes}}
+//       hideActions
+//       headCells={[
+//         {
+//           id: "key",
+//         },
+//         {
+//           id: "value",
+//         },
+//       ]}
+//     />
+//   );
+// }

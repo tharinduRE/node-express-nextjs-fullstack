@@ -1,4 +1,5 @@
 import { IModel } from './IModel';
+import { Metadata } from './metadata';
 export interface Product extends IModel {
     itemId?: string;
     name: string;
@@ -11,5 +12,6 @@ export interface Product extends IModel {
     photoUrls?:string[]
     slug?:string
     active?:boolean
+    attributes: Metadata<any>[]
   }
   
