@@ -5,9 +5,13 @@ import { setToken } from "../../lib";
 const SessionLoader = ({ children }: { children: React.ReactNode }) => {
   const session = useSession();
 
-  if (session.status === "loading") {
-    return <div className="loading" />;
-  }
+  /**
+   *  Uncomment Below if loading animation should display while loading session.
+   */
+
+  // if (session.status === "loading") {
+  //   return <div className="loading" />;
+  // }
 
   if (session.status === "authenticated") {
     setToken(session?.data?.user?.accessToken as string);
