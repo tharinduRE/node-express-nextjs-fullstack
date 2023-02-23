@@ -1,4 +1,5 @@
 # Next.js + Express.js Full Stack Application
+[![Test CI](https://github.com/tharinduRE/node-express-nextjs-fullstack/actions/workflows/test.yml/badge.svg?branch=master)](https://github.com/tharinduRE/node-express-nextjs-fullstack/actions/workflows/test.yml)
 
 ![Next.js](https://img.shields.io/badge/Next-20232A?style=for-the-badge&logo=next.js)
 ![Express.js](https://img.shields.io/badge/express-20232A?style=for-the-badge&logo=express)
