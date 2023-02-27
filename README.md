@@ -1,5 +1,7 @@
 # Next.js + Express.js Full Stack Application
-[![Test CI](https://github.com/tharinduRE/node-express-nextjs-fullstack/actions/workflows/test.yml/badge.svg?branch=master)](https://github.com/tharinduRE/node-express-nextjs-fullstack/actions/workflows/test.yml)
+[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/tharindure/node-express-nextjs-fullstack/test.yml?label=Test&logo=github&style=for-the-badge&labelColor=000)](https://github.com/tharinduRE/node-express-nextjs-fullstack/actions/workflows/test.yml)
+![GitHub](https://img.shields.io/github/license/tharindure/node-express-nextjs-fullstack?style=for-the-badge&labelColor=000)
+![GitHub top language](https://img.shields.io/github/languages/top/tharindure/node-express-nextjs-fullstack?logo=typescript&style=for-the-badge&labelColor=000)
 
 <!-- ![Next.js](https://img.shields.io/badge/Next-20232A?style=for-the-badge&logo=next.js)
 ![Express.js](https://img.shields.io/badge/express-20232A?style=for-the-badge&logo=express)
