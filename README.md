@@ -1,4 +1,6 @@
-# Next.js + Express.js Full Stack Application
+# Next.js + Express.js Full Stack Web Application
+
+
 [![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/tharindure/node-express-nextjs-fullstack/test.yml?label=Test&logo=github&style=for-the-badge&labelColor=000)](https://github.com/tharinduRE/node-express-nextjs-fullstack/actions/workflows/test.yml)
 ![GitHub](https://img.shields.io/github/license/tharindure/node-express-nextjs-fullstack?style=for-the-badge&labelColor=000)
 ![GitHub top language](https://img.shields.io/github/languages/top/tharindure/node-express-nextjs-fullstack?logo=typescript&style=for-the-badge&labelColor=000)
@@ -24,7 +26,8 @@
   - **Security**: set security HTTP headers using [helmet](https://helmetjs.github.io)
   - **CORS**: Cross-Origin Resource-Sharing enabled using [cors](https://github.com/expressjs/cors)
   - **CI**: continuous integration with [GitHub CI](https://travis-ci.org)
-  - **API documentation**: with [swagger-jsdoc](https://github.com/Surnet/swagger-jsdoc) and [swagger-ui-express](https://github.com/scottie1984/swagger-ui-express)
+  - **API documentation**: with [swagger-jsdoc](https://github.com/Surnet/swagger-jsdoc) and [swagger-ui-express](https://github.com/scottie1984/swagger-ui-express)  
+    - available at `/api/v1/docs` endpoint
   - **Docker support**
 
 - ### Web
@@ -33,7 +36,11 @@
   - **Tailwind CSS** Support
   - **MUI** Components
   - **Redux** State Management
-  
+  - **Logs & Error Handling** : using [Sentry](https://sentry.io/). 
+    - To configure, create a sentry project add `SENTRY_DSN` `SENTRY_AUTH_TOKEN` as environment variables in apps/web/.env
+
+## Architecture
+
 ### Apps and Packages
 
 - [`apps/api`](./apps/api): a [Express.js](https://expressjs.com/) app
@@ -41,11 +48,9 @@
 - [`packages`](./packages)
   - `eslint-config-custom`: custom `eslint` config used throughout the monorepo
   - `tsconfig`: `tsconfig.json`s used throughout the monorepo
-### Architecture
-
+### Deployment
 ![architecture](./docs/architecture-2.png)
-
-### Development
+## Development
 
 1. Download dependencies
 ```shell
@@ -53,22 +58,20 @@ npm install
 ```
 
 2. Environment Variables
-  - Backend 
-Create a `.env` file on the <b>root</b> and add `MongoDB Connection String/URL` as Environment Variable
+  - Add `.env` file on the **root** and add `MongoDB Connection String/URL` as Environment Variable
 
-```shell
-MONGODB_URL=mongodb+srv://...
-```
-  - Frontend
-Add `.env.local` on apps/web directory and add following.
+  ```shell
+  MONGODB_URL=mongodb+srv://...
+  ```
+  - Add `.env.local` on **apps/web** directory and add following.
 
-```.env
-GITHUB_ID=
-GITHUB_SECRET=
-NEXTAUTH_SECRET=secret
-NEXTAUTH_URL=http://localhost:3000
-NEXT_PUBLIC_API_BASE_URL=http://localhost:8080/api/v1
-```
+  ```.env
+  GITHUB_ID=
+  GITHUB_SECRET=
+  NEXTAUTH_SECRET=secret
+  NEXTAUTH_URL=http://localhost:3000
+  NEXT_PUBLIC_API_BASE_URL=http://localhost:8080/api/v1
+  ```
 
 3. To develop all apps and packages, run the following command:
 
@@ -88,7 +91,7 @@ npm run dev:api
 npm run dev:web
 ```
 
-### Testing
+## Testing
 
 ### 1. Unit Testing
 To test all apps, run the following command:
@@ -122,23 +125,14 @@ cd apps/web; npm run e2e
 ```
 To learn more about testing with cypress on Next.js https://nextjs.org/docs/testing#running-your-cypress-tests
 
-### Build
+## Build
 
 To build all apps and packages, run the following command:
 
 ```
 npm run build
 ```
-## API Documentation
-API Documentation available via Swagger UI endpoint located at `/api/v1/docs` endpoint
 
-## Logs
-- Frontend logs are handled by [sentry.io](https://sentry.io/). To configure, create a sentry project add following environment variable.
-
-```
-SENTRY_DSN = 
-SENTRY_AUTH_TOKEN =
-```
 ## TODO
 - [x] Add JWT token authentication 
 - [ ] Add Refresh token support on frontend
