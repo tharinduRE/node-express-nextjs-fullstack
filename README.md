@@ -1,14 +1,14 @@
 # Next.js + Express.js Full Stack Application
 [![Test CI](https://github.com/tharinduRE/node-express-nextjs-fullstack/actions/workflows/test.yml/badge.svg?branch=master)](https://github.com/tharinduRE/node-express-nextjs-fullstack/actions/workflows/test.yml)
 
-![Next.js](https://img.shields.io/badge/Next-20232A?style=for-the-badge&logo=next.js)
+<!-- ![Next.js](https://img.shields.io/badge/Next-20232A?style=for-the-badge&logo=next.js)
 ![Express.js](https://img.shields.io/badge/express-20232A?style=for-the-badge&logo=express)
 ![Mongo](https://img.shields.io/badge/mongodb-20232A?style=for-the-badge&logo=mongodb)
 ![Redux](https://img.shields.io/badge/redux-20232A?style=for-the-badge&logo=redux)
 ![Turborepo](https://img.shields.io/badge/turborepo-20232A?style=for-the-badge&logo=turborepo)
 ![typescript](https://img.shields.io/badge/typescript-20232A?style=for-the-badge&logo=typescript)
 ![jest](https://img.shields.io/badge/jest-20232A?style=for-the-badge&logo=jest)
-![cypress](https://img.shields.io/badge/cypress-20232A?style=for-the-badge&logo=cypress)
+![cypress](https://img.shields.io/badge/cypress-20232A?style=for-the-badge&logo=cypress) -->
 
 
 ## Features
