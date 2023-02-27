@@ -14,12 +14,26 @@
 
 
 ## Features
-- ### Express API
-  - JWT authentication/ OAuth2 support
-  - Request Validation
-- ### Next.js
-  - Authentication with Next-Auth which supports OAuth 2.0
-  - MUI / Tailwind styling
+- ### API
+  - **JWT authentication** /  **OAuth2**  support
+  - **Error handling**: centralized error handling mechanism
+  - **Request Validation** : [express-validator](https://github.com/express-validator/express-validator)
+  - **Logging**: using [winston](https://github.com/winstonjs/winston) and [morgan](https://github.com/expressjs/morgan)
+  - **Hot Reloading**: with [concurrently](https://github.com/open-cli-tools/concurrently)
+  - **Environment variables**: using [dotenv](https://github.com/motdotla/dotenv)
+  - **Security**: set security HTTP headers using [helmet](https://helmetjs.github.io)
+  - **CORS**: Cross-Origin Resource-Sharing enabled using [cors](https://github.com/expressjs/cors)
+  - **CI**: continuous integration with [GitHub CI](https://travis-ci.org)
+  - **API documentation**: with [swagger-jsdoc](https://github.com/Surnet/swagger-jsdoc) and [swagger-ui-express](https://github.com/scottie1984/swagger-ui-express)
+  - **Docker support**
+
+- ### Web
+  - **Latest** Features with up-to-date Next.js Version
+  - **Authentication** :  with [Next-Auth](https://github.com/nextauthjs/next-auth)
+  - **Tailwind CSS** Support
+  - **MUI** Components
+  - **Redux** State Management
+  
 ### Apps and Packages
 
 - [`apps/api`](./apps/api): a [Express.js](https://expressjs.com/) app
@@ -117,8 +131,6 @@ npm run build
 ```
 ## API Documentation
 API Documentation available via Swagger UI endpoint located at `/api/v1/docs` endpoint
- - [development](http://localhost:8080/api/v1/docs)
- - [production](https://employee-api-soqb.onrender.com/api/v1/docs)
 
 ## Logs
 - Frontend logs are handled by [sentry.io](https://sentry.io/). To configure, create a sentry project add following environment variable.
@@ -132,7 +144,6 @@ SENTRY_AUTH_TOKEN =
 - [ ] Add Refresh token support on frontend
 - [ ] Add full OAuth 2.0 support along with credential login
 - [ ] Add Role-Based Authorization
-- [ ] Add S3 Image upload function
 
 ## Useful Links
 
