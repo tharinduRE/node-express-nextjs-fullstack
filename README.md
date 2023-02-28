@@ -17,34 +17,37 @@
 
 ## Features
 - ### API
+  - **Typescript**: static typing using typescript
   - **JWT authentication** /  **OAuth2**  support
   - **Error handling**: centralized error handling mechanism
   - **Request Validation** : [express-validator](https://github.com/express-validator/express-validator)
   - **Logging**: using [winston](https://github.com/winstonjs/winston) and [morgan](https://github.com/expressjs/morgan)
+  - **Testing**: unit and integration tests using [Jest](https://jestjs.io)
   - **Hot Reloading**: with [concurrently](https://github.com/open-cli-tools/concurrently)
   - **Environment variables**: using [dotenv](https://github.com/motdotla/dotenv)
   - **Security**: set security HTTP headers using [helmet](https://helmetjs.github.io)
   - **CORS**: Cross-Origin Resource-Sharing enabled using [cors](https://github.com/expressjs/cors)
-  - **CI**: continuous integration with [GitHub CI](https://travis-ci.org)
+  - **CI**: continuous integration with [GitHub Actions](https://github.com/features/actions)
   - **API documentation**: with [swagger-jsdoc](https://github.com/Surnet/swagger-jsdoc) and [swagger-ui-express](https://github.com/scottie1984/swagger-ui-express)  
     - available at `/api/v1/docs` endpoint
   - **Docker support**
+  - **Linting**: with [ESLint](https://eslint.org) and [Prettier](https://prettier.io)
 
 - ### Web
   - **Latest** Features with up-to-date Next.js Version
   - **Authentication** :  with [Next-Auth](https://github.com/nextauthjs/next-auth)
-  - **Tailwind CSS** Support
+  - **Tailwind CSS**: [Tailwind CSS](https://tailwindcss.com/) support
   - **MUI** Components
-  - **Redux** State Management
+  - **Redux** State Management : using [Redux Tool Kit](https://redux-toolkit.js.org/) 
   - **Logs & Error Handling** : using [Sentry](https://sentry.io/). 
-    - To configure, create a sentry project add `SENTRY_DSN` `SENTRY_AUTH_TOKEN` as environment variables in apps/web/.env
+    - To configure, create a sentry project add `SENTRY_DSN` `SENTRY_AUTH_TOKEN` as environment variables in **apps/web/.env**
 
 ## Architecture
 
 ### Apps and Packages
 
-- [`apps/api`](./apps/api): a [Express.js](https://expressjs.com/) app
-- [`apps/web`](./apps/web): a [Next.js](https://nextjs.org/) app
+- [`apps/api`](./apps/api): a [Express.js](https://expressjs.com/) app (API)
+- [`apps/web`](./apps/web): a [Next.js](https://nextjs.org/) app (Frontend)
 - [`packages`](./packages)
   - `eslint-config-custom`: custom `eslint` config used throughout the monorepo
   - `tsconfig`: `tsconfig.json`s used throughout the monorepo
@@ -58,19 +61,26 @@ npm install
 ```
 
 2. Environment Variables
-  - Add `.env` file on the **root** and add `MongoDB Connection String/URL` as Environment Variable
+  - Add `.env` file on the **root** directory and add `MongoDB Connection String/Url` as Environment Variable
 
-  ```shell
+  ```bash
+  # required
   MONGODB_URL=mongodb+srv://...
+
+  # production only
+  WEBAPP_URL=http://example.com
   ```
   - Add `.env.local` on **apps/web** directory and add following.
 
-  ```.env
+  ```bash
+  # required
   GITHUB_ID=
   GITHUB_SECRET=
   NEXTAUTH_SECRET=secret
   NEXTAUTH_URL=http://localhost:3000
-  NEXT_PUBLIC_API_BASE_URL=http://localhost:8080/api/v1
+
+  # production only
+  NEXT_PUBLIC_API_BASE_URL=http://example.com/api/v1
   ```
 
 3. To develop all apps and packages, run the following command:
@@ -133,6 +143,14 @@ To build all apps and packages, run the following command:
 npm run build
 ```
 
+## Production
+
+To run apps in production:
+
+```
+npm start
+```
+
 ## TODO
 - [x] Add JWT token authentication 
 - [ ] Add Refresh token support on frontend
@@ -145,3 +163,7 @@ npm run build
 - [Sentry](https://sentry.io/) - Centralized Error and Log handling.
 - [Express.js](https://expressjs.com/) - Express.js
 - [Next.js](https://nextjs.org/) - Next.js
+
+## License
+
+[MIT](LICENSE)
