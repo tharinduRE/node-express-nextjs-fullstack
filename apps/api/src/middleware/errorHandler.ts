@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import { Request, Response, NextFunction } from 'express';
 import httpStatus from "http-status";
-import config from "../config";
+import config from "../config/config";
 
 export default function ErrorHandler(err: any, req: Request, res: Response, next: NextFunction) {
   let { statusCode, message , errors} = err;

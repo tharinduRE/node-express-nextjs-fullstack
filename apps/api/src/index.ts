@@ -5,7 +5,7 @@
 import http from "http";
 import { AddressInfo } from "net";
 import app from "./app";
-import config from "./config";
+import config  from "./config/config";
 import logger from "./config/logger";
 import mongodb from "./config/mongodb";
 var debug = require("debug")("api:server");

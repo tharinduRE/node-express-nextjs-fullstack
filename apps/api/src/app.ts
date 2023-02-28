@@ -2,7 +2,7 @@ import cors from "cors";
 import express, { Express, NextFunction } from "express";
 import helmet from "helmet";
 import httpStatus from "http-status";
-import config from "./config";
+import config from "./config/config";
 import logger from './config/logger';
 import ApiError from "./errors/ApiError";
 import ErrorHandler from './middleware/errorHandler';
