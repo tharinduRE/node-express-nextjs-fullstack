@@ -1,9 +1,9 @@
 import mongoose from "mongoose";
-import config from "../config";
+import config from "../config/config";
 
 const setupTestDB = () => {
   beforeAll(async () => {
-    await mongoose.connect(config.mongoose.url, { dbName: "testdb" });
+      await mongoose.connect(config.mongoose.url)
   });
 
   beforeEach(async () => {
